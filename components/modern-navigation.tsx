@@ -1,0 +1,709 @@
+"use client"
+
+import { useState, useEffect } from "react"
+import { motion, AnimatePresence } from "framer-motion"
+import { Button } from "@/components/ui/button"
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
+import {
+  Menu,
+  Globe,
+  Phone,
+  Mail,
+  ChevronDown,
+  ExternalLink,
+  X,
+  BookOpen,
+  GraduationCap,
+  Calendar,
+  Clock,
+  Bell,
+} from "lucide-react"
+import { useLanguage } from "@/components/language-provider"
+import Link from "next/link"
+import Image from "next/image"
+
+export function ModernNavigation() {
+  const [isScrolled, setIsScrolled] = useState(false)
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [activeDropdown, setActiveDropdown] = useState<string | null>(null)
+  const [activeSecondaryDropdown, setActiveSecondaryDropdown] = useState<string | null>(null)
+  const [isAdmissionDialogOpen, setIsAdmissionDialogOpen] = useState(false)
+  const { language, setLanguage, t } = useLanguage()
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 10)
+    }
+    window.addEventListener("scroll", handleScroll)
+    return () => window.removeEventListener("scroll", handleScroll)
+  }, [])
+
+  const handleDropdownEnter = (dropdown: string) => {
+    setActiveDropdown(dropdown)
+  }
+
+  const handleDropdownLeave = () => {
+    setActiveDropdown(null)
+  }
+
+  const handleSecondaryDropdownEnter = (dropdown: string) => {
+    setActiveSecondaryDropdown(dropdown)
+  }
+
+  const handleSecondaryDropdownLeave = () => {
+    setActiveSecondaryDropdown(null)
+  }
+
+  const handleAdmissionClick = () => {
+    setIsAdmissionDialogOpen(true)
+  }
+
+  return (
+    <>
+      {/* Secondary Navigation Bar */}
+      <motion.div
+        initial={{ y: -30, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.5, ease: "easeOut" }}
+        className="bg-slate-800 text-white py-2 text-xs relative z-50"
+      >
+        <div className="max-w-6xl mx-auto px-4 flex justify-between items-center">
+          {/* Contact Info */}
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="flex items-center space-x-4"
+          >
+            <div className="flex items-center space-x-1">
+              <Phone className="h-3 w-3" />
+              <span>+51 945987048</span>
+            </div>
+            <div className="flex items-center space-x-1">
+              <Mail className="h-3 w-3" />
+              <span>informes@unidx.edu.pe</span>
+            </div>
+          </motion.div>
+
+          {/* Secondary Menu Items */}
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="hidden lg:flex items-center space-x-4"
+          >
+            <Link href="/egresados" className="hover:text-blue-300 transition-colors duration-200">
+              Egresados
+            </Link>
+            <Link href="/investigacion" className="hover:text-blue-300 transition-colors duration-200">
+              Investigación
+            </Link>
+            <Link href="/biblioteca" className="hover:text-blue-300 transition-colors duration-200">
+              Biblioteca
+            </Link>
+            <Link
+              href="https://repositorio.unidx.edu.pe"
+              target="_blank"
+              className="flex items-center space-x-1 hover:text-blue-300 transition-colors duration-200"
+            >
+              <span>Repositorio</span>
+              <ExternalLink className="h-2.5 w-2.5" />
+            </Link>
+            <Link
+              href="https://transparencia.unidx.edu.pe"
+              target="_blank"
+              className="flex items-center space-x-1 hover:text-blue-300 transition-colors duration-200"
+            >
+              <span>Transparencia</span>
+              <ExternalLink className="h-2.5 w-2.5" />
+            </Link>
+            <Link href="/bolsa-trabajo" className="hover:text-blue-300 transition-colors duration-200">
+              Bolsa de trabajo
+            </Link>
+
+            {/* Applications Dropdown */}
+            <div
+              className="relative"
+              onMouseEnter={() => handleSecondaryDropdownEnter("aplicaciones")}
+              onMouseLeave={handleSecondaryDropdownLeave}
+            >
+              <button className="flex items-center space-x-1 hover:text-blue-300 transition-colors duration-200">
+                <span>Aplicaciones</span>
+                <motion.div
+                  animate={{ rotate: activeSecondaryDropdown === "aplicaciones" ? 180 : 0 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <ChevronDown className="h-2.5 w-2.5" />
+                </motion.div>
+              </button>
+              <AnimatePresence>
+                {activeSecondaryDropdown === "aplicaciones" && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -10, scale: 0.95 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: -10, scale: 0.95 }}
+                    transition={{ duration: 0.2, ease: "easeOut" }}
+                    className="absolute right-0 top-full mt-1 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50"
+                  >
+                    <Link
+                      href="https://unid.erpeduca.com"
+                      target="_blank"
+                      className="flex items-center justify-between px-4 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-900 transition-colors duration-200"
+                    >
+                      <span>ERPEduca</span>
+                      <ExternalLink className="h-3 w-3" />
+                    </Link>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+
+            <Link href="/defensoria" className="hover:text-blue-300 transition-colors duration-200">
+              Defensoría
+            </Link>
+
+            {/* Language Toggle */}
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => setLanguage(language === "en" ? "es" : "en")}
+              className="h-6 px-2 text-white hover:text-blue-300 hover:bg-white/10 text-xs transition-all duration-200"
+            >
+              <Globe className="h-3 w-3 mr-1" />
+              {language.toUpperCase()}
+            </Button>
+          </motion.div>
+
+          {/* Mobile Secondary Menu */}
+          <div className="lg:hidden">
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => setLanguage(language === "en" ? "es" : "en")}
+              className="h-6 px-2 text-white hover:text-blue-300 hover:bg-white/10 text-xs"
+            >
+              <Globe className="h-3 w-3 mr-1" />
+              {language.toUpperCase()}
+            </Button>
+          </div>
+        </div>
+      </motion.div>
+
+      {/* Main Navigation */}
+      <motion.header
+        initial={{ y: -20, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.5, delay: 0.1 }}
+        className={`sticky top-0 z-40 transition-all duration-300 ${
+          isScrolled ? "bg-white/95 backdrop-blur-md shadow-lg" : "bg-white shadow-sm"
+        }`}
+      >
+        <nav className="max-w-6xl mx-auto px-4">
+          <div className="flex items-center justify-between h-16">
+            {/* Logo */}
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="flex-shrink-0"
+            >
+              <Link href="/" className="flex items-center group">
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="transition-transform duration-200"
+                >
+                  <Image
+                    src="/images/unid-complete-logo.png"
+                    alt="UNID - Universidad Interamericana para el Desarrollo"
+                    width={140}
+                    height={50}
+                    className="h-12 w-auto"
+                  />
+                </motion.div>
+              </Link>
+            </motion.div>
+
+            {/* Desktop Navigation */}
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+              className="hidden lg:flex items-center space-x-8"
+            >
+              {/* Inicio */}
+              <Link
+                href="/"
+                className="text-gray-700 hover:text-blue-900 text-sm font-medium transition-colors duration-200 relative group py-2"
+              >
+                Inicio
+                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-900 transition-all duration-300 group-hover:w-full"></span>
+              </Link>
+
+              {/* Nosotros */}
+              <Link
+                href="/nosotros"
+                className="text-gray-700 hover:text-blue-900 text-sm font-medium transition-colors duration-200 relative group py-2"
+              >
+                Nosotros
+                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-900 transition-all duration-300 group-hover:w-full"></span>
+              </Link>
+
+              {/* Recursos */}
+              <div
+                className="relative"
+                onMouseEnter={() => handleDropdownEnter("recursos")}
+                onMouseLeave={handleDropdownLeave}
+              >
+                <button className="flex items-center space-x-1 text-gray-700 hover:text-blue-900 text-sm font-medium transition-colors duration-200 py-2">
+                  <BookOpen className="h-4 w-4" />
+                  <span>Recursos</span>
+                  <motion.div
+                    animate={{ rotate: activeDropdown === "recursos" ? 180 : 0 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <ChevronDown className="h-3 w-3" />
+                  </motion.div>
+                </button>
+
+                <AnimatePresence>
+                  {activeDropdown === "recursos" && (
+                    <motion.div
+                      initial={{ opacity: 0, y: -10, scale: 0.95 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      exit={{ opacity: 0, y: -10, scale: 0.95 }}
+                      transition={{ duration: 0.2, ease: "easeOut" }}
+                      className="absolute left-0 top-full mt-2 w-80 bg-white rounded-xl shadow-xl border border-gray-200 py-4 z-50"
+                    >
+                      {/* Fondos Editoriales */}
+                      <div className="px-4 py-2">
+                        <div className="text-sm font-semibold text-gray-900 mb-3 flex items-center">
+                          <BookOpen className="h-4 w-4 mr-2 text-blue-600" />
+                          Fondos Editoriales
+                        </div>
+                        <div className="space-y-2 ml-6">
+                          <Link
+                            href="https://editorialfondo.com"
+                            target="_blank"
+                            className="flex items-center justify-between p-2 rounded-lg hover:bg-blue-50 hover:text-blue-900 transition-colors duration-200 group"
+                          >
+                            <div>
+                              <div className="font-medium text-sm">Fondo editorial FEPOL</div>
+                              <div className="text-xs text-gray-500">Publicaciones especializadas</div>
+                            </div>
+                            <ExternalLink className="h-3 w-3 opacity-0 group-hover:opacity-100 transition-opacity" />
+                          </Link>
+                          <Link
+                            href="https://fondoeditorial.unidx.edu.pe"
+                            target="_blank"
+                            className="flex items-center justify-between p-2 rounded-lg hover:bg-blue-50 hover:text-blue-900 transition-colors duration-200 group"
+                          >
+                            <div>
+                              <div className="font-medium text-sm">Fondo editorial FEUNIDx</div>
+                              <div className="text-xs text-gray-500">Editorial institucional</div>
+                            </div>
+                            <ExternalLink className="h-3 w-3 opacity-0 group-hover:opacity-100 transition-opacity" />
+                          </Link>
+                        </div>
+                      </div>
+
+                      <div className="border-t border-gray-100 my-2"></div>
+
+                      {/* Revistas */}
+                      <div className="px-4 py-2">
+                        <div className="text-sm font-semibold text-gray-900 mb-3 flex items-center">
+                          <BookOpen className="h-4 w-4 mr-2 text-green-600" />
+                          Revistas
+                        </div>
+                        <div className="ml-6">
+                          <Link
+                            href="/revista-fitovida"
+                            className="flex items-center p-2 rounded-lg hover:bg-green-50 hover:text-green-900 transition-colors duration-200"
+                          >
+                            <div>
+                              <div className="font-medium text-sm">FitoVida</div>
+                              <div className="text-xs text-gray-500">Revista científica de salud</div>
+                            </div>
+                          </Link>
+                        </div>
+                      </div>
+
+                      <div className="border-t border-gray-100 my-2"></div>
+
+                      {/* Eventos Internacionales */}
+                      <div className="px-4 py-2">
+                        <div className="text-sm font-semibold text-gray-900 mb-3 flex items-center">
+                          <BookOpen className="h-4 w-4 mr-2 text-purple-600" />
+                          Eventos Internacionales
+                        </div>
+                        <div className="ml-6">
+                          <Link
+                            href="/cientec-2025"
+                            className="flex items-center p-2 rounded-lg hover:bg-purple-50 hover:text-purple-900 transition-colors duration-200"
+                          >
+                            <div>
+                              <div className="font-medium text-sm">CIENTEC 2025</div>
+                              <div className="text-xs text-gray-500">Congreso Internacional</div>
+                            </div>
+                          </Link>
+                        </div>
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+
+              {/* Facultad */}
+              <div
+                className="relative"
+                onMouseEnter={() => handleDropdownEnter("facultad")}
+                onMouseLeave={handleDropdownLeave}
+              >
+                <button className="flex items-center space-x-1 text-gray-700 hover:text-blue-900 text-sm font-medium transition-colors duration-200 py-2">
+                  <GraduationCap className="h-4 w-4" />
+                  <span>Facultad</span>
+                  <motion.div
+                    animate={{ rotate: activeDropdown === "facultad" ? 180 : 0 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <ChevronDown className="h-3 w-3" />
+                  </motion.div>
+                </button>
+
+                <AnimatePresence>
+                  {activeDropdown === "facultad" && (
+                    <motion.div
+                      initial={{ opacity: 0, y: -10, scale: 0.95 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      exit={{ opacity: 0, y: -10, scale: 0.95 }}
+                      transition={{ duration: 0.2, ease: "easeOut" }}
+                      className="absolute left-0 top-full mt-2 w-72 bg-white rounded-xl shadow-xl border border-gray-200 py-4 z-50"
+                    >
+                      <div className="px-4 py-2">
+                        <div className="text-sm font-semibold text-gray-900 mb-3 flex items-center">
+                          <GraduationCap className="h-4 w-4 mr-2 text-blue-600" />
+                          Carreras Profesionales
+                        </div>
+                        <div className="space-y-2 ml-6">
+                          <Link
+                            href="/carreras/enfermeria"
+                            className="block p-3 rounded-lg hover:bg-blue-50 hover:text-blue-900 transition-colors duration-200"
+                          >
+                            <div className="font-medium text-sm">Enfermería</div>
+                            <div className="text-xs text-gray-500">Licenciatura - 5 años</div>
+                          </Link>
+                          <Link
+                            href="/carreras/farmacia-bioquimica"
+                            className="block p-3 rounded-lg hover:bg-blue-50 hover:text-blue-900 transition-colors duration-200"
+                          >
+                            <div className="font-medium text-sm">Farmacia y Bioquímica</div>
+                            <div className="text-xs text-gray-500">Químico Farmacéutico - 6 años</div>
+                          </Link>
+                        </div>
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+
+              {/* CTA Button */}
+              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                <Button
+                  onClick={handleAdmissionClick}
+                  className="bg-blue-900 hover:bg-blue-800 text-white px-6 py-2 text-sm font-medium rounded-lg transition-all duration-200 hover:shadow-lg relative overflow-hidden cursor-pointer"
+                >
+                  <span className="relative z-10">Admisiones 2025</span>
+                  <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-blue-800 opacity-0 hover:opacity-100 transition-opacity duration-300"></div>
+                </Button>
+              </motion.div>
+            </motion.div>
+
+            {/* Mobile Menu */}
+            <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
+              <SheetTrigger asChild>
+                <Button variant="ghost" size="sm" className="lg:hidden p-2">
+                  <Menu className="h-5 w-5" />
+                </Button>
+              </SheetTrigger>
+              <SheetContent side="right" className="w-80 bg-white border-l border-gray-200">
+                <div className="flex flex-col h-full">
+                  {/* Mobile Header */}
+                  <div className="flex items-center justify-between pb-4 border-b border-gray-200">
+                    <div className="flex items-center space-x-2">
+                      <div className="w-8 h-8 bg-blue-900 rounded-lg flex items-center justify-center">
+                        <span className="text-white font-bold text-sm">U</span>
+                      </div>
+                      <span className="font-bold text-blue-900">UNIDX</span>
+                    </div>
+                    <Button variant="ghost" size="sm" onClick={() => setIsMobileMenuOpen(false)} className="p-1">
+                      <X className="h-5 w-5" />
+                    </Button>
+                  </div>
+
+                  {/* Mobile Menu Items */}
+                  <div className="flex-1 py-4 space-y-4 overflow-y-auto">
+                    {/* Contact Info */}
+                    <div className="space-y-2 pb-4 border-b border-gray-200">
+                      <div className="flex items-center space-x-2 text-sm text-gray-600">
+                        <Phone className="h-4 w-4" />
+                        <span>+51 945987048</span>
+                      </div>
+                      <div className="flex items-center space-x-2 text-sm text-gray-600">
+                        <Mail className="h-4 w-4" />
+                        <span>informes@unidx.edu.pe</span>
+                      </div>
+                    </div>
+
+                    {/* Main Navigation */}
+                    <Link
+                      href="/"
+                      className="block text-gray-700 hover:text-blue-900 font-medium py-3 transition-colors duration-200"
+                      onClick={() => setIsMobileMenuOpen(false)}
+                    >
+                      Inicio
+                    </Link>
+
+                    <Link
+                      href="/nosotros"
+                      className="block text-gray-700 hover:text-blue-900 font-medium py-3 transition-colors duration-200"
+                      onClick={() => setIsMobileMenuOpen(false)}
+                    >
+                      Nosotros
+                    </Link>
+
+                    {/* Recursos */}
+                    <div className="space-y-3">
+                      <div className="flex items-center space-x-2 font-medium text-blue-900">
+                        <BookOpen className="h-5 w-5" />
+                        <span>Recursos</span>
+                      </div>
+                      <div className="pl-7 space-y-3">
+                        <div className="text-sm font-medium text-gray-700">Fondos Editoriales</div>
+                        <Link
+                          href="https://editorialfondo.com"
+                          target="_blank"
+                          className="block pl-4 text-gray-600 hover:text-blue-900 text-sm py-2 transition-colors duration-200"
+                          onClick={() => setIsMobileMenuOpen(false)}
+                        >
+                          Fondo editorial FEPOL
+                        </Link>
+                        <Link
+                          href="https://fondoeditorial.unidx.edu.pe"
+                          target="_blank"
+                          className="block pl-4 text-gray-600 hover:text-blue-900 text-sm py-2 transition-colors duration-200"
+                          onClick={() => setIsMobileMenuOpen(false)}
+                        >
+                          Fondo editorial FEUNIDx
+                        </Link>
+
+                        <div className="text-sm font-medium text-gray-700 pt-2">Revistas</div>
+                        <Link
+                          href="/revista-fitovida"
+                          className="block pl-4 text-gray-600 hover:text-blue-900 text-sm py-2 transition-colors duration-200"
+                          onClick={() => setIsMobileMenuOpen(false)}
+                        >
+                          FitoVida
+                        </Link>
+
+                        <div className="text-sm font-medium text-gray-700 pt-2">Eventos Internacionales</div>
+                        <Link
+                          href="/cientec-2025"
+                          className="block pl-4 text-gray-600 hover:text-blue-900 text-sm py-2 transition-colors duration-200"
+                          onClick={() => setIsMobileMenuOpen(false)}
+                        >
+                          CIENTEC 2025
+                        </Link>
+                      </div>
+                    </div>
+
+                    {/* Facultad */}
+                    <div className="space-y-3">
+                      <div className="flex items-center space-x-2 font-medium text-blue-900">
+                        <GraduationCap className="h-5 w-5" />
+                        <span>Facultad</span>
+                      </div>
+                      <div className="pl-7 space-y-3">
+                        <div className="text-sm font-medium text-gray-700">Carreras</div>
+                        <Link
+                          href="/carreras/enfermeria"
+                          className="block pl-4 text-gray-600 hover:text-blue-900 text-sm py-2 transition-colors duration-200"
+                          onClick={() => setIsMobileMenuOpen(false)}
+                        >
+                          Enfermería
+                        </Link>
+                        <Link
+                          href="/carreras/farmacia-bioquimica"
+                          className="block pl-4 text-gray-600 hover:text-blue-900 text-sm py-2 transition-colors duration-200"
+                          onClick={() => setIsMobileMenuOpen(false)}
+                        >
+                          Farmacia y Bioquímica
+                        </Link>
+                      </div>
+                    </div>
+
+                    {/* Secondary Menu Items */}
+                    <div className="space-y-2 pt-4 border-t border-gray-200">
+                      <div className="text-sm font-medium text-gray-700 mb-3">Enlaces Rápidos</div>
+                      <Link
+                        href="/egresados"
+                        className="block text-gray-600 hover:text-blue-900 text-sm py-2 transition-colors duration-200"
+                        onClick={() => setIsMobileMenuOpen(false)}
+                      >
+                        Egresados
+                      </Link>
+                      <Link
+                        href="/investigacion"
+                        className="block text-gray-600 hover:text-blue-900 text-sm py-2 transition-colors duration-200"
+                        onClick={() => setIsMobileMenuOpen(false)}
+                      >
+                        Investigación
+                      </Link>
+                      <Link
+                        href="/biblioteca"
+                        className="block text-gray-600 hover:text-blue-900 text-sm py-2 transition-colors duration-200"
+                        onClick={() => setIsMobileMenuOpen(false)}
+                      >
+                        Biblioteca
+                      </Link>
+                      <Link
+                        href="https://repositorio.unidx.edu.pe"
+                        target="_blank"
+                        className="block text-gray-600 hover:text-blue-900 text-sm py-2 transition-colors duration-200"
+                        onClick={() => setIsMobileMenuOpen(false)}
+                      >
+                        Repositorio
+                      </Link>
+                      <Link
+                        href="https://transparencia.unidx.edu.pe"
+                        target="_blank"
+                        className="block text-gray-600 hover:text-blue-900 text-sm py-2 transition-colors duration-200"
+                        onClick={() => setIsMobileMenuOpen(false)}
+                      >
+                        Transparencia
+                      </Link>
+                      <Link
+                        href="/bolsa-trabajo"
+                        className="block text-gray-600 hover:text-blue-900 text-sm py-2 transition-colors duration-200"
+                        onClick={() => setIsMobileMenuOpen(false)}
+                      >
+                        Bolsa de trabajo
+                      </Link>
+                      <Link
+                        href="https://unid.erpeduca.com"
+                        target="_blank"
+                        className="block text-gray-600 hover:text-blue-900 text-sm py-2 transition-colors duration-200"
+                        onClick={() => setIsMobileMenuOpen(false)}
+                      >
+                        ERPEduca
+                      </Link>
+                      <Link
+                        href="/defensoria"
+                        className="block text-gray-600 hover:text-blue-900 text-sm py-2 transition-colors duration-200"
+                        onClick={() => setIsMobileMenuOpen(false)}
+                      >
+                        Defensoría
+                      </Link>
+                    </div>
+                  </div>
+
+                  {/* Mobile Footer */}
+                  <div className="border-t border-gray-200 pt-4">
+                    <Button
+                      onClick={() => {
+                        setIsMobileMenuOpen(false)
+                        handleAdmissionClick()
+                      }}
+                      className="w-full bg-blue-900 hover:bg-blue-800 text-white transition-all duration-200 hover:shadow-lg relative overflow-hidden cursor-pointer"
+                    >
+                      <span className="relative z-10">Admisiones 2025</span>
+                      <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-blue-800 opacity-0 hover:opacity-100 transition-opacity duration-300"></div>
+                    </Button>
+                  </div>
+                </div>
+              </SheetContent>
+            </Sheet>
+          </div>
+        </nav>
+      </motion.header>
+
+      {/* Dialog Component */}
+      <Dialog open={isAdmissionDialogOpen} onOpenChange={setIsAdmissionDialogOpen}>
+        <DialogContent className="sm:max-w-lg">
+          <DialogHeader>
+            <DialogTitle className="flex items-center justify-center space-x-2 text-xl">
+              <Calendar className="h-6 w-6 text-blue-600" />
+              <span>Admisiones 2025</span>
+            </DialogTitle>
+          </DialogHeader>
+          <div className="py-6">
+            <div className="text-center space-y-6">
+              {/* Próximamente Badge */}
+              <div className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-orange-100 to-yellow-100 rounded-full">
+                <Clock className="h-5 w-5 text-orange-600 mr-2" />
+                <span className="text-orange-800 font-semibold text-lg">Próximamente</span>
+              </div>
+
+              {/* Fecha de Lanzamiento */}
+              <div className="bg-blue-50 rounded-xl p-6 border border-blue-200">
+                <div className="flex items-center justify-center space-x-3 mb-4">
+                  <div className="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center">
+                    <Calendar className="h-6 w-6 text-white" />
+                  </div>
+                  <div className="text-left">
+                    <p className="text-sm text-blue-600 font-medium">Fecha de Lanzamiento</p>
+                    <p className="text-2xl font-bold text-blue-900">15 de Marzo, 2025</p>
+                  </div>
+                </div>
+                <p className="text-blue-700 text-sm">
+                  El proceso de admisiones se abrirá oficialmente el 15 de marzo de 2025
+                </p>
+              </div>
+
+              {/* Información Adicional */}
+              <div className="space-y-4">
+                <div className="bg-gray-50 rounded-lg p-4">
+                  <div className="flex items-start space-x-3">
+                    <Bell className="h-5 w-5 text-gray-600 mt-0.5" />
+                    <div className="text-left">
+                      <p className="font-medium text-gray-900 text-sm">¿Quieres ser notificado?</p>
+                      <p className="text-gray-600 text-xs mt-1">
+                        Regístrate para recibir información sobre fechas importantes, requisitos y modalidades de
+                        ingreso.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Información de Contacto */}
+                <div className="bg-green-50 rounded-lg p-4 border border-green-200">
+                  <p className="font-medium text-green-900 text-sm mb-2">Información y Consultas</p>
+                  <div className="space-y-1 text-xs text-green-800">
+                    <div className="flex items-center space-x-2">
+                      <Phone className="h-3 w-3" />
+                      <span>+51 945987048</span>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <Mail className="h-3 w-3" />
+                      <span>informes@unidx.edu.pe</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Botón de Acción */}
+              <div className="pt-4">
+                <Button
+                  className="w-full bg-blue-600 hover:bg-blue-700 text-white"
+                  onClick={() => setIsAdmissionDialogOpen(false)}
+                >
+                  Entendido
+                </Button>
+              </div>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
+    </>
+  )
+}
