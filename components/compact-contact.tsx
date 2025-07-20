@@ -36,8 +36,8 @@ export function CompactContact() {
                   </div>
                   <div>
                     <h4 className="font-semibold text-gray-900">Teléfono</h4>
-                    <p className="text-gray-600">+51 945987048</p>
-                    <p className="text-sm text-gray-500">Lunes a Viernes: 8:00 AM - 6:00 PM</p>
+                    <p className="text-gray-600">+51 945 987 048</p>
+                    <p className="text-sm text-gray-500">Lunes a Viernes: 8:00 AM - 5:00 PM</p>
                   </div>
                 </div>
 
@@ -59,7 +59,7 @@ export function CompactContact() {
                   <div>
                     <h4 className="font-semibold text-gray-900">Dirección</h4>
                     <p className="text-gray-600">
-                      Av. Universitaria 123
+                      Av. Bolivia 626, Lima 15082
                       <br />
                       Lima, Perú
                     </p>
@@ -73,8 +73,8 @@ export function CompactContact() {
                   </div>
                   <div>
                     <h4 className="font-semibold text-gray-900">Horarios de Atención</h4>
-                    <p className="text-gray-600">Lunes a Viernes: 8:00 AM - 6:00 PM</p>
-                    <p className="text-gray-600">Sábados: 9:00 AM - 1:00 PM</p>
+                    <p className="text-gray-600">Lunes a Viernes: 8:00 AM - 5:00 PM</p>
+
                   </div>
                 </div>
               </div>
