@@ -13,25 +13,26 @@ export function useParallax({ speed = 0.5, offset = 0, disabled = false }: Paral
   const [windowHeight, setWindowHeight] = useState(0)
 
   useEffect(() => {
-    if (disabled) return
+    if (disabled) return;
+    if (typeof window === "undefined") return;
 
     const handleScroll = () => {
-      setScrollY(window.scrollY)
-    }
+      setScrollY(window.scrollY);
+    };
 
     const handleResize = () => {
-      setWindowHeight(window.innerHeight)
-    }
+      setWindowHeight(window.innerHeight);
+    };
 
-    handleResize()
-    window.addEventListener("scroll", handleScroll, { passive: true })
-    window.addEventListener("resize", handleResize, { passive: true })
+    handleResize();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener("resize", handleResize, { passive: true });
 
     return () => {
-      window.removeEventListener("scroll", handleScroll)
-      window.removeEventListener("resize", handleResize)
-    }
-  }, [disabled])
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [disabled]);
 
   const transform = disabled ? "translateY(0px)" : `translateY(${(scrollY + offset) * speed}px)`
 

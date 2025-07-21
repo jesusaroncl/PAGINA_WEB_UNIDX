@@ -7,25 +7,26 @@ export function SophisticatedBackground() {
   const [scrollY, setScrollY] = useState(0)
 
   useEffect(() => {
+    if (typeof window === "undefined") return;
     const updateMousePosition = (e: MouseEvent) => {
       setMousePosition({
         x: (e.clientX / window.innerWidth) * 100,
         y: (e.clientY / window.innerHeight) * 100,
-      })
-    }
+      });
+    };
 
     const updateScrollY = () => {
-      setScrollY(window.scrollY)
-    }
+      setScrollY(window.scrollY);
+    };
 
-    document.addEventListener("mousemove", updateMousePosition)
-    window.addEventListener("scroll", updateScrollY)
+    document.addEventListener("mousemove", updateMousePosition);
+    window.addEventListener("scroll", updateScrollY);
 
     return () => {
-      document.removeEventListener("mousemove", updateMousePosition)
-      window.removeEventListener("scroll", updateScrollY)
-    }
-  }, [])
+      document.removeEventListener("mousemove", updateMousePosition);
+      window.removeEventListener("scroll", updateScrollY);
+    };
+  }, []);
 
   return (
     <div className="fixed inset-0 -z-10 overflow-hidden">

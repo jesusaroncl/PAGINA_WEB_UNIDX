@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Facebook, Twitter, Instagram, Linkedin, Youtube, Share2, Heart, MessageCircle } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
@@ -11,30 +11,38 @@ interface SocialMediaIntegrationProps {
 }
 
 export function SocialMediaIntegration({
-  url = typeof window !== "undefined" ? window.location.href : "",
+  url = "",
   title = "UNID - Facultad de Ciencias de la Salud",
   description = "Excelencia en educación e investigación en salud",
 }: SocialMediaIntegrationProps) {
-  const [isSharing, setIsSharing] = useState(false)
-  const [liked, setLiked] = useState(false)
+  const [isSharing, setIsSharing] = useState(false);
+  const [liked, setLiked] = useState(false);
+  const [currentUrl, setCurrentUrl] = useState(url);
+
+  // Solo en cliente, actualiza la url si no se pasó como prop
+  useEffect(() => {
+    if (!url && typeof window !== "undefined") {
+      setCurrentUrl(window.location.href);
+    }
+  }, [url]);
 
   const socialLinks = [
     {
       name: "Facebook",
       icon: Facebook,
-      url: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`,
+      url: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(currentUrl)}`,
       color: "hover:text-blue-600",
     },
     {
       name: "Twitter",
       icon: Twitter,
-      url: `https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}&text=${encodeURIComponent(title)}`,
+      url: `https://twitter.com/intent/tweet?url=${encodeURIComponent(currentUrl)}&text=${encodeURIComponent(title)}`,
       color: "hover:text-sky-500",
     },
     {
       name: "LinkedIn",
       icon: Linkedin,
-      url: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`,
+      url: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(currentUrl)}`,
       color: "hover:text-blue-700",
     },
     {

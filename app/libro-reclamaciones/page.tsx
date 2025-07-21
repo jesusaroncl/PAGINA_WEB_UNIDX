@@ -29,6 +29,7 @@ export default function LibroReclamacionesPage() {
     detalle: "",
     pedido: "",
     fechaIncidente: "",
+    numeroReclamo: "", // Para mostrar el número generado
   })
 
   const [isSubmitted, setIsSubmitted] = useState(false)
@@ -37,10 +38,36 @@ export default function LibroReclamacionesPage() {
     setFormData((prev) => ({ ...prev, [field]: value }))
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [isSubmitting, setIsSubmitting] = useState(false)
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    // Aquí iría la lógica para enviar el formulario
-    setIsSubmitted(true)
+    setIsSubmitting(true)
+    
+    try {
+      const response = await fetch('/api/reclamaciones', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      })
+      
+      const result = await response.json()
+      
+      if (response.ok) {
+        // Actualizar formData con el número de reclamo para mostrarlo
+        setFormData(prev => ({ ...prev, numeroReclamo: result.numeroReclamo }))
+        setIsSubmitted(true)
+      } else {
+        alert(result.error || 'Error al enviar el reclamo')
+      }
+    } catch (error) {
+      console.error('Error:', error)
+      alert('Error de conexión al enviar el reclamo')
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   if (isSubmitted) {
@@ -60,7 +87,7 @@ export default function LibroReclamacionesPage() {
               </div>
               <h1 className="text-3xl font-bold text-gray-900 mb-4">Reclamo Registrado Exitosamente</h1>
               <p className="text-gray-600 mb-6">
-                Su reclamo ha sido registrado con el número <strong>REC-2024-001234</strong>
+                Su reclamo ha sido registrado con el número <strong>{formData.numeroReclamo}</strong>
               </p>
               <div className="bg-white rounded-lg p-6 shadow-lg mb-6">
                 <h3 className="font-semibold text-gray-900 mb-2">¿Qué sigue ahora?</h3>
@@ -321,8 +348,19 @@ export default function LibroReclamacionesPage() {
                     <Button type="button" variant="outline">
                       Limpiar Formulario
                     </Button>
-                    <Button type="submit" className="bg-blue-600 hover:bg-blue-700">
-                      Enviar Reclamo
+                    <Button 
+                      type="submit" 
+                      className="bg-blue-600 hover:bg-blue-700"
+                      disabled={isSubmitting}
+                    >
+                      {isSubmitting ? (
+                        <>
+                          <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin mr-2" />
+                          Enviando...
+                        </>
+                      ) : (
+                        "Enviar Reclamo"
+                      )}
                     </Button>
                   </div>
                 </form>

@@ -31,7 +31,21 @@ import {
   Bell,
 } from "lucide-react"
 
-const curriculumData = {
+// Tipos para el curriculum
+type SubjectType = "basic" | "professional" | "humanistic" | "research" | "practice" | "specialty"
+
+interface Subject {
+  code: string
+  name: string
+  credits: number
+  hours: number
+  type: SubjectType
+  description: string
+  prerequisites: string
+  objectives: string[]
+}
+
+const curriculumData: Record<string, Subject[]> = {
   1: [
     {
       code: "ENF101",
@@ -527,7 +541,7 @@ const curriculumData = {
   ],
 }
 
-const typeColors = {
+const typeColors: Record<SubjectType, string> = {
   basic: "bg-blue-100 text-blue-800 border-blue-200",
   professional: "bg-green-100 text-green-800 border-green-200",
   humanistic: "bg-purple-100 text-purple-800 border-purple-200",
@@ -536,7 +550,7 @@ const typeColors = {
   specialty: "bg-indigo-100 text-indigo-800 border-indigo-200",
 }
 
-const typeLabels = {
+const typeLabels: Record<SubjectType, string> = {
   basic: "Básica",
   professional: "Profesional",
   humanistic: "Humanística",
@@ -573,10 +587,93 @@ const programStats = [
 ]
 
 export default function EnfermeriaPage() {
-  const [selectedSubject, setSelectedSubject] = useState(null)
   const [infoDialogOpen, setInfoDialogOpen] = useState(false)
   const [admissionDialogOpen, setAdmissionDialogOpen] = useState(false)
   const [visitDialogOpen, setVisitDialogOpen] = useState(false)
+  
+  // Estados para formularios
+  const [infoFormData, setInfoFormData] = useState({
+    nombre: "",
+    email: "",
+    telefono: "",
+    informacionInteres: "",
+  })
+  const [visitFormData, setVisitFormData] = useState({
+    nombre: "",
+    email: "",
+    telefono: "",
+    fechaPreferida: "",
+    horarioPreferido: "",
+    acompanantes: "",
+  })
+  const [isSubmittingInfo, setIsSubmittingInfo] = useState(false)
+  const [isSubmittingVisit, setIsSubmittingVisit] = useState(false)
+
+  const handleInfoSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setIsSubmittingInfo(true)
+    
+    try {
+      const response = await fetch('/api/carreras', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          ...infoFormData,
+          carrera: 'enfermeria'
+        }),
+      })
+      
+      const result = await response.json()
+      
+      if (response.ok) {
+        alert(`¡Solicitud enviada exitosamente! Número de solicitud: ${result.numeroSolicitud}`)
+        setInfoDialogOpen(false)
+        setInfoFormData({ nombre: "", email: "", telefono: "", informacionInteres: "" })
+      } else {
+        alert(result.error || 'Error al enviar la solicitud')
+      }
+    } catch (error) {
+      console.error('Error:', error)
+      alert('Error de conexión al enviar la solicitud')
+    } finally {
+      setIsSubmittingInfo(false)
+    }
+  }
+
+  const handleVisitSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setIsSubmittingVisit(true)
+    
+    try {
+      const response = await fetch('/api/carreras', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          ...visitFormData,
+          carrera: 'enfermeria'
+        }),
+      })
+      
+      const result = await response.json()
+      
+      if (response.ok) {
+        alert(`¡Visita agendada exitosamente! Número de solicitud: ${result.numeroSolicitud}`)
+        setVisitDialogOpen(false)
+        setVisitFormData({ nombre: "", email: "", telefono: "", fechaPreferida: "", horarioPreferido: "", acompanantes: "" })
+      } else {
+        alert(result.error || 'Error al agendar la visita')
+      }
+    } catch (error) {
+      console.error('Error:', error)
+      alert('Error de conexión al agendar la visita')
+    } finally {
+      setIsSubmittingVisit(false)
+    }
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-blue-50">
@@ -971,7 +1068,8 @@ export default function EnfermeriaPage() {
                     <Mail className="w-5 h-5 text-blue-600" />
                     <div>
                       <span className="font-medium">Correo Electrónico</span>
-                      <p className="text-sm text-gray-600">enfermeria@unidx.edu.co</p>
+                      <p className="text-sm text-gray-600">informes@unidx.edu.pe</p>
+                      <p className="text-xs text-gray-500">(temporalmente: rector@unidx.edu.pe)</p>
                     </div>
                   </div>
                   <div className="flex items-center gap-3">
@@ -1053,31 +1151,69 @@ export default function EnfermeriaPage() {
           <DialogHeader>
             <DialogTitle>Solicitar Información Detallada</DialogTitle>
           </DialogHeader>
-          <div className="space-y-4">
+          <form onSubmit={handleInfoSubmit} className="space-y-4">
             <div>
               <label className="block text-sm font-medium mb-1">Nombre Completo</label>
-              <input type="text" className="w-full p-2 border rounded-md" placeholder="Tu nombre completo" />
+              <input 
+                type="text" 
+                className="w-full p-2 border rounded-md" 
+                placeholder="Tu nombre completo"
+                value={infoFormData.nombre}
+                onChange={(e) => setInfoFormData(prev => ({ ...prev, nombre: e.target.value }))}
+                required
+              />
             </div>
             <div>
               <label className="block text-sm font-medium mb-1">Correo Electrónico</label>
-              <input type="email" className="w-full p-2 border rounded-md" placeholder="tu@email.com" />
+              <input 
+                type="email" 
+                className="w-full p-2 border rounded-md" 
+                placeholder="tu@email.com"
+                value={infoFormData.email}
+                onChange={(e) => setInfoFormData(prev => ({ ...prev, email: e.target.value }))}
+                required
+              />
             </div>
             <div>
               <label className="block text-sm font-medium mb-1">Teléfono</label>
-              <input type="tel" className="w-full p-2 border rounded-md" placeholder="Tu número de teléfono" />
+              <input 
+                type="tel" 
+                className="w-full p-2 border rounded-md" 
+                placeholder="Tu número de teléfono"
+                value={infoFormData.telefono}
+                onChange={(e) => setInfoFormData(prev => ({ ...prev, telefono: e.target.value }))}
+              />
             </div>
             <div>
               <label className="block text-sm font-medium mb-1">Información de Interés</label>
-              <select className="w-full p-2 border rounded-md">
-                <option>Plan de estudios completo</option>
-                <option>Costos y financiamiento</option>
-                <option>Requisitos de admisión</option>
-                <option>Prácticas profesionales</option>
-                <option>Campo laboral</option>
+              <select 
+                className="w-full p-2 border rounded-md"
+                value={infoFormData.informacionInteres}
+                onChange={(e) => setInfoFormData(prev => ({ ...prev, informacionInteres: e.target.value }))}
+              >
+                <option value="">Selecciona una opción</option>
+                <option value="Plan de estudios completo">Plan de estudios completo</option>
+                <option value="Costos y financiamiento">Costos y financiamiento</option>
+                <option value="Requisitos de admisión">Requisitos de admisión</option>
+                <option value="Prácticas profesionales">Prácticas profesionales</option>
+                <option value="Campo laboral">Campo laboral</option>
               </select>
             </div>
-            <Button className="w-full bg-blue-600 hover:bg-blue-700 text-white">Enviar Solicitud</Button>
-          </div>
+            <Button 
+              type="submit"
+              className="w-full bg-blue-600 hover:bg-blue-700 text-white"
+              disabled={isSubmittingInfo}
+            >
+              {isSubmittingInfo ? (
+                <>
+                  <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin mr-2" />
+                  Enviando...
+                </>
+              ) : (
+                "Enviar Solicitud"
+              )}
+            </Button>
+          </form>
         </DialogContent>
       </Dialog>
 
@@ -1165,41 +1301,89 @@ export default function EnfermeriaPage() {
           <DialogHeader>
             <DialogTitle>Agendar Visita al Campus</DialogTitle>
           </DialogHeader>
-          <div className="space-y-4">
+          <form onSubmit={handleVisitSubmit} className="space-y-4">
             <div>
               <label className="block text-sm font-medium mb-1">Nombre Completo</label>
-              <input type="text" className="w-full p-2 border rounded-md" placeholder="Tu nombre completo" />
+              <input 
+                type="text" 
+                className="w-full p-2 border rounded-md" 
+                placeholder="Tu nombre completo"
+                value={visitFormData.nombre}
+                onChange={(e) => setVisitFormData(prev => ({ ...prev, nombre: e.target.value }))}
+                required
+              />
             </div>
             <div>
               <label className="block text-sm font-medium mb-1">Correo Electrónico</label>
-              <input type="email" className="w-full p-2 border rounded-md" placeholder="tu@email.com" />
+              <input 
+                type="email" 
+                className="w-full p-2 border rounded-md" 
+                placeholder="tu@email.com"
+                value={visitFormData.email}
+                onChange={(e) => setVisitFormData(prev => ({ ...prev, email: e.target.value }))}
+                required
+              />
             </div>
             <div>
               <label className="block text-sm font-medium mb-1">Teléfono</label>
-              <input type="tel" className="w-full p-2 border rounded-md" placeholder="Tu número de teléfono" />
+              <input 
+                type="tel" 
+                className="w-full p-2 border rounded-md" 
+                placeholder="Tu número de teléfono"
+                value={visitFormData.telefono}
+                onChange={(e) => setVisitFormData(prev => ({ ...prev, telefono: e.target.value }))}
+              />
             </div>
             <div>
               <label className="block text-sm font-medium mb-1">Fecha Preferida</label>
-              <input type="date" className="w-full p-2 border rounded-md" />
+              <input 
+                type="date" 
+                className="w-full p-2 border rounded-md"
+                value={visitFormData.fechaPreferida}
+                onChange={(e) => setVisitFormData(prev => ({ ...prev, fechaPreferida: e.target.value }))}
+              />
             </div>
             <div>
               <label className="block text-sm font-medium mb-1">Horario Preferido</label>
-              <select className="w-full p-2 border rounded-md">
-                <option>Mañana (8:00 AM - 12:00 PM)</option>
-                <option>Tarde (2:00 PM - 6:00 PM)</option>
+              <select 
+                className="w-full p-2 border rounded-md"
+                value={visitFormData.horarioPreferido}
+                onChange={(e) => setVisitFormData(prev => ({ ...prev, horarioPreferido: e.target.value }))}
+              >
+                <option value="">Selecciona un horario</option>
+                <option value="Mañana (8:00 AM - 12:00 PM)">Mañana (8:00 AM - 12:00 PM)</option>
+                <option value="Tarde (2:00 PM - 6:00 PM)">Tarde (2:00 PM - 6:00 PM)</option>
               </select>
             </div>
             <div>
               <label className="block text-sm font-medium mb-1">Número de Acompañantes</label>
-              <select className="w-full p-2 border rounded-md">
-                <option>Solo yo</option>
-                <option>1 acompañante</option>
-                <option>2 acompañantes</option>
-                <option>3 o más acompañantes</option>
+              <select 
+                className="w-full p-2 border rounded-md"
+                value={visitFormData.acompanantes}
+                onChange={(e) => setVisitFormData(prev => ({ ...prev, acompanantes: e.target.value }))}
+              >
+                <option value="">Selecciona cantidad</option>
+                <option value="Solo yo">Solo yo</option>
+                <option value="1 acompañante">1 acompañante</option>
+                <option value="2 acompañantes">2 acompañantes</option>
+                <option value="3 o más acompañantes">3 o más acompañantes</option>
               </select>
             </div>
-            <Button className="w-full bg-blue-600 hover:bg-blue-700 text-white">Agendar Visita</Button>
-          </div>
+            <Button 
+              type="submit"
+              className="w-full bg-blue-600 hover:bg-blue-700 text-white"
+              disabled={isSubmittingVisit}
+            >
+              {isSubmittingVisit ? (
+                <>
+                  <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin mr-2" />
+                  Agendando...
+                </>
+              ) : (
+                "Agendar Visita"
+              )}
+            </Button>
+          </form>
         </DialogContent>
       </Dialog>
 

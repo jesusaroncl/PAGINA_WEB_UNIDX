@@ -1,5 +1,6 @@
 "use client"
 
+import { useState } from "react"
 import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
@@ -8,6 +9,43 @@ import { Textarea } from "@/components/ui/textarea"
 import { Phone, Mail, MapPin, Clock, Send } from "lucide-react"
 
 export function CompactContact() {
+  const [formData, setFormData] = useState({
+    nombre: "",
+    telefono: "",
+    email: "",
+    programa: "",
+    mensaje: ""
+  })
+  const [isSubmitting, setIsSubmitting] = useState(false)
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setIsSubmitting(true)
+    
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      })
+      
+      const result = await response.json()
+      
+      if (response.ok) {
+        alert('¡Mensaje enviado exitosamente! Nos pondremos en contacto contigo pronto.')
+        setFormData({ nombre: "", telefono: "", email: "", programa: "", mensaje: "" })
+      } else {
+        alert(result.error || 'Error al enviar el mensaje')
+      }
+    } catch (error) {
+      console.error('Error:', error)
+      alert('Error de conexión al enviar el mensaje')
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
   return (
     <section className="py-16 bg-white">
       <div className="max-w-6xl mx-auto px-4">
@@ -91,41 +129,78 @@ export function CompactContact() {
               <CardContent className="p-8">
                 <h3 className="text-2xl font-bold text-gray-900 mb-6">Envíanos un Mensaje</h3>
 
-                <form className="space-y-6">
+                <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-2">Nombre</label>
-                      <Input placeholder="Tu nombre completo" />
+                      <Input 
+                        placeholder="Tu nombre completo"
+                        value={formData.nombre}
+                        onChange={(e) => setFormData(prev => ({ ...prev, nombre: e.target.value }))}
+                        required
+                      />
                     </div>
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-2">Teléfono</label>
-                      <Input placeholder="Tu número de teléfono" />
+                      <Input 
+                        placeholder="Tu número de teléfono"
+                        value={formData.telefono}
+                        onChange={(e) => setFormData(prev => ({ ...prev, telefono: e.target.value }))}
+                      />
                     </div>
                   </div>
 
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">Correo Electrónico</label>
-                    <Input type="email" placeholder="tu@email.com" />
+                    <Input 
+                      type="email" 
+                      placeholder="tu@email.com"
+                      value={formData.email}
+                      onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
+                      required
+                    />
                   </div>
 
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">Carrera de Interés</label>
-                    <select className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <select 
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      value={formData.programa}
+                      onChange={(e) => setFormData(prev => ({ ...prev, programa: e.target.value }))}
+                    >
                       <option value="">Selecciona una carrera</option>
-                      <option value="enfermeria">Enfermería</option>
-                      <option value="farmacia">Farmacia y Bioquímica</option>
-                      <option value="general">Información general</option>
+                      <option value="Enfermería">Enfermería</option>
+                      <option value="Farmacia y Bioquímica">Farmacia y Bioquímica</option>
+                      <option value="Información general">Información general</option>
                     </select>
                   </div>
 
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">Mensaje</label>
-                    <Textarea placeholder="Cuéntanos cómo podemos ayudarte..." rows={4} />
+                    <Textarea 
+                      placeholder="Cuéntanos cómo podemos ayudarte..." 
+                      rows={4}
+                      value={formData.mensaje}
+                      onChange={(e) => setFormData(prev => ({ ...prev, mensaje: e.target.value }))}
+                    />
                   </div>
 
-                  <Button className="w-full bg-blue-900 hover:bg-blue-800 text-white">
-                    <Send className="h-4 w-4 mr-2" />
-                    Enviar Mensaje
+                  <Button 
+                    type="submit"
+                    className="w-full bg-blue-900 hover:bg-blue-800 text-white"
+                    disabled={isSubmitting}
+                  >
+                    {isSubmitting ? (
+                      <>
+                        <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin mr-2" />
+                        Enviando...
+                      </>
+                    ) : (
+                      <>
+                        <Send className="h-4 w-4 mr-2" />
+                        Enviar Mensaje
+                      </>
+                    )}
                   </Button>
                 </form>
               </CardContent>

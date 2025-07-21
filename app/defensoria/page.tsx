@@ -46,15 +46,41 @@ export default function DefensoriaPage() {
     descripcion: "",
     anonimo: false,
   })
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [isSubmitted, setIsSubmitted] = useState(false)
+  const [numeroConsulta, setNumeroConsulta] = useState("")
 
   const handleInputChange = (field: string, value: string | boolean) => {
     setFormData((prev) => ({ ...prev, [field]: value }))
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    // Handle form submission
-    console.log("Form submitted:", formData)
+    setIsSubmitting(true)
+    
+    try {
+      const response = await fetch('/api/defensoria', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      })
+      
+      const result = await response.json()
+      
+      if (response.ok) {
+        setNumeroConsulta(result.numeroConsulta)
+        setIsSubmitted(true)
+      } else {
+        alert(result.error || 'Error al enviar la consulta')
+      }
+    } catch (error) {
+      console.error('Error:', error)
+      alert('Error de conexión al enviar la consulta')
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   const servicios = [
@@ -430,15 +456,78 @@ export default function DefensoriaPage() {
                   </div>
                 </div>
 
-                <Button type="submit" className="w-full bg-blue-600 hover:bg-blue-700" size="lg">
-                  <Send className="h-5 w-5 mr-2" />
-                  Enviar Consulta
+                <Button 
+                  type="submit" 
+                  className="w-full bg-blue-600 hover:bg-blue-700" 
+                  size="lg"
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting ? (
+                    <>
+                      <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin mr-2" />
+                      Enviando...
+                    </>
+                  ) : (
+                    <>
+                      <Send className="h-5 w-5 mr-2" />
+                      Enviar Consulta
+                    </>
+                  )}
                 </Button>
               </form>
             </CardContent>
           </Card>
         </div>
       </section>
+
+      {/* Success Message */}
+      {isSubmitted && (
+        <motion.section
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="py-16 bg-green-50"
+        >
+          <div className="max-w-2xl mx-auto px-4 text-center">
+            <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+              <CheckCircle className="h-8 w-8 text-green-600" />
+            </div>
+            <h2 className="text-3xl font-bold text-green-800 mb-4">Consulta Enviada Exitosamente</h2>
+            <p className="text-green-700 mb-6">
+              Tu consulta ha sido registrada con el número <strong>{numeroConsulta}</strong>
+            </p>
+            <div className="bg-white rounded-lg p-6 shadow-lg mb-6">
+              <h3 className="font-semibold text-gray-900 mb-2">¿Qué sigue ahora?</h3>
+              <ul className="text-left text-gray-600 space-y-2">
+                <li>• Tu consulta será evaluada por el Defensor Universitario</li>
+                <li>• Recibirás una respuesta en los próximos días hábiles</li>
+                <li>• Si requiere reunión presencial, se te contactará para coordinar</li>
+                {!formData.anonimo && <li>• Toda comunicación será a través del correo: {formData.email}</li>}
+              </ul>
+            </div>
+            <Button 
+              onClick={() => {
+                setIsSubmitted(false)
+                setFormData({
+                  nombre: "",
+                  email: "",
+                  telefono: "",
+                  tipoConsulta: "",
+                  asunto: "",
+                  descripcion: "",
+                  anonimo: false,
+                })
+              }} 
+              className="mr-4"
+            >
+              Realizar Otra Consulta
+            </Button>
+            <Button variant="outline" onClick={() => (window.location.href = "/")}>
+              Volver al Inicio
+            </Button>
+          </div>
+        </motion.section>
+      )}
 
       {/* Recursos y Documentos */}
       <section className="py-16 bg-white">
