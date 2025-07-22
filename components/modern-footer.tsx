@@ -19,12 +19,13 @@ export function ModernFooter() {
           >
             <div className="flex items-center space-x-2">
               <Image
-                src="/images/unid-complete-logo.png"
+                src="/images/unid-logo.png"
                 alt="UNID - Universidad Interamericana para el Desarrollo"
                 width={200}
                 height={60}
-                className="h-12 w-auto"
+                className="h-10 w-auto"
               />
+              <span className="text-white font-bold text-sm">UNID</span>
             </div>
             <p className="text-gray-300 text-sm leading-relaxed">
               Universidad de Ciencias de la Salud comprometida con la formación de profesionales de excelencia.
@@ -83,7 +84,7 @@ export function ModernFooter() {
             <h3 className="text-lg font-semibold">Recursos</h3>
             <ul className="space-y-2 text-sm">
               <li>
-                <Link href="/revista-fitovida" className="text-gray-300 hover:text-white transition-colors">
+                <Link href="https://revistas.unidx.edu.pe" className="text-gray-300 hover:text-white transition-colors">
                   Revista FitoVida
                 </Link>
               </li>
@@ -108,6 +109,15 @@ export function ModernFooter() {
                   className="text-gray-300 hover:text-white transition-colors"
                 >
                   Transparencia
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="https://bolsadetrabajo.unidx.edu.pe"
+                  target="_blank"
+                  className="text-gray-300 hover:text-white transition-colors"
+                >
+                  Bolsa de Trabajo
                 </Link>
               </li>
               <li>

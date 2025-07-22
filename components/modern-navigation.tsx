@@ -93,7 +93,9 @@ export function ModernNavigation() {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="hidden lg:flex items-center space-x-4"
           >
-            <Link href="/egresados" className="hover:text-blue-300 transition-colors duration-200">
+            <Link href="/egresados" className="hover:text-blue-300 transition-colors duration-200"
+                  style={{ display: "none" }} // Oculta el enlace directo, ya está en el dropdown
+            >
               Egresados
             </Link>
             <Link href="/investigacion" className="hover:text-blue-300 transition-colors duration-200">
@@ -275,7 +277,6 @@ export function ModernNavigation() {
               href="https://repositorio.unidx.edu.pe"
               target="_blank"
               className="flex items-center space-x-1 hover:text-blue-300 transition-colors duration-200"
-              style={{ display: "none" }} // Oculta el enlace directo, ya está en el dropdown
             >
               <span>Repositorio</span>
               <ExternalLink className="h-2.5 w-2.5" />
@@ -573,7 +574,7 @@ export function ModernNavigation() {
                             className="block p-3 rounded-lg hover:bg-blue-50 hover:text-blue-900 transition-colors duration-200"
                           >
                             <div className="font-medium text-sm">Farmacia y Bioquímica</div>
-                            <div className="text-xs text-gray-500">Químico Farmacéutico - 6 años</div>
+                            <div className="text-xs text-gray-500">Químico Farmacéutico - 5 años</div>
                           </Link>
                         </div>
                       </div>
@@ -607,13 +608,19 @@ export function ModernNavigation() {
                   <div className="flex items-center justify-between pb-4 border-b border-gray-200">
                     <div className="flex items-center space-x-2">
                       <div className="w-8 h-8 bg-blue-900 rounded-lg flex items-center justify-center">
-                        <span className="text-white font-bold text-sm">U</span>
+                        <Image
+                          src="/images/unid-logo.png"
+                          alt="UNID Icon"
+                          width={32}
+                          height={32}
+                          className="h-6 w-6"
+                        />
                       </div>
                       <span className="font-bold text-blue-900">UNIDX</span>
                     </div>
-                    <Button variant="ghost" size="sm" onClick={() => setIsMobileMenuOpen(false)} className="p-1">
+                    {/* <Button variant="ghost" size="sm" onClick={() => setIsMobileMenuOpen(false)} className="p-1">
                       <X className="h-5 w-5" />
-                    </Button>
+                    </Button> */}
                   </div>
 
                   {/* Mobile Menu Items */}
@@ -622,7 +629,7 @@ export function ModernNavigation() {
                     <div className="space-y-2 pb-4 border-b border-gray-200">
                       <div className="flex items-center space-x-2 text-sm text-gray-600">
                         <Phone className="h-4 w-4" />
-                        <span>+51 945987048</span>
+                        <span>+51 945 987 048</span>
                       </div>
                       <div className="flex items-center space-x-2 text-sm text-gray-600">
                         <Mail className="h-4 w-4" />
@@ -674,7 +681,7 @@ export function ModernNavigation() {
 
                         <div className="text-sm font-medium text-gray-700 pt-2">Revistas</div>
                         <Link
-                          href="/revista-fitovida"
+                          href="https://revistas.unidx.edu.pe/index.php/FitoVida"
                           className="block pl-4 text-gray-600 hover:text-blue-900 text-sm py-2 transition-colors duration-200"
                           onClick={() => setIsMobileMenuOpen(false)}
                         >
@@ -683,7 +690,7 @@ export function ModernNavigation() {
 
                         <div className="text-sm font-medium text-gray-700 pt-2">Eventos Internacionales</div>
                         <Link
-                          href="/cientec-2025"
+                          href="https://cientec.pe"
                           className="block pl-4 text-gray-600 hover:text-blue-900 text-sm py-2 transition-colors duration-200"
                           onClick={() => setIsMobileMenuOpen(false)}
                         >
@@ -735,13 +742,6 @@ export function ModernNavigation() {
                         Investigación
                       </Link>
                       <Link
-                        href="/biblioteca"
-                        className="block text-gray-600 hover:text-blue-900 text-sm py-2 transition-colors duration-200"
-                        onClick={() => setIsMobileMenuOpen(false)}
-                      >
-                        Biblioteca
-                      </Link>
-                      <Link
                         href="https://repositorio.unidx.edu.pe"
                         target="_blank"
                         className="block text-gray-600 hover:text-blue-900 text-sm py-2 transition-colors duration-200"
@@ -758,14 +758,14 @@ export function ModernNavigation() {
                         Transparencia
                       </Link>
                       <Link
-                        href="/bolsa-trabajo"
+                        href="https://bolsadetrabajo.unidx.edu.pe"
                         className="block text-gray-600 hover:text-blue-900 text-sm py-2 transition-colors duration-200"
                         onClick={() => setIsMobileMenuOpen(false)}
                       >
                         Bolsa de trabajo
                       </Link>
                       <Link
-                        href="https://unid.erpeduca.com"
+                        href="https://erpeduca.unidx.edu.pe"
                         target="_blank"
                         className="block text-gray-600 hover:text-blue-900 text-sm py-2 transition-colors duration-200"
                         onClick={() => setIsMobileMenuOpen(false)}
@@ -856,7 +856,7 @@ export function ModernNavigation() {
                   <div className="space-y-1 text-xs text-green-800">
                     <div className="flex items-center space-x-2">
                       <Phone className="h-3 w-3" />
-                      <span>+51 945987048</span>
+                      <span>+51 945 987 048</span>
                     </div>
                     <div className="flex items-center space-x-2">
                       <Mail className="h-3 w-3" />

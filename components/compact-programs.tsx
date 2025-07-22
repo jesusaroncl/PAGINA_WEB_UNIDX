@@ -298,11 +298,11 @@ export function CompactPrograms() {
                   </div>
                   <div className="text-left">
                     <p className="text-sm text-blue-600 font-medium">Fecha de Lanzamiento</p>
-                    <p className="text-2xl font-bold text-blue-900">15 de Marzo, 2025</p>
+                    <p className="text-2xl font-bold text-blue-900">-- de ----, 202-</p>
                   </div>
                 </div>
                 <p className="text-blue-700 text-sm">
-                  El proceso de admisiones se abrirá oficialmente el 15 de marzo de 2025
+                  El proceso de admisiones se abrirá oficialmente el -- de ---- de 202-
                 </p>
               </div>
 
