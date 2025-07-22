@@ -493,7 +493,7 @@ export function ModernNavigation() {
                         </div>
                         <div className="ml-6">
                           <Link
-                            href="/revista-fitovida"
+                            href="https://revistas.unidx.edu.pe/index.php/FitoVida"
                             className="flex items-center p-2 rounded-lg hover:bg-green-50 hover:text-green-900 transition-colors duration-200"
                           >
                             <div>
@@ -514,7 +514,7 @@ export function ModernNavigation() {
                         </div>
                         <div className="ml-6">
                           <Link
-                            href="/cientec-2025"
+                            href="https://cientec.pe"
                             className="flex items-center p-2 rounded-lg hover:bg-purple-50 hover:text-purple-900 transition-colors duration-200"
                           >
                             <div>
