@@ -184,7 +184,7 @@ export function ModernFooter() {
             
             {/* Sección Desarrollado por */}
             <Link 
-              href="https://www.tu-sitio-web.com" 
+              href="https://jesusaroncl-repository-eta.vercel.app/" 
               target="_blank" 
               rel="noopener noreferrer"
               className="flex items-center space-x-2 text-sm text-gray-400 hover:text-blue-400 transition-colors group"
