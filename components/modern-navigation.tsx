@@ -99,13 +99,183 @@ export function ModernNavigation() {
             <Link href="/investigacion" className="hover:text-blue-300 transition-colors duration-200">
               Investigación
             </Link>
-            <Link href="/biblioteca" className="hover:text-blue-300 transition-colors duration-200">
-              Biblioteca
-            </Link>
+            {/* Biblioteca Dropdown */}
+            <div
+              className="relative"
+              onMouseEnter={() => handleSecondaryDropdownEnter("biblioteca")}
+              onMouseLeave={handleSecondaryDropdownLeave}
+            >
+              <button className="flex items-center space-x-1 hover:text-blue-300 transition-colors duration-200">
+                <span>Biblioteca</span>
+                <motion.div
+                  animate={{ rotate: activeSecondaryDropdown === "biblioteca" ? 180 : 0 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <ChevronDown className="h-2.5 w-2.5" />
+                </motion.div>
+              </button>
+              <AnimatePresence>
+                {activeSecondaryDropdown === "biblioteca" && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -10, scale: 0.95 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: -10, scale: 0.95 }}
+                    transition={{ duration: 0.2, ease: "easeOut" }}
+                    className="absolute right-0 top-full mt-1 w-56 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50"
+                  >
+                    <Link
+                      href="https://biblioteca.concytec.gob.pe/"
+                      className="flex items-center justify-between px-4 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-900 transition-colors duration-200"
+                    >
+                      <span>Concytec</span>
+                      <ExternalLink className="h-3 w-3" />
+                    </Link>
+                    <Link
+                      href="https://scielo.org/es/"
+                      target="_blank"
+                      className="flex items-center justify-between px-4 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-900 transition-colors duration-200"
+                    >
+                      <span>SciELO</span>
+                      <ExternalLink className="h-3 w-3" />
+                    </Link>
+                    <Link
+                      href="https://revistasinvestigacion.unmsm.edu.pe/"
+                      target="_blank"
+                      className="flex items-center justify-between px-4 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-900 transition-colors duration-200"
+                    >
+                      <span>Revistas de investigación UNMSM</span>
+                      <ExternalLink className="h-3 w-3" />
+                    </Link>
+                    <Link
+                      href="https://www.biomedcentral.com/"
+                      target="_blank"
+                      className="flex items-center justify-between px-4 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-900 transition-colors duration-200"
+                    >
+                      <span>BioMed Central</span>
+                      <ExternalLink className="h-3 w-3" />
+                    </Link>
+                    <Link
+                      href="https://asnneuro.org/"
+                      target="_blank"
+                      className="flex items-center justify-between px-4 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-900 transition-colors duration-200"
+                    >
+                      <span>ASN Neuro</span>
+                      <ExternalLink className="h-3 w-3" />
+                    </Link>
+                                        <Link
+                      href="https://authorservices.wiley.com/open-research/open-access/browse-journals.html"
+                      target="_blank"
+                      className="flex items-center justify-between px-4 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-900 transition-colors duration-200"
+                    >
+                      <span>Wiley Open Access</span>
+                      <ExternalLink className="h-3 w-3" />
+                    </Link>
+                    <Link
+                      href="https://ojs.ehu.eus/index.php/enf"
+                      target="_blank"
+                      className="flex items-center justify-between px-4 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-900 transition-colors duration-200"
+                    >
+                      <span>Nursing Science</span>
+                      <ExternalLink className="h-3 w-3" />
+                    </Link>
+                    <Link
+                      href="https://www.nureinvestigacion.es/OJS/index.php/nure"
+                      target="_blank"
+                      className="flex items-center justify-between px-4 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-900 transition-colors duration-200"
+                    >
+                      <span>Nure Investigación</span>
+                      <ExternalLink className="h-3 w-3" />
+                    </Link>
+                    <Link
+                      href="http://www.index-f.com/index-enfermeria/revista.php"
+                      target="_blank"
+                      className="flex items-center justify-between px-4 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-900 transition-colors duration-200"
+                    >
+                      <span>Índex de Enfermería</span>
+                      <ExternalLink className="h-3 w-3" />
+                    </Link>
+                    <Link
+                      href="https://www.nature.com/nature-portfolio/open-access"
+                      target="_blank"
+                      className="flex items-center justify-between px-4 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-900 transition-colors duration-200"
+                    >
+                      <span>Nature Portfolio</span>
+                      <ExternalLink className="h-3 w-3" />
+                    </Link>
+                    <Link
+                      href="http://revistamedica.imss.gob.mx/editorial/index.php/revista_medica/issue/archive"
+                      target="_blank"
+                      className="flex items-center justify-between px-4 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-900 transition-colors duration-200"
+                    >
+                      <span>Revista Médica del Instituto Mexicano del Seguro Social</span>
+                      <ExternalLink className="h-3 w-3" />
+                    </Link>
+                    <Link
+                      href="http://www.revistas.unam.mx/index.php/?inst=Escuela%20Nacional%20de%20Enfermer%C3%ADa%20y%20Obstetricia"
+                      target="_blank"
+                      className="flex items-center justify-between px-4 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-900 transition-colors duration-200"
+                    >
+                      <span>Escuela de Enfermería y Obstétrica</span>
+                      <ExternalLink className="h-3 w-3" />
+                    </Link>
+                    <Link
+                      href="https://www.epistemonikos.org/en/"
+                      target="_blank"
+                      className="flex items-center justify-between px-4 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-900 transition-colors duration-200"
+                    >
+                      <span>Epistemonikos</span>
+                      <ExternalLink className="h-3 w-3" />
+                    </Link>
+                    <Link
+                      href="http://www.freemedicaljournals.com/"
+                      target="_blank"
+                      className="flex items-center justify-between px-4 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-900 transition-colors duration-200"
+                    >
+                      <span>Free Medical Journals</span>
+                      <ExternalLink className="h-3 w-3" />
+                    </Link>
+                    <Link
+                      href="http://www.freebooks4doctors.com/"
+                      target="_blank"
+                      className="flex items-center justify-between px-4 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-900 transition-colors duration-200"
+                    >
+                      <span>FreeBooks4Doctors</span>
+                      <ExternalLink className="h-3 w-3" />
+                    </Link>
+                    <Link
+                      href="https://pubmed.ncbi.nlm.nih.gov/"
+                      target="_blank"
+                      className="flex items-center justify-between px-4 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-900 transition-colors duration-200"
+                    >
+                      <span>PubMed</span>
+                      <ExternalLink className="h-3 w-3" />
+                    </Link>
+                    <Link
+                      href="https://www.mdpi.com/"
+                      target="_blank"
+                      className="flex items-center justify-between px-4 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-900 transition-colors duration-200"
+                    >
+                      <span>Free Medical Journals</span>
+                      <ExternalLink className="h-3 w-3" />
+                    </Link>
+                    <Link
+                      href="https://bvsalud.org/es/"
+                      target="_blank"
+                      className="flex items-center justify-between px-4 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-900 transition-colors duration-200"
+                    >
+                      <span>Biblioteca Virtual en Salud</span>
+                      <ExternalLink className="h-3 w-3" />
+                    </Link>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+            {/* Fin Biblioteca Dropdown */}
             <Link
               href="https://repositorio.unidx.edu.pe"
               target="_blank"
               className="flex items-center space-x-1 hover:text-blue-300 transition-colors duration-200"
+              style={{ display: "none" }} // Oculta el enlace directo, ya está en el dropdown
             >
               <span>Repositorio</span>
               <ExternalLink className="h-2.5 w-2.5" />
@@ -118,8 +288,13 @@ export function ModernNavigation() {
               <span>Transparencia</span>
               <ExternalLink className="h-2.5 w-2.5" />
             </Link>
-            <Link href="/bolsa-trabajo" className="hover:text-blue-300 transition-colors duration-200">
-              Bolsa de trabajo
+            <Link
+              href="https://bolsadetrabajo.unidx.edu.pe"
+              target="_blank"
+              className="flex items-center space-x-1 hover:text-blue-300 transition-colors duration-200"
+            >
+              <span>Bolsa de Trabajo</span>
+              <ExternalLink className="h-2.5 w-2.5" />
             </Link>
 
             {/* Applications Dropdown */}
@@ -147,7 +322,7 @@ export function ModernNavigation() {
                     className="absolute right-0 top-full mt-1 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50"
                   >
                     <Link
-                      href="https://unid.erpeduca.com"
+                      href="https://erpeduca.unidx.edu.pe"
                       target="_blank"
                       className="flex items-center justify-between px-4 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-900 transition-colors duration-200"
                     >
@@ -633,7 +808,7 @@ export function ModernNavigation() {
           <DialogHeader>
             <DialogTitle className="flex items-center justify-center space-x-2 text-xl">
               <Calendar className="h-6 w-6 text-blue-600" />
-              <span>Admisiones 2025</span>
+              <span>Admisiones</span>
             </DialogTitle>
           </DialogHeader>
           <div className="py-6">
@@ -652,11 +827,11 @@ export function ModernNavigation() {
                   </div>
                   <div className="text-left">
                     <p className="text-sm text-blue-600 font-medium">Fecha de Lanzamiento</p>
-                    <p className="text-2xl font-bold text-blue-900">15 de Marzo, 2025</p>
+                    <p className="text-2xl font-bold text-blue-900">-- de ----, 202-</p>
                   </div>
                 </div>
                 <p className="text-blue-700 text-sm">
-                  El proceso de admisiones se abrirá oficialmente el 15 de marzo de 2025
+                  El proceso de admisiones se abrirá oficialmente el -- de ---- de 202-
                 </p>
               </div>
 

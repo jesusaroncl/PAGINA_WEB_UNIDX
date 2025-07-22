@@ -1233,7 +1233,7 @@ export default function InvestigacionPage() {
                     <div>
                       <div className="font-medium">Dirección</div>
                       <div className="text-gray-600">
-                        Av. San Luis 1645, San Borja
+                        Av. Bolivia 626, Lima 15082
                         <br />
                         Lima, Perú
                       </div>
@@ -1244,7 +1244,7 @@ export default function InvestigacionPage() {
                     <Phone className="h-5 w-5 text-gray-400" />
                     <div>
                       <div className="font-medium">Teléfono</div>
-                      <div className="text-gray-600">+51 945987048</div>
+                      <div className="text-gray-600">+51 945 987 048</div>
                     </div>
                   </div>
 
@@ -1252,7 +1252,7 @@ export default function InvestigacionPage() {
                     <Mail className="h-5 w-5 text-gray-400" />
                     <div>
                       <div className="font-medium">Email</div>
-                      <div className="text-gray-600">investigacion@unidx.edu.pe</div>
+                      <div className="text-gray-600">informes@unidx.edu.pe</div>
                     </div>
                   </div>
 
@@ -1261,9 +1261,7 @@ export default function InvestigacionPage() {
                     <div>
                       <div className="font-medium">Horario de Atención</div>
                       <div className="text-gray-600">
-                        Lunes a Viernes: 8:00 AM - 6:00 PM
-                        <br />
-                        Sábados: 8:00 AM - 1:00 PM
+                        Lunes a Viernes: 8:00 AM - 5:00 PM
                       </div>
                     </div>
                   </div>

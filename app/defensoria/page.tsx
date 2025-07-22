@@ -253,7 +253,7 @@ export default function DefensoriaPage() {
                   </div>
                   <div>
                     <p className="font-medium text-gray-900">Teléfono</p>
-                    <p className="text-gray-600">+51 945987048</p>
+                    <p className="text-gray-600">+51 945 987 048</p>
                   </div>
                 </div>
                 <div className="flex items-center space-x-3">
@@ -262,7 +262,7 @@ export default function DefensoriaPage() {
                   </div>
                   <div>
                     <p className="font-medium text-gray-900">Email</p>
-                    <p className="text-gray-600">defensoria@unidx.edu.pe</p>
+                    <p className="text-gray-600">defensoria.universitaria@unidx.edu.pe</p>
                   </div>
                 </div>
                 <div className="flex items-center space-x-3">
@@ -271,10 +271,10 @@ export default function DefensoriaPage() {
                   </div>
                   <div>
                     <p className="font-medium text-gray-900">Ubicación</p>
-                    <p className="text-gray-600">Edificio Principal, Piso 2, Oficina 201</p>
+                    <p className="text-gray-600">Av. Bolivia 626, Lima 15082, Perú</p>
                   </div>
                 </div>
-                <div className="flex items-center space-x-3">
+                <div className="flex items-center space-x-3">  
                   <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
                     <Clock className="h-5 w-5 text-blue-600" />
                   </div>

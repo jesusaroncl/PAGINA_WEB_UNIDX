@@ -1017,30 +1017,28 @@ export default function FarmaciaBioquimicaPage() {
                     <Phone className="w-5 h-5 text-green-600" />
                     <div>
                       <span className="font-medium">Coordinación Académica</span>
-                      <p className="text-sm text-gray-600">+57 (1) 234-5679</p>
+                      <p className="text-sm text-gray-600">+51 945 987 048</p>
                     </div>
                   </div>
                   <div className="flex items-center gap-3">
                     <Mail className="w-5 h-5 text-green-600" />
                     <div>
                       <span className="font-medium">Correo Electrónico</span>
-                      <p className="text-sm text-gray-600">farmacia@unidx.edu.co</p>
+                      <p className="text-sm text-gray-600">informes@unidx.edu.pe</p>
                     </div>
                   </div>
                   <div className="flex items-center gap-3">
                     <MapPin className="w-5 h-5 text-green-600" />
                     <div>
                       <span className="font-medium">Ubicación</span>
-                      <p className="text-sm text-gray-600">Campus Universitario, Laboratorios de Farmacia, Piso 2</p>
+                      <p className="text-sm text-gray-600">Av. Bolivia 626, Lima 15082, Perú</p>
                     </div>
                   </div>
                   <div className="pt-4 border-t">
                     <p className="text-sm text-gray-600">
                       <strong>Horario de Atención:</strong>
                       <br />
-                      Lunes a Viernes: 7:00 AM - 6:00 PM
-                      <br />
-                      Sábados: 8:00 AM - 1:00 PM
+                      Lunes a Viernes: 8:00 AM - 5:00 PM
                     </p>
                   </div>
                 </CardContent>
@@ -1159,11 +1157,11 @@ export default function FarmaciaBioquimicaPage() {
                   </div>
                   <div className="text-left">
                     <p className="text-sm text-green-600 font-medium">Fecha de Lanzamiento</p>
-                    <p className="text-2xl font-bold text-green-900">15 de Marzo, 2025</p>
+                    <p className="text-2xl font-bold text-green-900">-- de ----, 202-</p>
                   </div>
                 </div>
                 <p className="text-green-700 text-sm">
-                  El proceso de admisiones se abrirá oficialmente el 15 de marzo de 2025
+                  El proceso de admisiones se abrirá oficialmente el -- de ---- de 202-
                 </p>
               </div>
 
