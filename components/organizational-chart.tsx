@@ -42,7 +42,7 @@ const teamMembers: TeamMember[] = [
   { id: "direccion-enfermeria", name: "Dr. Carmen Raquel Guzmán Damián", position: "Dirección de Carrera Profesional de Enfermería", email: "direccion.enfermeria@unidx.edu.pe", image: "/images/cvs/guzman.jpeg", level: "direccion" },
   { id: "direccion-farmacia", name: "Dr. Silvana Yanire Sam Zavala", position: "Dirección de Carrera Profesional de Farmacia y Bioquímica", email: "direccion.farmaciaybioquimica@unidx.edu.pe", image: "/images/cvs/silvana.jpeg", level: "direccion" },
 
-  { id: "oficina-asesoria-legal", name: "Percy Orlando Huertas Chiu", position: "Oficina de Asesoría Legal", email: "asesoria.tribunaldehonor@unidx.edu.pe", image: "/images/cvs/percy.jpg", level: "oficina" },
+  { id: "oficina-asesoria-legal", name: "Percy Orlando Huertas Chiu", position: "Oficina de Asesoría Legal", email: "oficina.asesorialegal@unidx.edu.pe", image: "/images/cvs/percy.jpg", level: "oficina" },
   { id: "oficina-personal", name: "José Luis Pizarro Carrasco", position: "Oficina de Personal", email: "oficina.personal@unidx.edu.pe", image: "/images/cvs/joseluis.jpeg", level: "oficina" },
   { id: "oficina-infraestructura", name: "Mg. Miriam Sara Quispe Salas", position: "Oficina de Infraestructura y Mantenimiento", email: "infraestructura@unidx.edu.pe", image: "/images/cvs/miriam.jpeg", level: "oficina" },
   { id: "oficina-planificacion", name: "Mg. Isaias Ofir Pérez Anticona", position: "Oficina de Planificación y Presupuesto", email: "planificacion.presupuesto@unidx.edu.pe", image: "/images/cvs/isaias.jpg", level: "oficina" },
