@@ -1,11 +1,10 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
-import { Download, Mail, Phone, ExternalLink, X, ZoomIn, Target, Eye } from "lucide-react"
+import { ExternalLink, X, ZoomIn, Search, Mail } from "lucide-react"
 import Image from "next/image"
-import { useState } from "react"
+import { useMemo, useState } from "react"
 
 interface TeamMember {
   id: string
@@ -22,678 +21,260 @@ interface TeamMember {
   level: "rector" | "vicerrector" | "defensor" | "decano" | "direccion" | "oficina" | "servicio"
 }
 
+/** === DATOS (35 registros de tu tabla; se mantienen duplicados por cargo) === */
 const teamMembers: TeamMember[] = [
-  // RECTOR
-  {
-    id: "rector",
-    name: "Dr. Atilio Rodolfo Buendía Giribaldi",
-    position: "Rector / Gerente General",
-    email: "rector@unidx.edu.pe | gerencia@unidx.edu.pe",
-    phone: "+51 945987048",
-    image: "/images/cvs/01.jpg",
-    cvUrl: "/cv/atilio-buendia-cv.pdf",
-    ctiVitaeUrl: "https://ctivitae.concytec.gob.pe/appDirectorioCTI/VerDatosInvestigador.do?id_investigador=77424",
-    level: "rector",
-  },
-  
-  // VICERRECTOR
-  {
-    id: "vicerrector-academico",
-    name: "Dr. Luis Adolfo Pérez Ton",
-    position: "Vicerrectorado Académico",
-    email: "vicerrectorado.academico@unidx.edu.pe",
-    image: "/images/cvs/05.jpg",
-    cvUrl: "/cv/luis-perez-cv.pdf",
-    ctiVitaeUrl: "https://ctivitae.concytec.gob.pe/appDirectorioCTI/VerDatosInvestigador.do?id_investigador=76785",
-    level: "vicerrector",
-  },
+  { id: "rector-gerencia",  name: "Dr. Atilio Rodolfo Buendía Giribaldi", position: "Gerencia General", email: "gerencia@unidx.edu.pe", image: "/images/cvs/01.jpg", level: "rector" },
+  { id: "rector-rectorado", name: "Dr. Atilio Rodolfo Buendía Giribaldi", position: "Rectorado", email: "rector@unidx.edu.pe", image: "/images/cvs/01.jpg", level: "rector" },
 
-  // DEFENSORÍA
-  {
-    id: "defensoria",
-    name: "Dra. Celín Pérez Nájera",
-    position: "Defensoría Universitaria",
-    email: "defensoria.universitaria@unidx.edu.pe",
-    image: "/images/cvs/02.jpg",
-    cvUrl: "/cv/celin-perez-cv.pdf",
-    ctiVitaeUrl: "https://ctivitae.concytec.gob.pe/appDirectorioCTI/VerDatosInvestigador.do?id_investigador=356832",
-    level: "defensor",
-  },
+  { id: "vicerrector-academico", name: "Dr. Luis Adolfo Pérez Ton", position: "Vicerrectorado Académico", email: "vicerrectorado.academico@unidx.edu.pe", image: "/images/cvs/05.jpg", level: "vicerrector" },
 
-  // DECANATO
-  {
-    id: "decanato",
-    name: "Dr. Neuman Mario Pineda Pérez",
-    position: "Decanato",
-    email: "decanato@unidx.edu.pe",
-    image: "/placeholder-user.jpg",
-    cvUrl: "/cv/neuman-pineda-cv.pdf",
-    ctiVitaeUrl: "https://ctivitae.concytec.gob.pe/appDirectorioCTI/VerDatosInvestigador.do?id_investigador=108254",
-    level: "decano",
-  },
+  { id: "defensoria-universitaria", name: "Dr. Celín Pérez Nájera", position: "Defensoría Universitaria", email: "defensoria.universitaria@unidx.edu.pe", image: "/images/cvs/02.jpg", level: "defensor" },
 
-  // DIRECCIONES
-  {
-    id: "investigacion",
-    name: "Dr. Luis Angel Aguilar Mendoza",
-    position: "Dirección de Investigación",
-    email: "direccion.investigacion@unidx.edu.pe",
-    image: "/images/cvs/06.jpg",
-    cvUrl: "/cv/luis-aguilar-cv.pdf",
-    ctiVitaeUrl: "https://ctivitae.concytec.gob.pe/appDirectorioCTI/VerDatosInvestigador.do?id_investigador=5",
-    level: "direccion",
-  },
-  {
-    id: "calidad",
-    name: "Dr. Jorge Antonio Chávez Pérez",
-    position: "Dirección de Calidad Institucional",
-    email: "calidad.institucional@unidx.edu.pe",
-    image: "/images/cvs/04.jpg",
-    cvUrl: "/cv/jorge-chavez-cv.pdf",
-    ctiVitaeUrl: "https://ctivitae.concytec.gob.pe/appDirectorioCTI/VerDatosInvestigador.do?id_investigador=10654",
-    level: "direccion",
-  },
-  {
-    id: "bienestar",
-    name: "Dr. Roosevelt Edhair Aylas Canicela",
-    position: "Dirección de Bienestar Universitario",
-    email: "bienestar.universitario@unidx.edu.pe",
-    image: "/placeholder-user.jpg",
-    cvUrl: "/cv/roosevelt-aylas-cv.pdf",
-    ctiVitaeUrl: "https://ctivitae.concytec.gob.pe/appDirectorioCTI/VerDatosInvestigador.do?id_investigador=110881",
-    level: "direccion",
-  },
-  {
-    id: "enfermeria",
-    name: "Dra. Carmen Raquel Guzmán Damián",
-    position: "Dirección de Carrera Profesional de Enfermería",
-    email: "direccion.enfermeria@unidx.edu.pe",
-    image: "/placeholder-user.jpg",
-    cvUrl: "/cv/carmen-guzman-cv.pdf",
-    ctiVitaeUrl: "https://ctivitae.concytec.gob.pe/appDirectorioCTI/VerDatosInvestigador.do?id_investigador=83483",
-    level: "direccion",
-  },
-  {
-    id: "farmacia",
-    name: "Dra. Silvana Yanire Sam Zavala",
-    position: "Dirección de Carrera Profesional de Farmacia y Bioquímica",
-    email: "direccion.farmaciaybioquimica@unidx.edu.pe",
-    image: "/placeholder-user.jpg",
-    cvUrl: "/cv/silvana-sam-cv.pdf",
-    ctiVitaeUrl: "https://ctivitae.concytec.gob.pe/appDirectorioCTI/VerDatosInvestigador.do?id_investigador=44460",
-    level: "direccion",
-  },
-  {
-    id: "tecnologia",
-    name: "Ing. Donny Marlon Acosta Benites",
-    position: "Dirección de Tecnología de la Información y Comunicación / Tribunal de Honor",
-    email: "direccion.tecnologia@unidx.edu.pe",
-    image: "/placeholder-user.jpg",
-    cvUrl: "/cv/donny-acosta-cv.pdf",
-    ctiVitaeUrl: "",
-    level: "direccion",
-  },
-  {
-    id: "administracion",
-    name: "Mg. Isaias Ofir Pérez Anticona",
-    position: "Dirección General de Administración / Planeamiento y Finanzas",
-    email: "administracion.finanzas@unidx.edu.pe",
-    image: "/placeholder-user.jpg",
-    cvUrl: "/cv/isaias-perez-cv.pdf",
-    ctiVitaeUrl: "https://ctivitae.concytec.gob.pe/appDirectorioCTI/VerDatosInvestigador.do?id_investigador=355199",
-    level: "direccion",
-  },
+  { id: "decanato", name: "Mg. Neuman Mario Pineda Pérez", position: "Decanato", email: "decanato@unidx.edu.pe", image: "/images/cvs/neuman.jpeg", level: "decano" },
 
-  // OFICINAS
-  {
-    id: "secretaria",
-    name: "Lic. Gloria Maria Alvarado Carrasco",
-    position: "Secretaría General",
-    email: "secretaria.general@unidx.edu.pe",
-    image: "/images/cvs/03.jpg",
-    cvUrl: "/cv/gloria-alvarado-cv.pdf",
-    ctiVitaeUrl: "https://ctivitae.concytec.gob.pe/appDirectorioCTI/VerDatosInvestigador.do?id_investigador=337907",
-    level: "oficina",
-  },
-  {
-    id: "grados-titulos",
-    name: "Mg. Marco Antonio Alvarado Figueroa",
-    position: "Oficina de Grados y Títulos / Tribunal de Honor",
-    email: "gradosytitulos@unidx.edu.pe",
-    image: "/images/cvs/07.jpg",
-    cvUrl: "/cv/marco-alvarado-cv.pdf",
-    ctiVitaeUrl: "https://ctivitae.concytec.gob.pe/appDirectorioCTI/VerDatosInvestigador.do?id_investigador=107698",
-    level: "oficina",
-  },
-  {
-    id: "infraestructura",
-    name: "Arq. Miriam Sara Quispe Salas",
-    position: "Oficina de Infraestructura",
-    email: "infraestructura@unidx.edu.pe",
-    image: "/placeholder-user.jpg",
-    cvUrl: "/cv/miriam-quispe-cv.pdf",
-    ctiVitaeUrl: "https://ctivitae.concytec.gob.pe/appDirectorioCTI/VerDatosInvestigador.do?id_investigador=95151",
-    level: "oficina",
-  },
-  {
-    id: "personal",
-    name: "Lic. José Luis Pizarro Carrasco",
-    position: "Oficina de Personal",
-    email: "oficina.personal@unidx.edu.pe",
-    image: "/placeholder-user.jpg",
-    cvUrl: "/cv/jose-pizarro-cv.pdf",
-    ctiVitaeUrl: "https://ctivitae.concytec.gob.pe/appDirectorioCTI/VerDatosInvestigador.do?id_investigador=111481",
-    level: "oficina",
-  },
-  {
-    id: "tramite",
-    name: "Lic. Farah Karín Lluen Miranda",
-    position: "Oficina de Trámite Documentario",
-    email: "oficina.tramite@unidx.edu.pe",
-    image: "/placeholder-user.jpg",
-    cvUrl: "/cv/farah-lluen-cv.pdf",
-    ctiVitaeUrl: "",
-    level: "oficina",
-  },
-  {
-    id: "marketing",
-    name: "Lic. Natali Rivera Marca",
-    position: "Oficina de Marketing Institucional y Admisión",
-    email: "oficina.marketingyadmision@unidx.edu.pe",
-    image: "/placeholder-user.jpg",
-    cvUrl: "/cv/natali-rivera-cv.pdf",
-    ctiVitaeUrl: "",
-    level: "oficina",
-  },
-  {
-    id: "servicios-academicos",
-    name: "Dra. Felicita Martha Padilla Montes",
-    position: "Oficina de Servicios Académicos",
-    email: "servicios.academicos@unidx.edu.pe",
-    image: "/placeholder-user.jpg",
-    cvUrl: "/cv/felicita-padilla-cv.pdf",
-    ctiVitaeUrl: "https://ctivitae.concytec.gob.pe/appDirectorioCTI/VerDatosInvestigador.do?id_investigador=66843",
-    level: "oficina",
-  },
-  {
-    id: "auditoria",
-    name: "CPC. Lucy Mireya Armijo Naupa",
-    position: "Auditoría Interna",
-    email: "auditor.interno@unidx.edu.pe",
-    image: "/placeholder-user.jpg",
-    cvUrl: "/cv/lucy-armijo-cv.pdf",
-    ctiVitaeUrl: "",
-    level: "oficina",
-  },
-  {
-    id: "marketing-comunicacion",
-    name: "Lic. Gonzalo Jesús Cárdenas Lizana",
-    position: "Marketing, Comunicación Institucional y Admisión",
-    email: "marketing.admision@unidx.edu.pe",
-    image: "/images/cvs/09.png",
-    cvUrl: "/cv/gonzalo-cardenas-cv.pdf",
-    ctiVitaeUrl: "https://ctivitae.concytec.gob.pe/appDirectorioCTI/VerDatosInvestigador.do?id_investigador=431299",
-    level: "oficina",
-  },
-  {
-    id: "responsabilidad-social",
-    name: "Mg. Luis Allende Manco Malpica",
-    position: "Oficina de Responsabilidad Social Universitaria / Proyectos Comunitarios",
-    email: "responsabilidad.social@unidx.edu.pe",
-    image: "/placeholder-user.jpg",
-    cvUrl: "/cv/luis-manco-cv.pdf",
-    ctiVitaeUrl: "https://ctivitae.concytec.gob.pe/appDirectorioCTI/VerDatosInvestigador.do?id_investigador=109069",
-    level: "oficina",
-  },
-  {
-    id: "asesoria-legal",
-    name: "Abg. Percy Orlando Huertas Chiu",
-    position: "Oficina de Asesoría Legal / Tribunal de Honor",
-    email: "asesoria.tribunaldehonor@unidx.edu.pe",
-    image: "/placeholder-user.jpg",
-    cvUrl: "/cv/percy-huertas-cv.pdf",
-    ctiVitaeUrl: "",
-    level: "oficina",
-  },
+  { id: "direccion-biblioteca", name: "Manuel Jorge García Maruco", position: "Biblioteca y Repositorio Institucional", email: "biblioteca.repositorio@unidx.edu.pe", image: "/images/cvs/garcia.jpg", level: "direccion" },
+  { id: "direccion-calidad", name: "Mg. Jorge Antonio Chávez Pérez", position: "Dirección de Calidad Institucional", email: "calidad.institucional@unidx.edu.pe", image: "/images/cvs/04.jpg", level: "direccion" },
+  { id: "direccion-tecnologia", name: "Donny Marlon Acosta Benites", position: "Dirección de Tecnología de la Información y Comunicación", email: "direccion.tecnologia@unidx.edu.pe", image: "/images/cvs/donny.jpg", level: "direccion" },
+  { id: "direccion-administracion", name: "Mg. Isaias Ofir Pérez Anticona", position: "Dirección General de Administración", email: "administracion.finanzas@unidx.edu.pe", image: "/images/cvs/isaias.jpg", level: "direccion" },
+  { id: "direccion-rsu", name: "Mg. Luis Allende Manco Malpica", position: "Dirección de Responsabilidad Social Universitaria", email: "responsabilidad.social@unidx.edu.pe", image: "/images/cvs/manco.jpg", level: "direccion" },
+  { id: "direccion-bienestar", name: "Mg. Roosevelt Edhair Aylas Canicela", position: "Dirección de Bienestar Universitario", email: "bienestar.universitario@unidx.edu.pe", image: "/images/cvs/roose.jpeg", level: "direccion" },
+  { id: "direccion-investigacion", name: "Dr. Luis Ángel Aguilar Mendoza", position: "Dirección de Investigación", email: "direccion.investigacion@unidx.edu.pe", image: "/images/cvs/06.jpg", level: "direccion" },
+  { id: "direccion-enfermeria", name: "Dr. Carmen Raquel Guzmán Damián", position: "Dirección de Carrera Profesional de Enfermería", email: "direccion.enfermeria@unidx.edu.pe", image: "/images/cvs/guzman.jpeg", level: "direccion" },
+  { id: "direccion-farmacia", name: "Dr. Silvana Yanire Sam Zavala", position: "Dirección de Carrera Profesional de Farmacia y Bioquímica", email: "direccion.farmaciaybioquimica@unidx.edu.pe", image: "/images/cvs/silvana.jpeg", level: "direccion" },
 
-  // SERVICIOS
-  {
-    id: "empleabilidad",
-    name: "Mg. Miguel Ángel Inocente Camones",
-    position: "Servicio de Empleabilidad y Seguimiento al Graduado",
-    email: "servicio.empleabilidad@unidx.edu.pe",
-    image: "/placeholder-user.jpg",
-    cvUrl: "/cv/miguel-camones-cv.pdf",
-    ctiVitaeUrl: "https://ctivitae.concytec.gob.pe/appDirectorioCTI/VerDatosInvestigador.do?id_investigador=444",
-    level: "servicio",
-  },
-  {
-    id: "psicopedagogia",
-    name: "Lic. José Eduardo Eneque Patazca",
-    position: "Servicio de Psicopedagogía",
-    email: "servicio.psicopedagogia@unidx.edu.pe",
-    image: "/placeholder-user.jpg",
-    cvUrl: "/cv/jose-eneque-cv.pdf",
-    ctiVitaeUrl: "",
-    level: "servicio",
-  },
-  {
-    id: "deporte",
-    name: "Prof. Juan Carlos Gómez Castillo",
-    position: "Servicio de Deporte – PRODAC",
-    email: "servicio.deporte@unidx.edu.pe",
-    image: "/placeholder-user.jpg",
-    cvUrl: "/cv/juan-gomez-cv.pdf",
-    ctiVitaeUrl: "",
-    level: "servicio",
-  },
-  {
-    id: "social",
-    name: "Mg. Ruth Antolina Pariasca Pérez",
-    position: "Servicio Social",
-    email: "servicio.social@unidx.edu.pe",
-    image: "/placeholder-user.jpg",
-    cvUrl: "/cv/ruth-pariasca-cv.pdf",
-    ctiVitaeUrl: "",
-    level: "servicio",
-  },
-  {
-    id: "topico",
-    name: "Mg. Hugo Gilberto Villanueva Vilchez",
-    position: "Servicio de Tópico",
-    email: "servicio.topico@unidx.edu.pe",
-    image: "/placeholder-user.jpg",
-    cvUrl: "/cv/hugo-villanueva-cv.pdf",
-    ctiVitaeUrl: "https://ctivitae.concytec.gob.pe/appDirectorioCTI/VerDatosInvestigador.do?id_investigador=102563",
-    level: "servicio",
-  },
-  {
-    id: "prevencion",
-    name: "Mg. María Susana Roque Marroquín",
-    position: "Servicio de Prevención e Intervención contra el Acoso Sexual",
-    email: "servicio.prevencion@unidx.edu.pe",
-    image: "/placeholder-user.jpg",
-    cvUrl: "/cv/maria-roque-cv.pdf",
-    ctiVitaeUrl: "https://ctivitae.concytec.gob.pe/appDirectorioCTI/VerDatosInvestigador.do?id_investigador=46583",
-    level: "servicio",
-  },
-  {
-    id: "actividades",
-    name: "Lic. Jhoana Marliz Morales Rueda",
-    position: "Servicio de Actividades Artísticas y Culturales",
-    email: "servicio.actividades@unidx.edu.pe",
-    image: "/placeholder-user.jpg",
-    cvUrl: "/cv/jhoana-morales-cv.pdf",
-    ctiVitaeUrl: "",
-    level: "servicio",
-  },
-  {
-    id: "mantenimiento",
-    name: "Téc. Yul Ignacio Trujillo Mejía",
-    position: "Responsable de Mantenimiento",
-    email: "mantenimiento@unidx.edu.pe",
-    image: "/placeholder-user.jpg",
-    cvUrl: "/cv/yul-trujillo-cv.pdf",
-    ctiVitaeUrl: "",
-    level: "servicio",
-  },
+  { id: "oficina-asesoria-legal", name: "Percy Orlando Huertas Chiu", position: "Oficina de Asesoría Legal", email: "asesoria.tribunaldehonor@unidx.edu.pe", image: "/images/cvs/percy.jpg", level: "oficina" },
+  { id: "oficina-personal", name: "José Luis Pizarro Carrasco", position: "Oficina de Personal", email: "oficina.personal@unidx.edu.pe", image: "/images/cvs/joseluis.jpeg", level: "oficina" },
+  { id: "oficina-infraestructura", name: "Mg. Miriam Sara Quispe Salas", position: "Oficina de Infraestructura y Mantenimiento", email: "infraestructura@unidx.edu.pe", image: "/images/cvs/miriam.jpeg", level: "oficina" },
+  { id: "oficina-planificacion", name: "Mg. Isaias Ofir Pérez Anticona", position: "Oficina de Planificación y Presupuesto", email: "planificacion.presupuesto@unidx.edu.pe", image: "/images/cvs/isaias.jpg", level: "oficina" },
+  { id: "oficina-contabilidad", name: "Mg. Isaias Ofir Pérez Anticona", position: "Oficina de Contabilidad y Finanzas", email: "contabilidad.finanzas@unidx.edu.pe", image: "/images/cvs/isaias.jpg", level: "oficina" },
+  { id: "oficina-marketing", name: "Natali Rivera Marca", position: "Oficina de Marketing Institucional y Admisión", email: "oficina.marketingyadmision@unidx.edu.pe", image: "/images/cvs/natali.png", level: "oficina" },
+  { id: "oficina-secretaria-general", name: "Gloria Maria Alvarado Carrasco", position: "Secretaría General", email: "secretaria.general@unidx.edu.pe", image: "/images/cvs/03.jpg", level: "oficina" },
+  { id: "oficina-tramite-documentario", name: "Mg. Farah Karín Lluen Miranda", position: "Oficina de Trámite Documentario", email: "oficina.tramite@unidx.edu.pe", image: "/images/cvs/lluen.jpg", level: "oficina" },
+  { id: "tribunal-honor-huertas", name: "Percy Orlando Huertas Chiu", position: "Tribunal de Honor", email: "asesoria.tribunaldehonor@unidx.edu.pe", image: "/images/cvs/percy.jpg", level: "oficina" },
+  { id: "tribunal-honor-alvarado", name: "Mg. Marco Antonio Alvarado Figueroa", position: "Tribunal de Honor", email: "asesoria.tribunaldehonor@unidx.edu.pe", image: "/images/cvs/07.jpg", level: "oficina" },
+  { id: "tribunal-honor-acosta", name: "Donny Marlon Acosta Benites", position: "Tribunal de Honor", email: "asesoria.tribunaldehonor@unidx.edu.pe", image: "/images/cvs/donny.jpg", level: "oficina" },
+  { id: "oficina-grados-titulos", name: "Mg. Marco Antonio Alvarado Figueroa", position: "Oficina de Grados y Títulos", email: "gradosytitulos@unidx.edu.pe", image: "/images/cvs/07.jpg", level: "oficina" },
+  { id: "oficina-servicios-academicos", name: "Dr. Felicita Martha Padilla Montes", position: "Oficina de Servicios Académicos", email: "servicios.academicos@unidx.edu.pe", image: "/images/cvs/padilla.png", level: "oficina" },
+
+  { id: "servicio-topico", name: "Mg. Ruth Antolina Pariasca Perez", position: "Servicio de Tópico", email: "servicio.topico@unidx.edu.pe", image: "/images/cvs/pariasca.jpg", level: "servicio" },
+  { id: "servicio-social", name: "Mg. Hugo Gilberto Villanueva Vilchez", position: "Servicio Social", email: "servicio.social@unidx.edu.pe", image: "/images/cvs/villanueva.jpg", level: "servicio" },
+  { id: "servicio-psicopedagogico", name: "José Eduardo Eneque Patazca", position: "Servicio Psicopedagógico", email: "servicio.psicopedagogia@unidx.edu.pe", image: "/images/cvs/eneque.jpg", level: "servicio" },
+  { id: "servicio-prevencion-acoso", name: "Mg. María Susana Roque Marroquín", position: "Servicio de Prevención en Casos de Acoso Sexual", email: "servicio.prevencion@unidx.edu.pe", image: "/images/cvs/roque.jpg", level: "servicio" },
+  { id: "servicio-deportivo", name: "Juan Carlos Gómez Castillo", position: "Servicio Deportivo Universitario", email: "servicio.deporte@unidx.edu.pe", image: "/images/cvs/gomez.jpeg", level: "servicio" },
+  { id: "servicio-actividades-artisticas", name: "Jhoana Marliz Morales Rueda", position: "Programa de Actividades Artísticas y Culturales", email: "servicio.actividades@unidx.edu.pe", image: "/images/cvs/morales.jpg", level: "servicio" },
+  { id: "servicio-insercion-laboral", name: "Dr. Miguel Ángel Inocente Camones", position: "Programa de Inserción Laboral y Seguimiento al Egresado", email: "servicio.empleabilidad@unidx.edu.pe", image: "/images/cvs/inocente.jpeg", level: "servicio" },
+  { id: "servicio-laboratorio", name: "Mg. Javier Jack Calderón Gómez", position: "Encargado de Laboratorio", email: "laboratorio@unidx.edu.pe", image: "/images/cvs/calderon.jpg", level: "servicio" },
 ]
 
-const levelStyles = {
-  rector: {
-    cardClass: "bg-gradient-to-br from-blue-900 to-blue-800 text-white border-blue-900",
-    titleClass: "text-white",
-    subtitleClass: "text-blue-100",
-    iconClass: "text-blue-200",
-  },
-  vicerrector: {
-    cardClass: "bg-gradient-to-br from-blue-800 to-blue-700 text-white border-blue-800",
-    titleClass: "text-white",
-    subtitleClass: "text-blue-100",
-    iconClass: "text-blue-200",
-  },
-  defensor: {
-    cardClass: "bg-gradient-to-br from-green-100 to-white border-green-200",
-    titleClass: "text-green-900",
-    subtitleClass: "text-green-700",
-    iconClass: "text-green-600",
-  },
-  decano: {
-    cardClass: "bg-gradient-to-br from-purple-100 to-white border-purple-200",
-    titleClass: "text-purple-900",
-    subtitleClass: "text-purple-700",
-    iconClass: "text-purple-600",
-  },
-  direccion: {
-    cardClass: "bg-gradient-to-br from-slate-100 to-white border-blue-200",
-    titleClass: "text-blue-900",
-    subtitleClass: "text-gray-600",
-    iconClass: "text-blue-600",
-  },
-  oficina: {
-    cardClass: "bg-gradient-to-br from-orange-100 to-white border-orange-200",
-    titleClass: "text-orange-900",
-    subtitleClass: "text-orange-700",
-    iconClass: "text-orange-600",
-  },
-  servicio: {
-    cardClass: "bg-white border-gray-200",
-    titleClass: "text-gray-900",
-    subtitleClass: "text-gray-600",
-    iconClass: "text-gray-500",
-  },
+/** === Estructura por persona: lista de {cargo, correo} === */
+type RoleEntry = { position: string; email: string; rank: number }
+
+type PersonCard = {
+  id: string
+  name: string
+  image: string
+  roles: RoleEntry[]
+  primaryRank: number
+  phone?: string
+  ctiVitaeUrl?: string
 }
+
+/** === Jerarquía compacta para ordenar (NO se muestra) ===
+ *  0 Alta Dirección (Gerencia/Rectorado/Vicerrectorado)
+ *  1 Órganos (Defensoría/Tribunal)
+ *  2 Decanato
+ *  3 Direcciones (todas)
+ *  4 Oficinas y Servicios
+ */
+const rankOf = (position: string): number => {
+  if (/(gerencia general|rectorado|vicerrectorado)/i.test(position)) return 0
+  if (/(defensor[ií]a|tribunal de honor)/i.test(position)) return 1
+  if (/decanato/i.test(position)) return 2
+  if (/^direcci[oó]n\b|biblioteca|repositorio/i.test(position)) return 3
+  return 4
+}
+
+type SortKey = "jerarquia" | "nombre"
+
+/** === Acento visual acorde a landing (ajusta si usas otros colores) === */
+const cardAccent = "from-sky-600 to-blue-600"
 
 export function OrganizationalChart() {
   const [selectedImage, setSelectedImage] = useState<string | null>(null)
+  const [query, setQuery] = useState("")
+  const [sortKey, setSortKey] = useState<SortKey>("jerarquia")
 
-  const handleDownloadCV = (cvUrl: string, name: string) => {
-    if (!cvUrl) return
-    const link = document.createElement("a")
-    link.href = cvUrl
-    link.download = `CV-${name.replace(/\s+/g, "-")}.pdf`
-    document.body.appendChild(link)
-    link.click()
-    document.body.removeChild(link)
-  }
+  // Unificar por persona: cada tarjeta con todos sus cargos, y debajo de cada cargo su correo
+  const people: PersonCard[] = useMemo(() => {
+    const map: Record<string, PersonCard> = {}
+    for (const m of teamMembers) {
+      const key = m.name.trim()
+      const role: RoleEntry = { position: m.position, email: m.email, rank: rankOf(m.position) }
 
-  const handleOpenCTIVitae = (ctiVitaeUrl: string) => {
-    if (!ctiVitaeUrl) return
-    window.open(ctiVitaeUrl, "_blank", "noopener,noreferrer")
-  }
+      if (!map[key]) {
+        map[key] = {
+          id: key.toLowerCase().replace(/\s+/g, "-"),
+          name: m.name,
+          image: m.image,
+          roles: [role],
+          primaryRank: role.rank,
+          phone: m.phone,
+          ctiVitaeUrl: m.ctiVitaeUrl,
+        }
+      } else {
+        // Evitar duplicados exactos
+        if (!map[key].roles.some(r => r.position === role.position && r.email === role.email)) {
+          map[key].roles.push(role)
+        }
+        // Rank principal = el más alto (menor número)
+        if (role.rank < map[key].primaryRank) map[key].primaryRank = role.rank
+      }
+    }
 
-  const openImageModal = (imageSrc: string) => {
-    setSelectedImage(imageSrc)
-  }
+    // Ordenar roles dentro de la tarjeta
+    const list = Object.values(map).map(p => ({
+      ...p,
+      roles: p.roles.sort((a,b) => a.rank - b.rank || a.position.localeCompare(b.position, "es", { sensitivity: "base" }))
+    }))
 
-  const closeImageModal = () => {
-    setSelectedImage(null)
-  }
+    // Ordenar tarjetas por jerarquía compacta y luego por nombre
+    list.sort((a,b) => a.primaryRank - b.primaryRank || a.name.localeCompare(b.name, "es", { sensitivity: "base" }))
+    return list
+  }, [])
 
-  const renderMemberCard = (member: TeamMember, index: number) => {
-    const styles = levelStyles[member.level]
-    const isRectorOrVicerrector = member.level === "rector" || member.level === "vicerrector"
+  // Filtro y alternativa de orden
+  const filtered = useMemo(() => {
+    const q = query.trim().toLowerCase()
+    const base = q
+      ? people.filter(p =>
+          p.name.toLowerCase().includes(q) ||
+          p.roles.some(r => r.position.toLowerCase().includes(q) || r.email.toLowerCase().includes(q))
+        )
+      : people
 
+    if (sortKey === "nombre") {
+      return [...base].sort((a,b)=>a.name.localeCompare(b.name,"es",{sensitivity:"base"}))
+    }
+    return base // ya está por jerarquía
+  }, [people, query, sortKey])
+
+  const openImageModal = (src: string) => setSelectedImage(src || "/placeholder.svg")
+  const closeImageModal = () => setSelectedImage(null)
+
+  const badgeByRank = [
+    { rank: 0, label: "Alta Dirección", color: "bg-slate-100 text-sky-700 border border-sky-500" },
+    { rank: 1, label: "Órgano", color: "bg-slate-100 text-pink-700 border border-pink-400" },
+    { rank: 2, label: "Decanato", color: "bg-slate-100 text-green-700 border border-green-400" },
+    { rank: 3, label: "Dirección", color: "bg-slate-100 text-blue-700 border border-blue-400" },
+    { rank: 4, label: "Oficina/Servicio", color: "bg-slate-100 text-amber-700 border border-amber-400" },
+  ];
+
+  const renderCard = (p: PersonCard, index: number) => {
+    const badge = badgeByRank.find(b => b.rank === p.primaryRank);
     return (
       <motion.div
-        key={member.id}
-        initial={{ opacity: 0, y: 20 }}
+        key={p.id}
+        initial={{ opacity: 0, y: 14 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: index * 0.1 }}
-        className="w-full"
+        transition={{ duration: 0.4, delay: index * 0.03 }}
+  className="w-full max-w-xs mx-auto"
       >
-        <Card className={`${styles.cardClass} shadow-lg hover:shadow-xl transition-all duration-300 h-full`}>
-          <CardContent className="p-6">
-            <div className="flex flex-col items-center text-center space-y-4">
-              <div className="relative w-24 h-24 rounded-full overflow-hidden border-4 border-white shadow-lg group cursor-pointer"
-                   onClick={() => openImageModal(member.image)}>
-                <Image 
-                  src={member.image || "/placeholder.svg"} 
-                  alt={member.name} 
-                  fill 
-                  className="object-cover transition-transform duration-300 group-hover:scale-110" 
-                />
-                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
-                  <div className="bg-white/90 rounded-full p-1 backdrop-blur-sm">
-                    <ZoomIn className="w-3 h-3 text-gray-800" />
-                  </div>
-                </div>
-              </div>
-
-              <div className="space-y-2">
-                <h3 className={`text-lg font-bold ${styles.titleClass}`}>{member.name}</h3>
-                <p className={`text-sm font-medium ${styles.subtitleClass}`}>{member.position}</p>
-              </div>
-
-              <div className="space-y-2 w-full">
-                <div className={`flex items-center justify-center space-x-2 text-sm ${styles.subtitleClass}`}>
-                  <Mail className={`h-4 w-4 ${styles.iconClass}`} />
-                  <span className="truncate">{member.email}</span>
-                </div>
-                {member.phone && (
-                  <div className={`flex items-center justify-center space-x-2 text-sm ${styles.subtitleClass}`}>
-                    <Phone className={`h-4 w-4 ${styles.iconClass}`} />
-                    <span>{member.phone}</span>
-                  </div>
-                )}
-              </div>
-
-              {member.ctiVitaeUrl && (
-                <div className="w-full flex justify-center mt-4">
-                  <Button
-                    onClick={() => handleOpenCTIVitae(member.ctiVitaeUrl!)}
-                    className={`${
-                      isRectorOrVicerrector
-                        ? "bg-white text-blue-900 hover:bg-blue-50"
-                        : "bg-blue-900 text-white hover:bg-blue-800"
-                    } transition-all duration-200`}
-                    size="sm"
-                  >
-                    <ExternalLink className="h-4 w-4 mr-2" />
-                    CTI Vitae
-                  </Button>
-                </div>
+        <Card className="bg-white border border-slate-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-300 h-full overflow-hidden relative">
+          {/* Imagen ocupa todo el ancho arriba, más pequeña */}
+          <div className="w-full aspect-[5/5] bg-slate-50 border-b border-slate-200 relative cursor-pointer" onClick={() => openImageModal(p.image)} title="Ampliar foto">
+            <Image
+              src={p.image || "/placeholder.svg"}
+              alt={p.name}
+              fill
+              className="object-cover"
+            />
+          </div>
+          {/* Información abajo, más compacta */}
+          <CardContent className="flex flex-col items-center text-center gap-1 p-3">
+            <div className="flex flex-col items-center gap-0.5">
+              <h3 className="text-base font-semibold text-slate-900">{p.name}</h3>
+              {badge && (
+                <span className={`px-2 py-0.5 rounded-full text-[11px] font-medium ${badge.color}`}>{badge.label}</span>
               )}
             </div>
+            <div className="w-full space-y-1">
+              {p.roles.map((r) => (
+                <div key={`${r.position}-${r.email}`} className="mx-auto max-w-[34rem] text-left">
+                  <p className="text-[13px] font-medium text-slate-900 leading-5">{r.position}</p>
+                  <div className="mt-1 flex items-center gap-1">
+                    <Mail className="h-3.5 w-3.5 text-slate-500 flex-shrink-0" />
+                    <a
+                      href={`mailto:${r.email}`}
+                      className="block w-full font-mono text-[11px] leading-5 px-2 py-1 rounded bg-slate-50 ring-1 ring-inset ring-slate-200 break-words break-all hover:underline"
+                    >
+                      {r.email}
+                    </a>
+                  </div>
+                </div>
+              ))}
+            </div>
+            {p.ctiVitaeUrl && (
+              <div className="pt-1">
+                <a
+                  href={p.ctiVitaeUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 text-[11px] font-medium text-slate-700 hover:text-slate-900"
+                >
+                  <ExternalLink className="h-3 w-3" />
+                  CTI Vitae
+                </a>
+              </div>
+            )}
           </CardContent>
         </Card>
       </motion.div>
-    )
+    );
   }
 
-  // Group members by level
-  const rectorLevel = teamMembers.filter((m) => m.level === "rector")
-  const vicerrectorLevel = teamMembers.filter((m) => m.level === "vicerrector")
-  const defensorLevel = teamMembers.filter((m) => m.level === "defensor")
-  const decanoLevel = teamMembers.filter((m) => m.level === "decano")
-  const direccionLevel = teamMembers.filter((m) => m.level === "direccion")
-  const oficinaLevel = teamMembers.filter((m) => m.level === "oficina")
-  const servicioLevel = teamMembers.filter((m) => m.level === "servicio")
-
   return (
-    <div className="space-y-12">
-      {/* Rector Level */}
-      <div className="space-y-6">
-        <div className="text-center">
-          <h2 className="text-2xl font-bold text-blue-900 mb-2">Rectorado</h2>
-          <div className="w-24 h-1 bg-blue-900 mx-auto rounded"></div>
-        </div>
-        <div className="flex justify-center">
-          <div className="w-full max-w-md">{rectorLevel.map((member, index) => renderMemberCard(member, index))}</div>
-        </div>
-      </div>
-
-      {/* Vicerrector Level */}
-      <div className="space-y-6">
-        <div className="text-center">
-          <h2 className="text-2xl font-bold text-blue-900 mb-2">Vicerrectorado</h2>
-          <div className="w-24 h-1 bg-blue-900 mx-auto rounded"></div>
-        </div>
-        <div className="flex justify-center">
-          <div className="w-full max-w-md">
-            {vicerrectorLevel.map((member, index) => renderMemberCard(member, index))}
+    <div className="space-y-8">
+      {/* Controles: búsqueda + orden */}
+      <div className="max-w-7xl mx-auto px-4">
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+          <div className="relative flex-1">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
+            <input
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder="Buscar por nombre, cargo o correo…"
+              className="w-full pl-9 pr-3 py-2.5 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-sky-500/40"
+            />
           </div>
-        </div>
-      </div>
-
-      {/* Defensoría Level */}
-      <div className="space-y-6">
-        <div className="text-center">
-          <h2 className="text-2xl font-bold text-blue-900 mb-2">Defensoría Universitaria</h2>
-          <div className="w-24 h-1 bg-blue-900 mx-auto rounded"></div>
-        </div>
-        <div className="flex justify-center">
-          <div className="w-full max-w-md">{defensorLevel.map((member, index) => renderMemberCard(member, index))}</div>
-        </div>
-      </div>
-
-      {/* Decanato Level */}
-      <div className="space-y-6">
-        <div className="text-center">
-          <h2 className="text-2xl font-bold text-blue-900 mb-2">Decanato</h2>
-          <div className="w-24 h-1 bg-blue-900 mx-auto rounded"></div>
-        </div>
-        <div className="flex justify-center">
-          <div className="w-full max-w-md">{decanoLevel.map((member, index) => renderMemberCard(member, index))}</div>
-        </div>
-      </div>
-
-      {/* Direcciones Level */}
-      <div className="space-y-6">
-        <div className="text-center">
-          <h2 className="text-2xl font-bold text-blue-900 mb-2">Direcciones</h2>
-          <div className="w-24 h-1 bg-blue-900 mx-auto rounded"></div>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-          {direccionLevel.map((member, index) => renderMemberCard(member, index))}
-        </div>
-      </div>
-
-      {/* Oficinas Level */}
-      <div className="space-y-6">
-        <div className="text-center">
-          <h2 className="text-2xl font-bold text-blue-900 mb-2">Oficinas</h2>
-          <div className="w-24 h-1 bg-blue-900 mx-auto rounded"></div>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-          {oficinaLevel.map((member, index) => renderMemberCard(member, index))}
-        </div>
-      </div>
-
-      {/* Servicios Level */}
-      <div className="space-y-6">
-        <div className="text-center">
-          <h2 className="text-2xl font-bold text-blue-900 mb-2">Servicios</h2>
-          <div className="w-24 h-1 bg-blue-900 mx-auto rounded"></div>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-          {servicioLevel.map((member, index) => renderMemberCard(member, index))}
-        </div>
-      </div>
-
-      {/* Misión y Visión */}
-      <div className="space-y-8 mt-16">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-blue-900 mb-4">Misión y Visión</h2>
-          <div className="w-32 h-1 bg-blue-900 mx-auto rounded"></div>
-          <p className="text-gray-600 mt-4 max-w-2xl mx-auto">
-            Nuestro compromiso con la excelencia académica y la formación integral
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
-          {/* Misión */}
-          <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
+          <select
+            value={sortKey}
+            onChange={(e) => setSortKey(e.target.value as SortKey)}
+            className="h-10 px-3 rounded-lg border border-slate-200 bg-white text-sm"
+            title="Ordenar"
           >
-            <Card className="h-full bg-gradient-to-br from-blue-50 to-white border-blue-200 shadow-lg hover:shadow-xl transition-all duration-300">
-              <CardContent className="p-8">
-                <div className="flex items-center mb-6">
-                  <div className="bg-blue-600 p-3 rounded-full mr-4">
-                    <Target className="h-6 w-6 text-white" />
-                  </div>
-                  <h3 className="text-2xl font-bold text-blue-900">Misión</h3>
-                </div>
-                <p className="text-gray-700 leading-relaxed text-justify">
-                 Formar profesionales con un sólido compromiso social, capaces de
-                 identificar y resolver los problemas socialmente relevantes
-                 interrelacionando la investigación y la docencia. 
-                </p>
-              </CardContent>
-            </Card>
-          </motion.div>
-
-          {/* Visión */}
-          <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-          >
-            <Card className="h-full bg-gradient-to-br from-green-50 to-white border-green-200 shadow-lg hover:shadow-xl transition-all duration-300">
-              <CardContent className="p-8">
-                <div className="flex items-center mb-6">
-                  <div className="bg-green-600 p-3 rounded-full mr-4">
-                    <Eye className="h-6 w-6 text-white" />
-                  </div>
-                  <h3 className="text-2xl font-bold text-green-900">Visión</h3>
-                </div>
-                <p className="text-gray-700 leading-relaxed text-justify">
-                 Ser una institución referente en la educación superior, reconocida por
-                 formar profesionales que se distinguen por su calidad humana,
-                 competitividad profesional, vocación de servicio a la comunidad y
-                 motivación por la investigación, que orienta su acción y sus servicios a la
-                 generación y ejecución de proyectos que contribuyan al desarrollo social y
-                 económico del país.
-                </p>
-              </CardContent>
-            </Card>
-          </motion.div>
+            <option value="jerarquia">Orden: Jerarquía compacta</option>
+            <option value="nombre">Orden: Nombre (A–Z)</option>
+          </select>
         </div>
-
-        {/* Valores Institucionales */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          className="mt-12"
-        >
-          <Card className="bg-gradient-to-r from-slate-50 to-blue-50 border-slate-200 shadow-lg">
-            <CardContent className="p-8">
-              <h3 className="text-xl font-bold text-center text-blue-900 mb-6">Valores Institucionales</h3>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-                <div className="text-center">
-                  <div className="bg-blue-600 w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-3">
-                    <span className="text-white font-bold text-lg">U</span>
-                  </div>
-                  <h4 className="font-semibold text-blue-900 mb-2">Universalidad</h4>
-                  <p className="text-sm text-gray-600">Educación accesible y de calidad para todos</p>
-                </div>
-                <div className="text-center">
-                  <div className="bg-green-600 w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-3">
-                    <span className="text-white font-bold text-lg">N</span>
-                  </div>
-                  <h4 className="font-semibold text-green-900 mb-2">Nobleza</h4>
-                  <p className="text-sm text-gray-600">Grandeza de espíritu y dignidad en el actuar</p>
-                </div>
-                <div className="text-center">
-                  <div className="bg-purple-600 w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-3">
-                    <span className="text-white font-bold text-lg">I</span>
-                  </div>
-                  <h4 className="font-semibold text-purple-900 mb-2">Innovación</h4>
-                  <p className="text-sm text-gray-600">Desarrollo continuo y creatividad en la educación</p>
-                </div>
-                <div className="text-center">
-                  <div className="bg-orange-600 w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-3">
-                    <span className="text-white font-bold text-lg">D</span>
-                  </div>
-                  <h4 className="font-semibold text-orange-900 mb-2">Desarrollo</h4>
-                  <p className="text-sm text-gray-600">Crecimiento integral de la comunidad universitaria</p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </motion.div>
       </div>
 
-      {/* Modal de imagen ampliada */}
+      {/* Grilla más ancha: 1–2–2–3 columnas */}
+      <div className="max-w-7xl mx-auto px-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-7">
+          {filtered.map((p, i) => renderCard(p, i))}
+        </div>
+      </div>
+
+      {/* Modal imagen */}
       {selectedImage && (
-        <div 
-          className="fixed inset-0 bg-black/90 flex items-center justify-center z-50 p-4"
-          onClick={closeImageModal}
-        >
-          <div className="relative max-w-2xl max-h-[90vh] w-full h-full flex items-center justify-center">
+        <div className="fixed inset-0 bg-black/90 flex items-center justify-center z-50 p-4" onClick={closeImageModal}>
+          <div className="relative max-w-3xl max-h-[90vh] w-full h-full flex items-center justify-center">
             <button
               onClick={closeImageModal}
               className="absolute top-4 right-4 z-10 bg-white/20 hover:bg-white/30 text-white p-2 rounded-full backdrop-blur-sm transition-colors"
             >
               <X className="w-6 h-6" />
             </button>
-            
             <div className="relative w-full max-w-md aspect-square">
               <Image
                 src={selectedImage}

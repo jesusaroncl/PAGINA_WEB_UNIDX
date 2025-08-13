@@ -29,6 +29,16 @@ const partnerships = [
 		color: "from-green-500 to-emerald-600",
 		detailsUrl: "https://www.facebook.com/photo/?fbid=2094694690739166&set=a.199370123604975", // Nueva propiedad
 	},
+	{
+		id: "evento-redcolsi",
+		name: "Circulos y semilleros de investigación (RedColsi)",
+		type: "Convenio Académico",
+		category: "Educación",
+		image: "/images/convenios/convenio02.png",
+		icon: Award,
+		color: "from-green-500 to-emerald-600",
+		detailsUrl: "https://web.redcolsi.org/", // Nueva propiedad
+	},
 ]
 
 export function PartnershipsSection() {
