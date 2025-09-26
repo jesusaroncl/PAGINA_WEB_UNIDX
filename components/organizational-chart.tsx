@@ -32,7 +32,6 @@ const teamMembers: TeamMember[] = [
 
   { id: "decanato", name: "Mg. Neuman Mario Pineda Pérez", position: "Decanato", email: "decanato@unidx.edu.pe", image: "/images/cvs/neuman.jpeg", level: "decano" },
 
-  { id: "direccion-biblioteca", name: "Manuel Jorge García Maruco", position: "Biblioteca y Repositorio Institucional", email: "biblioteca.repositorio@unidx.edu.pe", image: "/images/cvs/garcia.jpg", level: "direccion" },
   { id: "direccion-calidad", name: "Mg. Jorge Antonio Chávez Pérez", position: "Dirección de Calidad Institucional", email: "calidad.institucional@unidx.edu.pe", image: "/images/cvs/04.jpg", level: "direccion" },
   { id: "direccion-tecnologia", name: "Donny Marlon Acosta Benites", position: "Dirección de Tecnología de la Información y Comunicación", email: "direccion.tecnologia@unidx.edu.pe", image: "/images/cvs/donny.jpg", level: "direccion" },
   { id: "direccion-administracion", name: "Mg. Isaias Ofir Pérez Anticona", position: "Dirección General de Administración", email: "administracion.finanzas@unidx.edu.pe", image: "/images/cvs/isaias.jpg", level: "direccion" },
