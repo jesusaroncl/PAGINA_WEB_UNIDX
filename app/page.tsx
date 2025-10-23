@@ -13,15 +13,18 @@ import { Footer } from "react-day-picker"
 export default function Home() {
   return (
     <LanguageProvider>
-      <div className="min-h-screen bg-white">
-        <ModernNavigation />
-        <UniversityHero />
-        <BooksCarousel />
-        <CompactPrograms />
-        <CompactNews />
-        <ProjectsSection />
-        <PartnershipsSection />
-        <CompactContact />
+      <div className="min-h-screen flex flex-col bg-white">
+        <main className="flex-grow">
+          <ModernNavigation />
+          <UniversityHero />
+          <BooksCarousel />
+          <CompactPrograms />
+          <CompactNews />
+          <ProjectsSection />
+          <PartnershipsSection />
+          <CompactContact />
+        </main>
+        {/* Footer stays at the bottom */}
         <ModernFooter />
       </div>
     </LanguageProvider>

@@ -583,6 +583,15 @@ export function ModernNavigation() {
                 </AnimatePresence>
               </div>
 
+              {/* Convocatoria - nueva página */}
+              <Link
+                href="/convocatoria"
+                className="text-gray-700 hover:text-blue-900 text-sm font-medium transition-colors duration-200 relative group py-2"
+              >
+                Convocatoria
+                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-900 transition-all duration-300 group-hover:w-full"></span>
+              </Link>
+
               {/* CTA Button */}
               <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                 <Button
@@ -652,6 +661,14 @@ export function ModernNavigation() {
                       onClick={() => setIsMobileMenuOpen(false)}
                     >
                       Nosotros
+                    </Link>
+
+                    <Link
+                      href="/convocatoria"
+                      className="block text-gray-700 hover:text-blue-900 font-medium py-3 transition-colors duration-200"
+                      onClick={() => setIsMobileMenuOpen(false)}
+                    >
+                      Convocatoria
                     </Link>
 
                     {/* Recursos */}
