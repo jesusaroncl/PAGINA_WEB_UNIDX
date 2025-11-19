@@ -8,40 +8,40 @@ import { Phone, Mail, MapPin, Facebook, Instagram, Youtube, Linkedin } from "luc
 export function ModernFooter() {
   return (
     <footer className="bg-slate-900 text-white">
-      <div className="max-w-6xl mx-auto px-4 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+      <div className="max-w-6xl mx-auto px-2 sm:px-4 py-6 sm:py-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
           {/* University Info */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="space-y-4"
+            className="space-y-2 sm:space-y-4"
           >
-            <div className="flex items-center space-x-2">
+            <div className="flex items-center space-x-1 sm:space-x-2">
               <Image
                 src="/images/unid-logo.png"
                 alt="UNID - Universidad Interamericana para el Desarrollo"
                 width={200}
                 height={60}
-                className="h-10 w-auto"
+                className="h-6 sm:h-8 lg:h-10 w-auto"
               />
-              <span className="text-white font-bold text-sm">UNID</span>
+              <span className="text-white font-bold text-xs sm:text-sm">UNID</span>
             </div>
-            <p className="text-gray-300 text-sm leading-relaxed">
+            <p className="text-gray-300 text-[10px] sm:text-xs lg:text-sm leading-relaxed">
               Universidad de Ciencias de la Salud comprometida con la formación de profesionales de excelencia.
             </p>
-            <div className="flex space-x-4">
+            <div className="flex space-x-2 sm:space-x-4">
               <Link href="https://www.facebook.com/InteramericanaUnid.oficial" className="text-gray-400 hover:text-white transition-colors">
-                <Facebook className="h-5 w-5" />
+                <Facebook className="h-3 w-3 sm:h-4 sm:w-4 lg:h-5 lg:w-5" />
               </Link>
               <Link href="https://www.instagram.com/unidoficial/" className="text-gray-400 hover:text-white transition-colors">
-                <Instagram className="h-5 w-5" />
+                <Instagram className="h-3 w-3 sm:h-4 sm:w-4 lg:h-5 lg:w-5" />
               </Link>
               <Link href="https://www.youtube.com/@INTERAMERICANAUNIDX" className="text-gray-400 hover:text-white transition-colors">
-                <Youtube className="h-5 w-5" />
+                <Youtube className="h-3 w-3 sm:h-4 sm:w-4 lg:h-5 lg:w-5" />
               </Link>
               <Link href="https://www.linkedin.com/company/interamericana-unid/" className="text-gray-400 hover:text-white transition-colors">
-                <Linkedin className="h-5 w-5" />
+                <Linkedin className="h-3 w-3 sm:h-4 sm:w-4 lg:h-5 lg:w-5" />
               </Link>
             </div>
           </motion.div>
@@ -51,10 +51,10 @@ export function ModernFooter() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="space-y-4"
+            className="space-y-2 sm:space-y-4"
           >
-            <h3 className="text-lg font-semibold">Enlaces Rápidos</h3>
-            <ul className="space-y-2 text-sm">
+            <h3 className="text-sm sm:text-base lg:text-lg font-semibold">Enlaces Rápidos</h3>
+            <ul className="space-y-1 sm:space-y-2 text-[10px] sm:text-xs lg:text-sm">
               <li>
                 <Link href="/nosotros" className="text-gray-300 hover:text-white transition-colors">
                   Nosotros
@@ -79,10 +79,10 @@ export function ModernFooter() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="space-y-4"
+            className="space-y-2 sm:space-y-4"
           >
-            <h3 className="text-lg font-semibold">Recursos</h3>
-            <ul className="space-y-2 text-sm">
+            <h3 className="text-sm sm:text-base lg:text-lg font-semibold">Recursos</h3>
+            <ul className="space-y-1 sm:space-y-2 text-[10px] sm:text-xs lg:text-sm">
               <li>
                 <Link href="https://revistas.unidx.edu.pe" className="text-gray-300 hover:text-white transition-colors">
                   Revista FitoVida
@@ -138,16 +138,16 @@ export function ModernFooter() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.3 }}
-            className="space-y-4"
+            className="space-y-2 sm:space-y-4"
           >
-            <h3 className="text-lg font-semibold">Contacto</h3>
-            <div className="space-y-3 text-sm">
-              <div className="flex items-center space-x-2">
-                <Phone className="h-4 w-4 text-blue-400" />
+            <h3 className="text-sm sm:text-base lg:text-lg font-semibold">Contacto</h3>
+            <div className="space-y-1.5 sm:space-y-2 lg:space-y-3 text-[10px] sm:text-xs lg:text-sm">
+              <div className="flex items-center space-x-1 sm:space-x-2">
+                <Phone className="h-3 w-3 sm:h-3.5 sm:w-3.5 lg:h-4 lg:w-4 text-blue-400" />
                 <span className="text-gray-300">+51 945 987 048</span>
               </div>
-              <div className="flex items-center space-x-2">
-                <Mail className="h-4 w-4 text-blue-400" />
+              <div className="flex items-center space-x-1 sm:space-x-2">
+                <Mail className="h-3 w-3 sm:h-3.5 sm:w-3.5 lg:h-4 lg:w-4 text-blue-400" />
                 <span className="text-gray-300">informes@unidx.edu.pe</span>
               </div>
               <div className="flex items-start space-x-2">

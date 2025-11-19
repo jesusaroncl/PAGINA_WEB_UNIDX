@@ -31,7 +31,7 @@ export function UniversityHero() {
   const canRenderParticles = dimensions.width > 0 && dimensions.height > 0;
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-blue-900 via-blue-800 to-slate-900">
+    <section className="relative min-h-[400px] sm:min-h-[600px] lg:min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-blue-900 via-blue-800 to-slate-900">
       {/* Animated Background Elements */}
       <div className="absolute inset-0">
         {/* Floating Particles */}
@@ -94,9 +94,9 @@ export function UniversityHero() {
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="inline-flex items-center px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-white/90 text-sm font-medium mb-8 border border-white/20"
+            className="inline-flex items-center px-2 sm:px-4 py-1.5 sm:py-2 bg-white/10 backdrop-blur-sm rounded-full text-white/90 text-[10px] sm:text-sm font-medium mb-4 sm:mb-8 border border-white/20"
           >
-            <Award className="h-4 w-4 mr-2" />
+            <Award className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
             Universidad Interamericana para el Desarrollo
           </motion.div>
 
@@ -105,7 +105,7 @@ export function UniversityHero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.3 }}
-            className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight"
+            className="text-xl sm:text-3xl md:text-5xl lg:text-7xl font-bold text-white mb-3 sm:mb-6 leading-tight px-2"
           >
             {t("hero.title")}
           </motion.h1>
@@ -115,7 +115,7 @@ export function UniversityHero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="text-xl md:text-2xl text-blue-100 mb-12 max-w-4xl mx-auto leading-relaxed"
+            className="text-xs sm:text-base md:text-xl lg:text-2xl text-blue-100 mb-6 sm:mb-12 max-w-4xl mx-auto leading-relaxed px-2"
           >
             {t("hero.subtitle")}
           </motion.p>
@@ -125,7 +125,7 @@ export function UniversityHero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.5 }}
-            className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12 max-w-4xl mx-auto"
+            className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-6 lg:gap-8 mb-6 sm:mb-12 max-w-4xl mx-auto px-2"
           >
             {[
               { icon: Users, number: "2,500+", label: "Estudiantes" },
@@ -140,11 +140,11 @@ export function UniversityHero() {
                 transition={{ duration: 0.6, delay: 0.6 + index * 0.1 }}
                 className="text-center"
               >
-                <div className="inline-flex items-center justify-center w-12 h-12 bg-white/10 rounded-lg mb-3 backdrop-blur-sm border border-white/20">
-                  <stat.icon className="h-6 w-6 text-white" />
+                <div className="inline-flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 bg-white/10 rounded-lg mb-1 sm:mb-2 lg:mb-3 backdrop-blur-sm border border-white/20">
+                  <stat.icon className="h-4 w-4 sm:h-5 sm:w-5 lg:h-6 lg:w-6 text-white" />
                 </div>
-                <div className="text-2xl font-bold text-white mb-1">{stat.number}</div>
-                <div className="text-blue-200 text-sm">{stat.label}</div>
+                <div className="text-sm sm:text-xl lg:text-2xl font-bold text-white mb-0.5 sm:mb-1">{stat.number}</div>
+                <div className="text-blue-200 text-[10px] sm:text-xs lg:text-sm">{stat.label}</div>
               </motion.div>
             ))}
           </motion.div>
@@ -154,16 +154,16 @@ export function UniversityHero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.7 }}
-            className="flex flex-col sm:flex-row items-center justify-center gap-4"
+            className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 px-2"
           >
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
               <Button
                 size="lg"
                 onClick={() => setCareersModalOpen(true)}
-                className="bg-white text-blue-900 hover:bg-blue-50 px-8 py-4 text-lg font-semibold rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300"
+                className="bg-white text-blue-900 hover:bg-blue-50 px-4 sm:px-6 lg:px-8 py-2 sm:py-3 lg:py-4 text-xs sm:text-base lg:text-lg font-semibold rounded-lg sm:rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300 w-full sm:w-auto"
               >
                 {t("hero.cta")}
-                <ArrowRight className="ml-2 h-5 w-5" />
+                <ArrowRight className="ml-1 sm:ml-2 h-3 w-3 sm:h-4 sm:w-4 lg:h-5 lg:w-5" />
               </Button>
             </motion.div>
 
@@ -172,9 +172,9 @@ export function UniversityHero() {
                 variant="outline"
                 size="lg"
                 onClick={() => setVideoModalOpen(true)}
-                className="border-white/30 text-white hover:bg-white/10 px-8 py-4 text-lg font-semibold rounded-xl backdrop-blur-sm transition-all duration-300 bg-transparent"
+                className="border-white/30 text-white hover:bg-white/10 px-4 sm:px-6 lg:px-8 py-2 sm:py-3 lg:py-4 text-xs sm:text-base lg:text-lg font-semibold rounded-lg sm:rounded-xl backdrop-blur-sm transition-all duration-300 bg-transparent w-full sm:w-auto"
               >
-                <Play className="mr-2 h-5 w-5" />
+                <Play className="mr-1 sm:mr-2 h-3 w-3 sm:h-4 sm:w-4 lg:h-5 lg:w-5" />
                 Ver video institucional
               </Button>
             </motion.div>

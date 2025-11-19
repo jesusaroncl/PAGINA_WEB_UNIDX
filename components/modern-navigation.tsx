@@ -66,23 +66,23 @@ export function ModernNavigation() {
         initial={{ y: -30, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.5, ease: "easeOut" }}
-        className="bg-slate-800 text-white py-2 text-xs relative z-50"
+        className="bg-slate-800 text-white py-1 sm:py-2 text-[10px] sm:text-xs relative z-50"
       >
-        <div className="max-w-6xl mx-auto px-4 flex justify-between items-center">
+        <div className="max-w-6xl mx-auto px-2 sm:px-4 flex justify-between items-center">
           {/* Contact Info */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="flex items-center space-x-4"
+            className="flex items-center space-x-2 sm:space-x-4"
           >
-            <div className="flex items-center space-x-1">
-              <Phone className="h-3 w-3" />
-              <span>+51 945987048</span>
+            <div className="flex items-center space-x-0.5 sm:space-x-1">
+              <Phone className="h-2.5 w-2.5 sm:h-3 sm:w-3" />
+              <span className="hidden sm:inline">+51 945987048</span>
             </div>
-            <div className="flex items-center space-x-1">
-              <Mail className="h-3 w-3" />
-              <span>informes@unidx.edu.pe</span>
+            <div className="flex items-center space-x-0.5 sm:space-x-1">
+              <Mail className="h-2.5 w-2.5 sm:h-3 sm:w-3" />
+              <span className="hidden sm:inline">informes@unidx.edu.pe</span>
             </div>
           </motion.div>
 
