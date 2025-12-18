@@ -575,7 +575,9 @@ const typeLabels = {
   research: "Investigación",
   practice: "Práctica",
   specialty: "Especialidad",
-}
+} as const;
+
+type SubjectType = keyof typeof typeLabels;
 
 const programStats = [
   {
@@ -861,8 +863,8 @@ export default function FarmaciaBioquimicaPage() {
                                   <Badge variant="outline" className="font-mono text-xs">
                                     {subject.code}
                                   </Badge>
-                                  <Badge className={`text-xs ${typeColors[subject.type]}`}>
-                                    {typeLabels[subject.type]}
+                                  <Badge className={`text-xs ${typeColors[subject.type as keyof typeof typeColors]}`}>
+                                    {typeLabels[subject.type as SubjectType]}
                                   </Badge>
                                   {subject.prerequisites !== "Ninguno" && (
                                     <Badge variant="secondary" className="text-xs">
