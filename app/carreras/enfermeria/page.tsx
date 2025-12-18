@@ -1061,7 +1061,7 @@ export default function EnfermeriaPage() {
                     <Phone className="w-5 h-5 text-blue-600" />
                     <div>
                       <span className="font-medium">Coordinación Académica</span>
-                      <p className="text-sm text-gray-600">+51 945 987 048</p>
+                      <p className="text-sm text-gray-600">+51 945 987 048 / 01 9041269</p>
                     </div>
                   </div>
                   <div className="flex items-center gap-3">
@@ -1269,7 +1269,7 @@ export default function EnfermeriaPage() {
                   <div className="space-y-1 text-xs text-green-800">
                     <div className="flex items-center space-x-2">
                       <Phone className="h-3 w-3" />
-                      <span>+51 945987048</span>
+                      <span>+51 945987048 / 01 9041269</span>
                     </div>
                     <div className="flex items-center space-x-2">
                       <Mail className="h-3 w-3" />

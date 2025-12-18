@@ -327,7 +327,7 @@ export function CompactPrograms() {
                   <div className="space-y-1 text-xs text-green-800">
                     <div className="flex items-center space-x-2">
                       <Phone className="h-3 w-3" />
-                      <span>+51 945987048</span>
+                      <span>+51 945987048 / 01 9041269</span>
                     </div>
                     <div className="flex items-center space-x-2">
                       <Mail className="h-3 w-3" />

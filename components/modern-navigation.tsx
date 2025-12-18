@@ -78,7 +78,7 @@ export function ModernNavigation() {
           >
             <div className="flex items-center space-x-0.5 sm:space-x-1">
               <Phone className="h-2.5 w-2.5 sm:h-3 sm:w-3" />
-              <span className="hidden sm:inline">+51 945987048</span>
+              <span className="hidden sm:inline">+51 945987048 / 01 9041269</span>
             </div>
             <div className="flex items-center space-x-0.5 sm:space-x-1">
               <Mail className="h-2.5 w-2.5 sm:h-3 sm:w-3" />
@@ -638,7 +638,7 @@ export function ModernNavigation() {
                     <div className="space-y-2 pb-4 border-b border-gray-200">
                       <div className="flex items-center space-x-2 text-sm text-gray-600">
                         <Phone className="h-4 w-4" />
-                        <span>+51 945 987 048</span>
+                        <span>+51 945 987 048 / 01 9041269</span>
                       </div>
                       <div className="flex items-center space-x-2 text-sm text-gray-600">
                         <Mail className="h-4 w-4" />
@@ -873,7 +873,7 @@ export function ModernNavigation() {
                   <div className="space-y-1 text-xs text-green-800">
                     <div className="flex items-center space-x-2">
                       <Phone className="h-3 w-3" />
-                      <span>+51 945 987 048</span>
+                      <span>+51 945 987 048 / 01 9041269</span>
                     </div>
                     <div className="flex items-center space-x-2">
                       <Mail className="h-3 w-3" />
