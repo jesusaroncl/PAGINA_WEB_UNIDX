@@ -562,7 +562,12 @@ export function ModernNavigation() {
                           Carreras Profesionales
                         </div>
                         <div className="space-y-2 ml-6">
-                          <Link
+                          <div className="block p-3 rounded-lg bg-gray-50 cursor-not-allowed opacity-60">
+                            <div className="font-medium text-sm text-gray-600">Próximamente...</div>
+                            <div className="text-xs text-gray-500">En actualización</div>
+                          </div>
+                          {/* Temporalmente deshabilitado - NO ELIMINAR */}
+                          {/* <Link
                             href="/carreras/enfermeria"
                             className="block p-3 rounded-lg hover:bg-blue-50 hover:text-blue-900 transition-colors duration-200"
                           >
@@ -575,7 +580,7 @@ export function ModernNavigation() {
                           >
                             <div className="font-medium text-sm">Farmacia y Bioquímica</div>
                             <div className="text-xs text-gray-500">Químico Farmacéutico - 5 años</div>
-                          </Link>
+                          </Link> */}
                         </div>
                       </div>
                     </motion.div>
@@ -724,7 +729,11 @@ export function ModernNavigation() {
                       </div>
                       <div className="pl-7 space-y-3">
                         <div className="text-sm font-medium text-gray-700">Carreras</div>
-                        <Link
+                        <div className="block pl-4 text-gray-500 text-sm py-2 cursor-not-allowed opacity-60">
+                          Próximamente...
+                        </div>
+                        {/* Temporalmente deshabilitado - NO ELIMINAR */}
+                        {/* <Link
                           href="/carreras/enfermeria"
                           className="block pl-4 text-gray-600 hover:text-blue-900 text-sm py-2 transition-colors duration-200"
                           onClick={() => setIsMobileMenuOpen(false)}
@@ -737,7 +746,7 @@ export function ModernNavigation() {
                           onClick={() => setIsMobileMenuOpen(false)}
                         >
                           Farmacia y Bioquímica
-                        </Link>
+                        </Link> */}
                       </div>
                     </div>
 
