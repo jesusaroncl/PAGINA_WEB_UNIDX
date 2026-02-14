@@ -135,9 +135,9 @@ export function CompactPrograms() {
           </div>
 
           {/* Content */}
-          <div className="relative z-10 h-full flex items-center">
+          <div className="relative z-10 h-full flex items-center overflow-y-auto sm:overflow-y-visible py-32 sm:py-0">
             <div className="max-w-7xl mx-auto px-4 w-full">
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-12 items-center">
                 {/* Main Content */}
                 <motion.div
                   initial={{ opacity: 0, x: -50 }}
@@ -194,8 +194,9 @@ export function CompactPrograms() {
                   <div className="flex flex-col sm:flex-row gap-4">
                     <Button
                       size="lg"
-                      className="bg-white text-gray-900 hover:bg-white/90"
-                      onClick={() => router.push(`/carreras/${currentProgram.id}`)}
+                      className="bg-white text-gray-900 hover:bg-white/90 cursor-not-allowed opacity-75"
+                      disabled
+                      onClick={(e) => e.preventDefault()}
                     >
                       <BookOpen className="h-5 w-5 mr-2" />
                       Más Información
@@ -275,34 +276,50 @@ export function CompactPrograms() {
       </button>
       {/* Admission Process Dialog */}
       <Dialog open={admissionDialogOpen} onOpenChange={setAdmissionDialogOpen}>
-        <DialogContent className="sm:max-w-lg">
+        <DialogContent className="sm:max-w-lg max-h-[90vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle className="flex items-center justify-center space-x-2 text-xl">
               <Calendar className="h-6 w-6 text-blue-600" />
-              <span>Admisiones 2025</span>
+              <span>Admision</span>
             </DialogTitle>
           </DialogHeader>
-          <div className="py-6">
+          <div className="py-4 sm:py-6">
             <div className="text-center space-y-6">
-              {/* Próximamente Badge */}
-              <div className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-orange-100 to-yellow-100 rounded-full">
-                <Clock className="h-5 w-5 text-orange-600 mr-2" />
-                <span className="text-orange-800 font-semibold text-lg">Próximamente</span>
+              {/* Badge de Inscripciones Abiertas */}
+              <div className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-green-100 to-emerald-100 rounded-full">
+                <Calendar className="h-5 w-5 text-green-600 mr-2" />
+                <span className="text-green-800 font-semibold text-lg">Inscripciones Abiertas</span>
               </div>
 
-              {/* Fecha de Lanzamiento */}
+              {/* Fecha de Inscripción */}
               <div className="bg-blue-50 rounded-xl p-6 border border-blue-200">
                 <div className="flex items-center justify-center space-x-3 mb-4">
                   <div className="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center">
                     <Calendar className="h-6 w-6 text-white" />
                   </div>
                   <div className="text-left">
-                    <p className="text-sm text-blue-600 font-medium">Fecha de Lanzamiento</p>
-                    <p className="text-2xl font-bold text-blue-900">-- de ----, 202-</p>
+                    <p className="text-sm text-blue-600 font-medium">Fecha de Inscripción</p>
+                    <p className="text-2xl font-bold text-blue-900">10 de febrero, 2026</p>
                   </div>
                 </div>
                 <p className="text-blue-700 text-sm">
-                  El proceso de admisiones se abrirá oficialmente el -- de ---- de 202-
+                  El proceso de admisiones se abrió oficialmente el 10 de febrero de 2026
+                </p>
+              </div>
+
+              {/* Fecha de Examen */}
+              <div className="bg-orange-50 rounded-xl p-6 border border-orange-200">
+                <div className="flex items-center justify-center space-x-3 mb-4">
+                  <div className="w-12 h-12 bg-orange-600 rounded-full flex items-center justify-center">
+                    <BookOpen className="h-6 w-6 text-white" />
+                  </div>
+                  <div className="text-left">
+                    <p className="text-sm text-orange-600 font-medium">Fecha de Examen de Admisión</p>
+                    <p className="text-2xl font-bold text-orange-900">28 de marzo, 2026</p>
+                  </div>
+                </div>
+                <p className="text-orange-700 text-sm">
+                  El examen de admisión se llevará a cabo el 28 de marzo de 2026
                 </p>
               </div>
 
@@ -327,7 +344,7 @@ export function CompactPrograms() {
                   <div className="space-y-1 text-xs text-green-800">
                     <div className="flex items-center space-x-2">
                       <Phone className="h-3 w-3" />
-                      <span>+51 945987048 / 01 9041269</span>
+                      <span>+51 945 987 048 / 01 9041269</span>
                     </div>
                     <div className="flex items-center space-x-2">
                       <Mail className="h-3 w-3" />
@@ -337,13 +354,23 @@ export function CompactPrograms() {
                 </div>
               </div>
 
-              {/* Botón de Acción */}
-              <div className="pt-4">
+              {/* Botón de Inscripción */}
+              <div className="pt-4 space-y-3">
                 <Button
-                  className="w-full bg-blue-600 hover:bg-blue-700 text-white"
+                  className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-bold py-6 text-lg shadow-lg hover:shadow-xl transition-all duration-300"
+                  onClick={() => {
+                    window.open('https://erpeduca.unidx.edu.pe/admision/proceso/InscripcionPostulante/ingresoExterno/inscripcionPostulanteExterno/universidad', '_blank', 'noopener,noreferrer')
+                  }}
+                >
+                  <Users className="h-5 w-5 mr-2" />
+                  Inscríbete Ahora
+                </Button>
+                <Button
+                  variant="outline"
+                  className="w-full"
                   onClick={() => setAdmissionDialogOpen(false)}
                 >
-                  Entendido
+                  Cerrar
                 </Button>
               </div>
             </div>
