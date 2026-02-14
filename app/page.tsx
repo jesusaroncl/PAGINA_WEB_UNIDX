@@ -8,6 +8,7 @@ import { ProjectsSection } from "@/components/projects-section"
 import { PartnershipsSection } from "@/components/partnerships-section"
 import { CompactContact } from "@/components/compact-contact"
 import { ModernFooter } from "@/components/modern-footer"
+import { PromotionalModal } from "@/components/promotional-modal"
 import { Footer } from "react-day-picker"
 
 export default function Home() {
@@ -26,9 +27,9 @@ export default function Home() {
         </main>
         {/* Footer stays at the bottom */}
         <ModernFooter />
+        {/* Modal publicitario */}
+        <PromotionalModal />
       </div>
     </LanguageProvider>
   )
 }
-
-//añaaaaaaa

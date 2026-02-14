@@ -1,18 +1,35 @@
 "use client"
 
-import { motion } from "framer-motion"
+import { motion, AnimatePresence } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { ArrowRight, Play, Users, BookOpen, Award, Globe, Stethoscope, FlaskRound } from "lucide-react"
 import { useLanguage } from "@/components/language-provider"
 import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
+import Image from "next/image"
 
 export function UniversityHero() {
   const { t } = useLanguage()
   const [careersModalOpen, setCareersModalOpen] = useState(false)
   const [videoModalOpen, setVideoModalOpen] = useState(false)
   const router = useRouter()
+  const [currentSlide, setCurrentSlide] = useState(0)
+
+  const carouselImages = [
+    "/images/noticias/licenciamiento1.jpeg",
+    "/images/noticias/licenciamiento2.jpeg",
+    "/images/noticias/licenciamiento3.jpeg",
+  ]
+
+  // Carrusel automático
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % carouselImages.length)
+    }, 5000) // Cambia cada 5 segundos
+
+    return () => clearInterval(interval)
+  }, [carouselImages.length])
 
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
   useEffect(() => {
@@ -31,9 +48,34 @@ export function UniversityHero() {
   const canRenderParticles = dimensions.width > 0 && dimensions.height > 0;
 
   return (
-    <section className="relative min-h-[400px] sm:min-h-[600px] lg:min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-blue-900 via-blue-800 to-slate-900">
-      {/* Animated Background Elements */}
-      <div className="absolute inset-0">
+    <section className="relative min-h-[400px] sm:min-h-[600px] lg:min-h-screen flex items-center justify-center overflow-hidden">
+      {/* Carrusel de imágenes de fondo */}
+      <div className="absolute inset-0 bg-gray-900">
+        {carouselImages.map((image, index) => (
+          <motion.div
+            key={index}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: index === currentSlide ? 1 : 0 }}
+            transition={{ duration: 1, ease: "easeInOut" }}
+            className="absolute inset-0"
+            style={{ zIndex: index === currentSlide ? 1 : 0 }}
+          >
+            <Image
+              src={image}
+              alt={`Licenciamiento ${index + 1}`}
+              fill
+              className="object-cover"
+              priority={index === 0}
+              quality={90}
+            />
+          </motion.div>
+        ))}
+        {/* Overlay oscuro para mejorar legibilidad del texto */}
+        <div className="absolute inset-0 bg-black/40 z-[2]" />
+      </div>
+
+      {/* Animated Background Elements (partículas sobre el carrusel) */}
+      <div className="absolute inset-0 z-[1]">
         {/* Floating Particles */}
         {canRenderParticles && [...Array(20)].map((_, i) => (
           <motion.div
@@ -180,6 +222,20 @@ export function UniversityHero() {
             </motion.div>
           </motion.div>
         </motion.div>
+      </div>
+
+      {/* Indicadores del carrusel */}
+      <div className="absolute bottom-20 left-1/2 transform -translate-x-1/2 z-20 flex gap-2">
+        {carouselImages.map((_, index) => (
+          <button
+            key={index}
+            onClick={() => setCurrentSlide(index)}
+            className={`w-2 h-2 rounded-full transition-all duration-300 ${
+              index === currentSlide ? "bg-white w-8" : "bg-white/50 hover:bg-white/75"
+            }`}
+            aria-label={`Ir a la diapositiva ${index + 1}`}
+          />
+        ))}
       </div>
 
       {/* Scroll Indicator */}

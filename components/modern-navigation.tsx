@@ -78,13 +78,23 @@ export function ModernNavigation() {
           >
             <div className="flex items-center space-x-0.5 sm:space-x-1">
               <Phone className="h-2.5 w-2.5 sm:h-3 sm:w-3" />
-              <span className="hidden sm:inline">+51 945987048 / 01 9041269</span>
+              <span className="text-[9px] sm:text-xs">+51 945987048</span>
             </div>
             <div className="flex items-center space-x-0.5 sm:space-x-1">
               <Mail className="h-2.5 w-2.5 sm:h-3 sm:w-3" />
-              <span className="hidden sm:inline">informes@unidx.edu.pe</span>
+              <span className="text-[9px] sm:text-xs">informes@unidx.edu.pe</span>
             </div>
           </motion.div>
+
+          {/* Botón Admisiones 2025 para móvil */}
+          <div className="lg:hidden">
+            <Button
+              onClick={handleAdmissionClick}
+              className="bg-blue-600 hover:bg-blue-700 text-white px-2 py-1 h-6 text-[10px] font-semibold rounded"
+            >
+              Admision 2026
+            </Button>
+          </div>
 
           {/* Secondary Menu Items */}
           <motion.div
@@ -350,19 +360,6 @@ export function ModernNavigation() {
               {language.toUpperCase()}
             </Button>
           </motion.div>
-
-          {/* Mobile Secondary Menu */}
-          <div className="lg:hidden">
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => setLanguage(language === "en" ? "es" : "en")}
-              className="h-6 px-2 text-white hover:text-blue-300 hover:bg-white/10 text-xs"
-            >
-              <Globe className="h-3 w-3 mr-1" />
-              {language.toUpperCase()}
-            </Button>
-          </div>
         </div>
       </motion.div>
 
@@ -384,7 +381,7 @@ export function ModernNavigation() {
               transition={{ duration: 0.5, delay: 0.2 }}
               className="flex-shrink-0"
             >
-              <Link href="/" className="flex items-center group">
+              <Link href="/" className="flex items-center gap-3 sm:gap-4 group">
                 <motion.div
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
@@ -393,9 +390,25 @@ export function ModernNavigation() {
                   <Image
                     src="/images/unid-complete-logo.png"
                     alt="UNID - Universidad Interamericana para el Desarrollo"
-                    width={140}
-                    height={50}
-                    className="h-12 w-auto"
+                    width={160}
+                    height={60}
+                    className="h-10 sm:h-11 md:h-12 w-auto"
+                  />
+                </motion.div>
+                {/* Separador vertical */}
+                <div className="hidden sm:block h-10 w-px bg-gray-300"></div>
+                {/* Logo SUNEDU */}
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  className="transition-transform duration-200"
+                >
+                  <Image
+                    src="/images/noticias/logo-sunedu.png"
+                    alt="Licenciada por SUNEDU"
+                    width={120}
+                    height={60}
+                    className="h-16 sm:h-11 md:h-16 lg:h-18 xl:h-20 w-auto object-contain"
+                    priority
                   />
                 </motion.div>
               </Link>
@@ -519,7 +532,7 @@ export function ModernNavigation() {
                             className="flex items-center p-2 rounded-lg hover:bg-purple-50 hover:text-purple-900 transition-colors duration-200"
                           >
                             <div>
-                              <div className="font-medium text-sm">CIENTEC 2025</div>
+                              <div className="font-medium text-sm">CIENTEC</div>
                               <div className="text-xs text-gray-500">Congreso Internacional</div>
                             </div>
                           </Link>
@@ -603,7 +616,7 @@ export function ModernNavigation() {
                   onClick={handleAdmissionClick}
                   className="bg-blue-900 hover:bg-blue-800 text-white px-6 py-2 text-sm font-medium rounded-lg transition-all duration-200 hover:shadow-lg relative overflow-hidden cursor-pointer"
                 >
-                  <span className="relative z-10">Admisiones 2025</span>
+                  <span className="relative z-10">Admision 2026</span>
                   <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-blue-800 opacity-0 hover:opacity-100 transition-opacity duration-300"></div>
                 </Button>
               </motion.div>
@@ -716,7 +729,7 @@ export function ModernNavigation() {
                           className="block pl-4 text-gray-600 hover:text-blue-900 text-sm py-2 transition-colors duration-200"
                           onClick={() => setIsMobileMenuOpen(false)}
                         >
-                          CIENTEC 2025
+                          CIENTEC
                         </Link>
                       </div>
                     </div>
@@ -817,7 +830,7 @@ export function ModernNavigation() {
                       }}
                       className="w-full bg-blue-900 hover:bg-blue-800 text-white transition-all duration-200 hover:shadow-lg relative overflow-hidden cursor-pointer"
                     >
-                      <span className="relative z-10">Admisiones 2025</span>
+                      <span className="relative z-10">Admision 2026</span>
                       <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-blue-800 opacity-0 hover:opacity-100 transition-opacity duration-300"></div>
                     </Button>
                   </div>
@@ -830,34 +843,50 @@ export function ModernNavigation() {
 
       {/* Dialog Component */}
       <Dialog open={isAdmissionDialogOpen} onOpenChange={setIsAdmissionDialogOpen}>
-        <DialogContent className="sm:max-w-lg">
+        <DialogContent className="sm:max-w-lg max-h-[90vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle className="flex items-center justify-center space-x-2 text-xl">
               <Calendar className="h-6 w-6 text-blue-600" />
-              <span>Admisiones</span>
+              <span>Admision</span>
             </DialogTitle>
           </DialogHeader>
-          <div className="py-6">
+          <div className="py-4 sm:py-6">
             <div className="text-center space-y-6">
-              {/* Próximamente Badge */}
-              <div className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-orange-100 to-yellow-100 rounded-full">
-                <Clock className="h-5 w-5 text-orange-600 mr-2" />
-                <span className="text-orange-800 font-semibold text-lg">Próximamente</span>
+              {/* Badge de Inscripciones Abiertas */}
+              <div className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-green-100 to-emerald-100 rounded-full">
+                <Calendar className="h-5 w-5 text-green-600 mr-2" />
+                <span className="text-green-800 font-semibold text-lg">Inscripciones Abiertas</span>
               </div>
 
-              {/* Fecha de Lanzamiento */}
+              {/* Fecha de Inscripción */}
               <div className="bg-blue-50 rounded-xl p-6 border border-blue-200">
                 <div className="flex items-center justify-center space-x-3 mb-4">
                   <div className="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center">
                     <Calendar className="h-6 w-6 text-white" />
                   </div>
                   <div className="text-left">
-                    <p className="text-sm text-blue-600 font-medium">Fecha de Lanzamiento</p>
-                    <p className="text-2xl font-bold text-blue-900">-- de ----, 202-</p>
+                    <p className="text-sm text-blue-600 font-medium">Fecha de Inscripción</p>
+                    <p className="text-2xl font-bold text-blue-900">10 de febrero, 2026</p>
                   </div>
                 </div>
                 <p className="text-blue-700 text-sm">
-                  El proceso de admisiones se abrirá oficialmente el -- de ---- de 202-
+                  El proceso de admisiones se abrió oficialmente el 10 de febrero de 2026
+                </p>
+              </div>
+
+              {/* Fecha de Examen */}
+              <div className="bg-orange-50 rounded-xl p-6 border border-orange-200">
+                <div className="flex items-center justify-center space-x-3 mb-4">
+                  <div className="w-12 h-12 bg-orange-600 rounded-full flex items-center justify-center">
+                    <BookOpen className="h-6 w-6 text-white" />
+                  </div>
+                  <div className="text-left">
+                    <p className="text-sm text-orange-600 font-medium">Fecha de Examen de Admisión</p>
+                    <p className="text-2xl font-bold text-orange-900">28 de marzo, 2026</p>
+                  </div>
+                </div>
+                <p className="text-orange-700 text-sm">
+                  El examen de admisión se llevará a cabo el 28 de marzo de 2026
                 </p>
               </div>
 
@@ -892,13 +921,23 @@ export function ModernNavigation() {
                 </div>
               </div>
 
-              {/* Botón de Acción */}
-              <div className="pt-4">
+              {/* Botón de Inscripción */}
+              <div className="pt-4 space-y-3">
                 <Button
-                  className="w-full bg-blue-600 hover:bg-blue-700 text-white"
+                  className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-bold py-6 text-lg shadow-lg hover:shadow-xl transition-all duration-300"
+                  onClick={() => {
+                    window.open('https://erpeduca.unidx.edu.pe/admision/proceso/InscripcionPostulante/ingresoExterno/inscripcionPostulanteExterno/universidad', '_blank', 'noopener,noreferrer')
+                  }}
+                >
+                  <GraduationCap className="h-5 w-5 mr-2" />
+                  Inscríbete Ahora
+                </Button>
+                <Button
+                  variant="outline"
+                  className="w-full"
                   onClick={() => setIsAdmissionDialogOpen(false)}
                 >
-                  Entendido
+                  Cerrar
                 </Button>
               </div>
             </div>
