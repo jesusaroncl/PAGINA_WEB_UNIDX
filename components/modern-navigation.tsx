@@ -407,7 +407,7 @@ export function ModernNavigation() {
                     alt="Licenciada por SUNEDU"
                     width={120}
                     height={60}
-                    className="h-16 sm:h-11 md:h-16 lg:h-18 xl:h-20 w-auto object-contain"
+                    className="h-16 sm:h-11 md:h-20 lg:h-24 xl:h-28 w-auto object-contain"
                     priority
                   />
                 </motion.div>
