@@ -31,10 +31,10 @@ export function ModernFooter() {
               Universidad de Ciencias de la Salud comprometida con la formación de profesionales de excelencia.
             </p>
             <div className="flex space-x-2 sm:space-x-4">
-              <Link href="https://www.facebook.com/InteramericanaUnid.oficial" className="text-gray-400 hover:text-white transition-colors">
+              <Link href="https://www.facebook.com/unidxoficial" className="text-gray-400 hover:text-white transition-colors">
                 <Facebook className="h-3 w-3 sm:h-4 sm:w-4 lg:h-5 lg:w-5" />
               </Link>
-              <Link href="https://www.instagram.com/unidoficial/" className="text-gray-400 hover:text-white transition-colors">
+              <Link href="https://www.instagram.com/unidxoficial" className="text-gray-400 hover:text-white transition-colors">
                 <Instagram className="h-3 w-3 sm:h-4 sm:w-4 lg:h-5 lg:w-5" />
               </Link>
               <Link href="https://www.youtube.com/@INTERAMERICANAUNIDX" className="text-gray-400 hover:text-white transition-colors">
@@ -70,7 +70,6 @@ export function ModernFooter() {
                   Farmacia y Bioquímica
                 </Link>
               </li>
-
             </ul>
           </motion.div>
 
