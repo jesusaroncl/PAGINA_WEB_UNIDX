@@ -421,15 +421,6 @@ export function ModernNavigation() {
               transition={{ duration: 0.5, delay: 0.3 }}
               className="hidden lg:flex items-center space-x-8"
             >
-              {/* Inicio */}
-              <Link
-                href="/"
-                className="text-gray-700 hover:text-blue-900 text-sm font-medium transition-colors duration-200 relative group py-2"
-              >
-                Inicio
-                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-900 transition-all duration-300 group-hover:w-full"></span>
-              </Link>
-
               {/* Noticias - Resaltado */}
               <Link
                 href="/noticias"
@@ -439,6 +430,15 @@ export function ModernNavigation() {
                   Noticias
                   <span className="inline-block w-2 h-2 bg-red-500 rounded-full animate-pulse"></span>
                 </span>
+              </Link>
+
+              {/* Inicio */}
+              <Link
+                href="/"
+                className="text-gray-700 hover:text-blue-900 text-sm font-medium transition-colors duration-200 relative group py-2"
+              >
+                Inicio
+                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-900 transition-all duration-300 group-hover:w-full"></span>
               </Link>
 
               {/* Nosotros */}
@@ -633,13 +633,23 @@ export function ModernNavigation() {
               </motion.div>
             </motion.div>
 
-            {/* Mobile Menu */}
-            <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
-              <SheetTrigger asChild>
-                <Button variant="ghost" size="sm" className="lg:hidden p-2">
-                  <Menu className="h-5 w-5" />
-                </Button>
-              </SheetTrigger>
+            {/* Mobile Actions - Botón Noticias + Menu Hamburguesa */}
+            <div className="flex lg:hidden items-center gap-2">
+              <Link
+                href="/noticias"
+                className="px-3 py-1.5 bg-gradient-to-r from-yellow-400 to-orange-400 text-gray-900 text-xs font-bold rounded-full shadow-md flex items-center gap-1"
+              >
+                Noticias
+                <span className="inline-block w-1.5 h-1.5 bg-red-500 rounded-full animate-pulse"></span>
+              </Link>
+              
+              {/* Mobile Menu */}
+              <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
+                <SheetTrigger asChild>
+                  <Button variant="ghost" size="sm" className="p-2">
+                    <Menu className="h-5 w-5" />
+                  </Button>
+                </SheetTrigger>
               <SheetContent side="right" className="w-80 bg-white border-l border-gray-200">
                 <div className="flex flex-col h-full">
                   {/* Mobile Header */}
@@ -677,14 +687,6 @@ export function ModernNavigation() {
 
                     {/* Main Navigation */}
                     <Link
-                      href="/"
-                      className="block text-gray-700 hover:text-blue-900 font-medium py-3 transition-colors duration-200"
-                      onClick={() => setIsMobileMenuOpen(false)}
-                    >
-                      Inicio
-                    </Link>
-
-                    <Link
                       href="/noticias"
                       className="block bg-gradient-to-r from-yellow-400 to-orange-400 hover:from-yellow-500 hover:to-orange-500 text-gray-900 font-bold py-3 px-4 rounded-lg transition-all duration-200 shadow-md"
                       onClick={() => setIsMobileMenuOpen(false)}
@@ -693,6 +695,14 @@ export function ModernNavigation() {
                         Noticias
                         <span className="text-xs bg-red-500 text-white px-2 py-0.5 rounded-full animate-pulse">Nuevo</span>
                       </span>
+                    </Link>
+
+                    <Link
+                      href="/"
+                      className="block text-gray-700 hover:text-blue-900 font-medium py-3 transition-colors duration-200"
+                      onClick={() => setIsMobileMenuOpen(false)}
+                    >
+                      Inicio
                     </Link>
 
                     <Link
@@ -859,6 +869,7 @@ export function ModernNavigation() {
                 </div>
               </SheetContent>
             </Sheet>
+            </div>
           </div>
         </nav>
       </motion.header>
