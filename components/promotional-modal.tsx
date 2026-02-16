@@ -59,7 +59,7 @@ export function PromotionalModal() {
             className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 md:p-6"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="relative bg-white/95 backdrop-blur-md shadow-2xl w-full max-w-3xl h-full max-h-[95vh] overflow-hidden flex flex-col rounded-lg">
+            <div className="relative bg-white/95 backdrop-blur-md shadow-2xl w-full max-w-[650px] overflow-hidden flex flex-col rounded-lg" style={{ maxHeight: '95vh' }}>
               {/* Botón de cierre */}
               <button
                 onClick={handleClose}
@@ -69,22 +69,21 @@ export function PromotionalModal() {
                 <X className="w-4 h-4 sm:w-5 sm:h-5" />
               </button>
 
-              {/* Contenedor de la imagen con scroll si es necesario */}
-              <div className="relative w-full flex-1 bg-gradient-to-br from-blue-50/80 to-blue-100/80 overflow-auto flex items-center justify-center">
-                <div className="relative w-full h-full">
-                  <Image
-                    src="/images/noticias/flayer-inscripciones.png"
-                    alt="Inscripciones UNIDX"
-                    fill
-                    className="object-contain p-3 sm:p-4 md:p-6"
-                    priority
-                    sizes="100vw"
-                  />
-                </div>
+              {/* Contenedor de la imagen */}
+              <div className="relative w-full overflow-auto">
+                <Image
+                  src="/images/noticias/flayer-inscripciones.webp"
+                  alt="Inscripciones UNIDX"
+                  width={650}
+                  height={900}
+                  className="w-full h-auto"
+                  priority
+                  sizes="(max-width: 768px) 100vw, 650px"
+                />
               </div>
 
               {/* Sección del CTA */}
-              <div className="p-4 sm:p-6 md:p-8 bg-gradient-to-b from-white/90 to-blue-50/90 flex-shrink-0">
+              <div className="p-4 sm:p-6 bg-gradient-to-b from-white/90 to-blue-50/90 flex-shrink-0">
                 <motion.button
                   whileHover={{ scale: 1.05, y: -2 }}
                   whileTap={{ scale: 0.95 }}

@@ -5,6 +5,7 @@ import "./globals.css"
 import { LanguageProvider } from "@/components/language-provider"
 import { AccessibilityButton } from "@/components/accessibility-button"
 import { AccessibilityFilters } from "@/components/accessibility-filters"
+import { WhatsAppFloat } from "@/components/whatsapp-float"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -28,6 +29,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <LanguageProvider>
           {children}
+          <WhatsAppFloat />
           <AccessibilityButton />
           <AccessibilityFilters />
         </LanguageProvider>

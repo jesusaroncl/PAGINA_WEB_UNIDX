@@ -19,13 +19,12 @@ export function ModernFooter() {
           >
             <div className="flex items-center space-x-1 sm:space-x-2">
               <Image
-                src="/images/unid-logo.png"
+                src="/images/unid-complete-logo.png"
                 alt="UNID - Universidad Interamericana para el Desarrollo"
                 width={200}
                 height={60}
                 className="h-6 sm:h-8 lg:h-10 w-auto"
               />
-              <span className="text-white font-bold text-xs sm:text-sm">UNID</span>
             </div>
             <p className="text-gray-300 text-[10px] sm:text-xs lg:text-sm leading-relaxed">
               Universidad de Ciencias de la Salud comprometida con la formación de profesionales de excelencia.
@@ -88,8 +87,12 @@ export function ModernFooter() {
                 </Link>
               </li>
               <li>
-                <Link href="https://cientec.pe" className="text-gray-300 hover:text-white transition-colors">
-                  CIENTEC 2025
+                <Link 
+                  href="https://www.cientec.com.pe" 
+                  className="relative inline-block text-yellow-400 hover:text-yellow-300 font-bold transition-all duration-300 hover:scale-105"
+                >
+                  <span className="relative z-10">CIENTEC</span>
+                  <span className="absolute inset-0 bg-gradient-to-r from-yellow-500/20 to-orange-500/20 blur-sm rounded animate-pulse"></span>
                 </Link>
               </li>
               <li>
