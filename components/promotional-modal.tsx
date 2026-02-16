@@ -59,7 +59,7 @@ export function PromotionalModal() {
             className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 md:p-6"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="relative bg-white/95 backdrop-blur-md shadow-2xl w-full max-w-[650px] overflow-hidden flex flex-col rounded-lg" style={{ maxHeight: '95vh' }}>
+            <div className="relative bg-white/95 backdrop-blur-md shadow-2xl w-full max-w-[650px] max-h-[95vh] overflow-y-auto flex flex-col rounded-lg">
               {/* Botón de cierre */}
               <button
                 onClick={handleClose}
@@ -70,7 +70,7 @@ export function PromotionalModal() {
               </button>
 
               {/* Contenedor de la imagen */}
-              <div className="relative w-full overflow-auto">
+              <div className="relative w-full rounded-t-lg overflow-hidden">
                 <Image
                   src="/images/noticias/flayer-inscripciones.webp"
                   alt="Inscripciones UNIDX"

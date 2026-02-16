@@ -60,6 +60,11 @@ export function ModernFooter() {
                 </Link>
               </li>
               <li>
+                <Link href="/noticias" className="text-yellow-400 hover:text-yellow-300 font-semibold transition-colors">
+                  <span>📰</span> Noticias
+                </Link>
+              </li>
+              <li>
                 <Link href="/carreras/enfermeria" className="text-gray-300 hover:text-white transition-colors">
                   Enfermería
                 </Link>

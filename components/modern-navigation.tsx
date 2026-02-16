@@ -430,6 +430,17 @@ export function ModernNavigation() {
                 <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-900 transition-all duration-300 group-hover:w-full"></span>
               </Link>
 
+              {/* Noticias - Resaltado */}
+              <Link
+                href="/noticias"
+                className="relative px-4 py-2 bg-gradient-to-r from-yellow-400 to-orange-400 hover:from-yellow-500 hover:to-orange-500 text-gray-900 text-sm font-bold rounded-full transition-all duration-300 hover:scale-105 shadow-md hover:shadow-lg group"
+              >
+                <span className="flex items-center gap-1">
+                  Noticias
+                  <span className="inline-block w-2 h-2 bg-red-500 rounded-full animate-pulse"></span>
+                </span>
+              </Link>
+
               {/* Nosotros */}
               <Link
                 href="/nosotros"
@@ -671,6 +682,17 @@ export function ModernNavigation() {
                       onClick={() => setIsMobileMenuOpen(false)}
                     >
                       Inicio
+                    </Link>
+
+                    <Link
+                      href="/noticias"
+                      className="block bg-gradient-to-r from-yellow-400 to-orange-400 hover:from-yellow-500 hover:to-orange-500 text-gray-900 font-bold py-3 px-4 rounded-lg transition-all duration-200 shadow-md"
+                      onClick={() => setIsMobileMenuOpen(false)}
+                    >
+                      <span className="flex items-center gap-2">
+                        Noticias
+                        <span className="text-xs bg-red-500 text-white px-2 py-0.5 rounded-full animate-pulse">Nuevo</span>
+                      </span>
                     </Link>
 
                     <Link
