@@ -15,7 +15,7 @@ export function WhatsAppFloat() {
   return (
     <motion.button
       onClick={handleClick}
-      className="fixed bottom-24 right-4 sm:bottom-24 sm:right-6 z-50 w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-[#25D366] hover:bg-[#1faa52] text-white shadow-lg transition-all duration-300 hover:scale-110 flex items-center justify-center group"
+      className="fixed bottom-24 right-4 sm:bottom-24 sm:right-6 z-50 rounded-full bg-[#25D366] hover:bg-[#1faa52] text-white shadow-lg transition-all duration-300 hover:scale-105 flex items-center justify-center gap-2 sm:gap-3 px-4 py-3 sm:px-5 sm:py-3.5 group"
       aria-label="Contactar por WhatsApp"
       title="Contactar por WhatsApp"
       initial={{ scale: 0, opacity: 0 }}
@@ -26,12 +26,17 @@ export function WhatsAppFloat() {
         damping: 20,
         delay: 0.5 
       }}
-      whileHover={{ scale: 1.1 }}
+      whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.95 }}
     >
+      {/* Texto */}
+      <span className="font-semibold text-sm sm:text-base whitespace-nowrap">
+        Escríbanos
+      </span>
+      
       {/* Logo de WhatsApp */}
       <svg 
-        className="w-7 h-7 sm:w-8 sm:h-8" 
+        className="w-6 h-6 sm:w-7 sm:h-7 flex-shrink-0" 
         viewBox="0 0 24 24" 
         fill="currentColor"
         xmlns="http://www.w3.org/2000/svg"
@@ -41,11 +46,6 @@ export function WhatsAppFloat() {
       
       {/* Efecto de pulso */}
       <span className="absolute inset-0 rounded-full bg-[#25D366] animate-ping opacity-75"></span>
-      
-      {/* Tooltip */}
-      <span className="absolute right-full mr-3 px-3 py-2 bg-gray-900 text-white text-sm rounded-lg whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
-        Chatea con nosotros
-      </span>
     </motion.button>
   )
 }
