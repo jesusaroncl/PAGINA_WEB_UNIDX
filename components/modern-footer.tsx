@@ -61,7 +61,7 @@ export function ModernFooter() {
               </li>
               <li>
                 <Link href="/noticias" className="text-yellow-400 hover:text-yellow-300 font-semibold transition-colors">
-                  <span>📰</span> Noticias
+                  Noticias
                 </Link>
               </li>
               <li>

@@ -9,19 +9,29 @@ export function PromotionalModal() {
   const [isOpen, setIsOpen] = useState(false)
 
   useEffect(() => {
-    // Mostrar el modal siempre al cargar o actualizar la página
-    const timer = setTimeout(() => {
-      setIsOpen(true)
-    }, 300)
+    // Verificar si el usuario ya vio el modal en esta sesión
+    const hasSeenModalInSession = sessionStorage.getItem("hasSeenPromotionalModal")
     
-    return () => clearTimeout(timer)
+    if (!hasSeenModalInSession) {
+      // Mostrar el modal solo si no lo ha visto en esta sesión
+      const timer = setTimeout(() => {
+        setIsOpen(true)
+      }, 300)
+      
+      return () => clearTimeout(timer)
+    }
   }, [])
 
   const handleClose = () => {
     setIsOpen(false)
+    // Guardar en sessionStorage que el usuario ya vio el modal en esta sesión
+    sessionStorage.setItem("hasSeenPromotionalModal", "true")
   }
 
   const handleCTAClick = () => {
+    // Guardar en sessionStorage que el usuario ya vio el modal en esta sesión
+    sessionStorage.setItem("hasSeenPromotionalModal", "true")
+    setIsOpen(false)
     window.open(
       "https://erpeduca.unidx.edu.pe/admision/proceso/InscripcionPostulante/ingresoExterno/inscripcionPostulanteExterno/universidad",
       "_blank",
