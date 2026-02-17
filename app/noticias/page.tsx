@@ -30,6 +30,16 @@ const newsData: NewsItem[] = [
     views: 856,
     type: "video" as const,
   },
+  {
+    id: 3,
+    title: "Dr. Luis Aguilar se Integra a la Universidad UNIDx",
+    description: "El rector de la Universidad UNIDx anunció con gran entusiasmo la incorporación del Dr. Luis Aguilar a nuestro prestigioso claustro académico. El Dr. Aguilar es un reconocido experto en Neurociencia y Comportamiento, cuya vasta experiencia y conocimientos enriquecerán significativamente la formación de nuestros estudiantes. Esta incorporación refuerza el compromiso de UNIDx con la excelencia académica y la calidad educativa, brindando a nuestra comunidad estudiantil acceso a profesionales de primer nivel en sus respectivas áreas de especialización.",
+    image: "/images/noticias/portada-video-2.jpeg",
+    videoUrl: "https://www.youtube.com/embed/Dw33WBtL0gw",
+    date: "2026-02-17",
+    views: 245,
+    type: "video" as const,
+  },
 //   {
 //     id: 3,
 //     title: "Ceremonia de Graduación 2025",
@@ -194,25 +204,39 @@ export default function NoticiasPage() {
               <div className="bg-white">
                 {/* Media Section */}
                 {selectedNews.type === "video" && selectedNews.videoUrl ? (
-                  <div className="relative w-full h-[500px] overflow-hidden bg-black">
-                    {/* Video de fondo desenfocado */}
-                    <video
-                      src={selectedNews.videoUrl}
-                      className="absolute inset-0 w-full h-full object-cover blur-2xl scale-110 opacity-40"
-                      autoPlay
-                      muted
-                      loop
-                    />
-                    {/* Video principal */}
-                    <div className="relative z-10 flex items-center justify-center h-full p-4">
+                  selectedNews.videoUrl.includes("youtube") || selectedNews.videoUrl.includes("youtu.be") ? (
+                    // Video de YouTube (iframe)
+                    <div className="relative w-full" style={{ paddingBottom: "56.25%" }}>
+                      <iframe
+                        src={selectedNews.videoUrl}
+                        title={selectedNews.title}
+                        className="absolute top-0 left-0 w-full h-full"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen
+                      ></iframe>
+                    </div>
+                  ) : (
+                    // Video local con efecto de fondo
+                    <div className="relative w-full h-[500px] overflow-hidden bg-black">
+                      {/* Video de fondo desenfocado */}
                       <video
                         src={selectedNews.videoUrl}
-                        controls
-                        className="max-h-full max-w-full shadow-2xl"
+                        className="absolute inset-0 w-full h-full object-cover blur-2xl scale-110 opacity-40"
                         autoPlay
+                        muted
+                        loop
                       />
+                      {/* Video principal */}
+                      <div className="relative z-10 flex items-center justify-center h-full p-4">
+                        <video
+                          src={selectedNews.videoUrl}
+                          controls
+                          className="max-h-full max-w-full shadow-2xl"
+                          autoPlay
+                        />
+                      </div>
                     </div>
-                  </div>
+                  )
                 ) : (
                   <div className="relative w-full">
                     <Image
