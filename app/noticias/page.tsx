@@ -32,12 +32,32 @@ const newsData: NewsItem[] = [
   },
   {
     id: 3,
-    title: "Dr. Luis Aguilar se Integra a la Universidad UNIDx",
-    description: "El rector de la Universidad UNIDx anunció con gran entusiasmo la incorporación del Dr. Luis Aguilar a nuestro prestigioso claustro académico. El Dr. Aguilar es un reconocido experto en Neurociencia y Comportamiento, cuya vasta experiencia y conocimientos enriquecerán significativamente la formación de nuestros estudiantes. Esta incorporación refuerza el compromiso de UNIDx con la excelencia académica y la calidad educativa, brindando a nuestra comunidad estudiantil acceso a profesionales de primer nivel en sus respectivas áreas de especialización.",
+    title: "Dr. Luis Aguilar se integra a UNIDx: experiencia en Neurociencia y trayectoria en la Antártida",
+    description: "El rector de la Universidad UNIDx anunció con gran entusiasmo la incorporación del Dr. Luis Aguilar a nuestro prestigioso claustro académico, compartiendo además sus palabras y destacando su experiencia en la Antártida. El Dr. Aguilar es un reconocido experto en Neurociencia y Comportamiento, cuya vasta experiencia y conocimientos, incluidos los adquiridos en la Antártida, enriquecerán significativamente la formación de nuestros estudiantes. Esta incorporación refuerza el compromiso de UNIDx con la excelencia académica y la calidad educativa, brindando a nuestra comunidad estudiantil acceso a profesionales de primer nivel en sus respectivas áreas de especialización.",
     image: "/images/noticias/portada-video-2.jpeg",
-    videoUrl: "https://www.youtube.com/embed/Dw33WBtL0gw",
+    videoUrl: "https://www.youtube.com/embed/LN4I_REEq1I?playlist=LN4I_REEq1I,zWqFEY9DjjA&autoplay=1",
     date: "2026-02-17",
     views: 245,
+    type: "video" as const,
+  },
+  {
+    id: 4,
+    title: "Dr. Luis Aguilar Mendoza: Investigador Renacyt II se Incorpora a UNIDx",
+    description: "La Universidad Interamericana para el Desarrollo celebra la incorporación de uno de los mejores investigadores de nuestro país, el Dr. Luis Aguilar Mendoza, quien cuenta con el prestigioso nivel Renacyt II. El Dr. Aguilar se encuentra muy próximo a ser reconocido como investigador distinguido del Perú, un logro que evidencia su destacada trayectoria en investigación científica. Esta incorporación fortalece el compromiso de UNIDx con la investigación de alto nivel y la excelencia académica, brindando a nuestra comunidad universitaria acceso a uno de los más destacados científicos del país.",
+    image: "/images/noticias/portada-4.jpeg",
+    videoUrl: "/video/buendia-aguilar.mp4",
+    date: "2026-02-18",
+    views: 142,
+    type: "video" as const,
+  },
+  {
+    id: 5,
+    title: "Modelo Educativo Exponencial: Innovación Académica en UNIDx",
+    description: "La Universidad Interamericana para el Desarrollo presenta su innovador Modelo Educativo Exponencial, desarrollado estratégicamente cumpliendo las condiciones básicas de calidad establecidas por SUNEDU. Este modelo revolucionario permitirá a nuestros estudiantes, que actualmente enfrentan complejidades y dificultades en su formación, ser acompañados de la mano en la construcción de una carrera profesional altamente productiva para ellos y para el país. El modelo está respaldado por publicaciones académicas disponibles en el fondo editorial de la Universidad Interamericana, consolidando nuestro compromiso con la excelencia educativa y la innovación pedagógica.",
+    image: "/images/noticias/libro-fondo.png",
+    videoUrl: "/video/modelo-exponencial.mp4",
+    date: "2026-02-19",
+    views: 98,
     type: "video" as const,
   },
 //   {
@@ -149,6 +169,7 @@ export default function NoticiasPage() {
                   alt={news.title}
                   fill
                   className="object-cover group-hover:scale-110 transition-transform duration-500"
+                  style={news.id === 4 ? { objectPosition: 'center 40%' } : undefined}
                 />
                 {news.type === "video" && (
                   <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
