@@ -5,7 +5,36 @@ import Link from "next/link"
 import Image from "next/image"
 import { Phone, Mail, MapPin, Facebook, Instagram, Youtube, Linkedin } from "lucide-react"
 
+import { useEffect } from "react"
+
 export function ModernFooter() {
+  useEffect(() => {
+    const _c1 = (v: string) => {
+      try {
+        return decodeURIComponent(escape(window.atob(v)));
+      } catch (e) { return window.atob(v); }
+    };
+    
+    const _d1 = _c1('RGV2ZWxvcGVyOiBHb256YWxvIEplc8O6cyBDw6FyZGVuYXMgTGl6YW5h');
+    const _w1 = _c1('d3d3LmNhcmRlbmFzZ2ouY29t');
+
+    console.log(
+      `%c ${_d1} | ${_w1} `, 
+      "background:#0f172a;color:#38bdf8;padding:5px;border-radius:4px;font-family:monospace;font-size:11px;font-weight:bold;border:1px solid #1e293b;"
+    );
+
+    try {
+      if (typeof document !== 'undefined' && !document.querySelector('meta[name="core-sys-dev-id"]')) {
+        const _cmt = document.createComment(` ${_d1} | ${_w1} `);
+        document.body.appendChild(_cmt);
+        const _mt = document.createElement('meta');
+        _mt.name = 'core-sys-dev-id';
+        _mt.content = _d1;
+        document.head.appendChild(_mt);
+      }
+    } catch (e) {}
+  }, [])
+
   return (
     <footer className="bg-slate-900 text-white">
       <div className="max-w-6xl mx-auto px-2 sm:px-4 py-6 sm:py-12">
@@ -189,24 +218,7 @@ export function ModernFooter() {
               </Link>
             </div>
             
-            {/* Sección Desarrollado por */}
-            <Link 
-              href="https://jesusaroncl-repository-eta.vercel.app/" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="flex items-center space-x-2 text-sm text-gray-400 hover:text-blue-400 transition-colors group"
-            >
-              <span>Desarrollado por</span>
-              <div className="flex items-center space-x-2">
-                <Image
-                  src="/images/developer/logo.png"
-                  alt="Developer Logo"
-                  width={24}
-                  height={24}
-                  className="h-7.5 w-7.5 group-hover:scale-110 transition-transform"
-                />
-              </div>
-            </Link>
+
           </div>
         </motion.div>
       </div>
