@@ -195,8 +195,7 @@ export function CompactPrograms() {
                     <Button
                       size="lg"
                       className="bg-white text-gray-900 hover:bg-white/90 "
-                     
-                      onClick={(e) => e.preventDefault()}
+                      onClick={() => router.push(`/carreras/${currentProgram.id}`)}
                     >
                       <BookOpen className="h-5 w-5 mr-2" />
                       Más Información
