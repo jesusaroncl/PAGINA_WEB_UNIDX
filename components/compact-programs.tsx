@@ -61,7 +61,7 @@ const programs = [
     students: "200+",
     employability: "92%",
     accreditation: "SINEACE",
-    color: "from-emerald-600 to-teal-700",
+    color: "from-[#4dcfd3] to-[#2ab3b7]",
     features: [
       "Laboratorios especializados modernos",
       "Prácticas en industria farmacéutica",

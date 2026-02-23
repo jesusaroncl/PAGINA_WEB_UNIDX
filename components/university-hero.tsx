@@ -283,7 +283,7 @@ export function UniversityHero() {
                 router.push("/carreras/farmacia-bioquimica")
                 setCareersModalOpen(false)
               }}
-              className="w-full h-16 bg-green-600 hover:bg-green-700 text-white text-lg font-medium rounded-lg transition-all duration-300 hover:scale-105"
+              className="w-full h-16 bg-[#4dcfd3] hover:bg-[#2ab3b7] text-white text-lg font-medium rounded-lg transition-all duration-300 hover:scale-105"
             >
               <div className="flex items-center justify-center space-x-3">
                 <FlaskRound className="h-6 w-6" />
