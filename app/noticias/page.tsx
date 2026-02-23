@@ -151,6 +151,21 @@ export default function NoticiasPage() {
         </div>
       </section>
 
+      {/* Video Institucional */}
+      <section className="container mx-auto px-4 sm:px-6 lg:px-8 pb-12">
+        <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
+          <iframe
+            className="absolute top-0 left-0 w-full h-full rounded-xl shadow-xl"
+            src="https://www.youtube.com/embed/i6SnS7mmGus?si=fiyf0xy1t6UxVKU_&autoplay=1&mute=1&loop=1&playlist=i6SnS7mmGus"
+            title="Video Institucional UNIDx"
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerPolicy="strict-origin-when-cross-origin"
+            allowFullScreen
+          />
+        </div>
+      </section>
+
       {/* Grid de Noticias */}
       <main className="flex-grow container mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">

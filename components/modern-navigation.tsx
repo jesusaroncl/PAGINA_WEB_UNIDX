@@ -539,7 +539,7 @@ export function ModernNavigation() {
                         </div>
                         <div className="ml-6">
                           <Link
-                            href="https://cientec.pe"
+                            href="https://cientec.com.pe"
                             className="flex items-center p-2 rounded-lg hover:bg-purple-50 hover:text-purple-900 transition-colors duration-200"
                           >
                             <div>
@@ -757,7 +757,7 @@ export function ModernNavigation() {
 
                         <div className="text-sm font-medium text-gray-700 pt-2">Eventos Internacionales</div>
                         <Link
-                          href="https://cientec.pe"
+                          href="https://cientec.com.pe"
                           className="block pl-4 text-gray-600 hover:text-blue-900 text-sm py-2 transition-colors duration-200"
                           onClick={() => setIsMobileMenuOpen(false)}
                         >
