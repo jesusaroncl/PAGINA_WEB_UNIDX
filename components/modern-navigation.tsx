@@ -586,12 +586,9 @@ export function ModernNavigation() {
                           Carreras Profesionales
                         </div>
                         <div className="space-y-2 ml-6">
-                          <div className="block p-3 rounded-lg bg-gray-50 cursor-not-allowed opacity-60">
-                            <div className="font-medium text-sm text-gray-600">Próximamente...</div>
-                            <div className="text-xs text-gray-500">En actualización</div>
-                          </div>
+                          
                           {/* Temporalmente deshabilitado - NO ELIMINAR */}
-                          {/* <Link
+                          <Link
                             href="/carreras/enfermeria"
                             className="block p-3 rounded-lg hover:bg-blue-50 hover:text-blue-900 transition-colors duration-200"
                           >
@@ -604,7 +601,7 @@ export function ModernNavigation() {
                           >
                             <div className="font-medium text-sm">Farmacia y Bioquímica</div>
                             <div className="text-xs text-gray-500">Químico Farmacéutico - 5 años</div>
-                          </Link> */}
+                          </Link>
                         </div>
                       </div>
                     </motion.div>

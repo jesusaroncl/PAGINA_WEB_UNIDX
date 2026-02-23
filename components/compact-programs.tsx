@@ -194,8 +194,8 @@ export function CompactPrograms() {
                   <div className="flex flex-col sm:flex-row gap-4">
                     <Button
                       size="lg"
-                      className="bg-white text-gray-900 hover:bg-white/90 cursor-not-allowed opacity-75"
-                      disabled
+                      className="bg-white text-gray-900 hover:bg-white/90 "
+                     
                       onClick={(e) => e.preventDefault()}
                     >
                       <BookOpen className="h-5 w-5 mr-2" />

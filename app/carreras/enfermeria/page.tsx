@@ -1,11 +1,10 @@
-"use client"
+﻿"use client"
 
 import { useState } from "react"
 import { motion } from "framer-motion"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { ModernNavigation } from "@/components/modern-navigation"
 import { ModernFooter } from "@/components/modern-footer"
@@ -47,515 +46,87 @@ interface Subject {
 
 const curriculumData: Record<string, Subject[]> = {
   1: [
-    {
-      code: "ENF101",
-      name: "Anatomía Humana I",
-      credits: 4,
-      hours: 6,
-      type: "basic",
-      description:
-        "Estudio de la estructura del cuerpo humano, sistemas básicos y terminología médica. Incluye sistemas musculoesquelético, cardiovascular y respiratorio.",
-      prerequisites: "Ninguno",
-      objectives: [
-        "Identificar estructuras anatómicas básicas",
-        "Comprender terminología médica",
-        "Relacionar estructura con función",
-      ],
-    },
-    {
-      code: "ENF102",
-      name: "Fisiología Humana I",
-      credits: 4,
-      hours: 6,
-      type: "basic",
-      description:
-        "Funcionamiento de los sistemas corporales y procesos fisiológicos básicos. Homeostasis y regulación corporal.",
-      prerequisites: "ENF101",
-      objectives: [
-        "Comprender procesos fisiológicos",
-        "Analizar mecanismos de regulación",
-        "Integrar sistemas corporales",
-      ],
-    },
-    {
-      code: "ENF103",
-      name: "Química General",
-      credits: 3,
-      hours: 4,
-      type: "basic",
-      description:
-        "Principios fundamentales de química aplicados a las ciencias de la salud. Estructura atómica, enlaces químicos y reacciones.",
-      prerequisites: "Ninguno",
-      objectives: [
-        "Dominar conceptos químicos básicos",
-        "Aplicar química a procesos biológicos",
-        "Resolver problemas químicos",
-      ],
-    },
-    {
-      code: "ENF104",
-      name: "Introducción a la Enfermería",
-      credits: 3,
-      hours: 4,
-      type: "professional",
-      description:
-        "Historia, filosofía y fundamentos teóricos de la profesión de enfermería. Modelos y teorías de enfermería.",
-      prerequisites: "Ninguno",
-      objectives: [
-        "Conocer historia de enfermería",
-        "Comprender modelos teóricos",
-        "Desarrollar identidad profesional",
-      ],
-    },
-    {
-      code: "ENF105",
-      name: "Comunicación en Salud",
-      credits: 2,
-      hours: 3,
-      type: "humanistic",
-      description:
-        "Técnicas de comunicación efectiva con pacientes y equipos de salud. Comunicación terapéutica y asertiva.",
-      prerequisites: "Ninguno",
-      objectives: ["Desarrollar habilidades comunicativas", "Aplicar comunicación terapéutica", "Trabajar en equipo"],
-    },
-    {
-      code: "ENF106",
-      name: "Matemáticas Aplicadas",
-      credits: 2,
-      hours: 3,
-      type: "basic",
-      description:
-        "Cálculos matemáticos aplicados a dosificación y administración de medicamentos. Sistemas de medidas y conversiones.",
-      prerequisites: "Ninguno",
-      objectives: ["Realizar cálculos de dosis", "Convertir unidades de medida", "Aplicar matemáticas en enfermería"],
-    },
+    { code: "ENF101", name: "Informática I", credits: 3, hours: 4, type: "humanistic", description: "", prerequisites: "Ninguno", objectives: [] },
+    { code: "ENF102", name: "Inglés I", credits: 3, hours: 4, type: "humanistic", description: "", prerequisites: "Ninguno", objectives: [] },
+    { code: "ENF103", name: "Matemática", credits: 4, hours: 5, type: "basic", description: "", prerequisites: "Ninguno", objectives: [] },
+    { code: "ENF104", name: "Comunicación y Redacción Científica I", credits: 3, hours: 4, type: "humanistic", description: "", prerequisites: "Ninguno", objectives: [] },
+    { code: "ENF105", name: "Biología", credits: 4, hours: 5, type: "basic", description: "", prerequisites: "Ninguno", objectives: [] },
+    { code: "ENF106", name: "Teoría y Fundamentos de Enfermería", credits: 4, hours: 6, type: "professional", description: "", prerequisites: "Ninguno", objectives: [] },
   ],
   2: [
-    {
-      code: "ENF201",
-      name: "Anatomía Humana II",
-      credits: 4,
-      hours: 6,
-      type: "basic",
-      description:
-        "Continuación del estudio anatómico con énfasis en sistemas complejos: nervioso, endocrino, digestivo y genitourinario.",
-      prerequisites: "ENF101",
-      objectives: ["Estudiar sistemas complejos", "Integrar conocimientos anatómicos", "Aplicar anatomía clínica"],
-    },
-    {
-      code: "ENF202",
-      name: "Fisiología Humana II",
-      credits: 4,
-      hours: 6,
-      type: "basic",
-      description:
-        "Procesos fisiológicos avanzados y regulación homeostática. Integración de sistemas y respuestas adaptativas.",
-      prerequisites: "ENF102",
-      objectives: ["Comprender fisiología avanzada", "Analizar homeostasis", "Integrar respuestas corporales"],
-    },
-    {
-      code: "ENF203",
-      name: "Microbiología",
-      credits: 3,
-      hours: 5,
-      type: "basic",
-      description:
-        "Estudio de microorganismos y su relación con la salud y enfermedad. Bacterias, virus, hongos y parásitos.",
-      prerequisites: "ENF103",
-      objectives: ["Identificar microorganismos", "Comprender patogénesis", "Aplicar medidas de control"],
-    },
-    {
-      code: "ENF204",
-      name: "Fundamentos de Enfermería",
-      credits: 4,
-      hours: 8,
-      type: "professional",
-      description:
-        "Técnicas básicas de enfermería y cuidados fundamentales del paciente. Proceso de atención de enfermería.",
-      prerequisites: "ENF104",
-      objectives: ["Aplicar proceso de enfermería", "Realizar técnicas básicas", "Brindar cuidados fundamentales"],
-    },
-    {
-      code: "ENF205",
-      name: "Bioética",
-      credits: 2,
-      hours: 3,
-      type: "humanistic",
-      description:
-        "Principios éticos aplicados a la práctica de enfermería y toma de decisiones. Dilemas éticos en salud.",
-      prerequisites: "ENF105",
-      objectives: ["Aplicar principios éticos", "Resolver dilemas morales", "Tomar decisiones éticas"],
-    },
-    {
-      code: "ENF206",
-      name: "Psicología General",
-      credits: 3,
-      hours: 4,
-      type: "humanistic",
-      description:
-        "Fundamentos psicológicos del comportamiento humano en salud. Desarrollo psicológico y personalidad.",
-      prerequisites: "ENF105",
-      objectives: ["Comprender comportamiento humano", "Aplicar psicología en cuidados", "Desarrollar empatía"],
-    },
+    { code: "ENF201", name: "Estadística", credits: 3, hours: 4, type: "basic", description: "", prerequisites: "Ninguno", objectives: [] },
+    { code: "ENF202", name: "Informática II", credits: 3, hours: 4, type: "humanistic", description: "", prerequisites: "Ninguno", objectives: [] },
+    { code: "ENF203", name: "Inglés II", credits: 3, hours: 4, type: "humanistic", description: "", prerequisites: "Ninguno", objectives: [] },
+    { code: "ENF204", name: "Comunicación y Redacción Científica II", credits: 3, hours: 4, type: "humanistic", description: "", prerequisites: "Ninguno", objectives: [] },
+    { code: "ENF205", name: "Anatomía Humana", credits: 4, hours: 6, type: "basic", description: "", prerequisites: "Ninguno", objectives: [] },
+    { code: "ENF206", name: "Química Orgánica", credits: 3, hours: 5, type: "basic", description: "", prerequisites: "Ninguno", objectives: [] },
   ],
   3: [
-    {
-      code: "ENF301",
-      name: "Patología General",
-      credits: 4,
-      hours: 6,
-      type: "basic",
-      description:
-        "Estudio de los procesos patológicos y mecanismos de enfermedad. Inflamación, neoplasias y trastornos degenerativos.",
-      prerequisites: "ENF202, ENF203",
-      objectives: [
-        "Comprender procesos patológicos",
-        "Identificar mecanismos de enfermedad",
-        "Relacionar patología con clínica",
-      ],
-    },
-    {
-      code: "ENF302",
-      name: "Farmacología I",
-      credits: 3,
-      hours: 5,
-      type: "professional",
-      description:
-        "Principios farmacológicos y administración segura de medicamentos. Farmacocinética y farmacodinamia básica.",
-      prerequisites: "ENF106, ENF202",
-      objectives: ["Comprender acción de fármacos", "Administrar medicamentos", "Prevenir errores medicamentosos"],
-    },
-    {
-      code: "ENF303",
-      name: "Enfermería Médico-Quirúrgica I",
-      credits: 5,
-      hours: 10,
-      type: "professional",
-      description:
-        "Cuidados de enfermería en pacientes adultos con patologías médicas. Valoración, diagnóstico e intervenciones.",
-      prerequisites: "ENF204, ENF301",
-      objectives: ["Brindar cuidados médicos", "Aplicar proceso de enfermería", "Manejar pacientes complejos"],
-    },
-    {
-      code: "ENF304",
-      name: "Semiología",
-      credits: 3,
-      hours: 6,
-      type: "professional",
-      description: "Técnicas de valoración física y reconocimiento de signos y síntomas. Examen físico sistemático.",
-      prerequisites: "ENF202, ENF204",
-      objectives: ["Realizar examen físico", "Identificar signos y síntomas", "Documentar hallazgos"],
-    },
-    {
-      code: "ENF305",
-      name: "Nutrición y Dietética",
-      credits: 2,
-      hours: 3,
-      type: "professional",
-      description: "Principios nutricionales y planificación dietética en salud y enfermedad. Terapia nutricional.",
-      prerequisites: "ENF103",
-      objectives: ["Evaluar estado nutricional", "Planificar dietas terapéuticas", "Educar sobre nutrición"],
-    },
-    {
-      code: "ENF306",
-      name: "Estadística en Salud",
-      credits: 2,
-      hours: 3,
-      type: "research",
-      description: "Métodos estadísticos aplicados a la investigación en enfermería. Análisis de datos en salud.",
-      prerequisites: "ENF106",
-      objectives: ["Aplicar estadística descriptiva", "Interpretar datos de salud", "Realizar análisis básicos"],
-    },
+    { code: "ENF301", name: "Química Inorgánica", credits: 3, hours: 5, type: "basic", description: "", prerequisites: "Ninguno", objectives: [] },
+    { code: "ENF302", name: "Microbiología y Parasitología", credits: 4, hours: 6, type: "basic", description: "", prerequisites: "Ninguno", objectives: [] },
+    { code: "ENF303", name: "Bioquímica", credits: 4, hours: 6, type: "basic", description: "", prerequisites: "Ninguno", objectives: [] },
+    { code: "ENF304", name: "Fisiología Humana", credits: 4, hours: 6, type: "basic", description: "", prerequisites: "Ninguno", objectives: [] },
+    { code: "ENF305", name: "Metodología de la Investigación Científica", credits: 3, hours: 4, type: "research", description: "", prerequisites: "Ninguno", objectives: [] },
+    { code: "ENF306", name: "Cuidado de la Atención en Enfermería", credits: 4, hours: 6, type: "professional", description: "", prerequisites: "Ninguno", objectives: [] },
   ],
   4: [
-    {
-      code: "ENF401",
-      name: "Farmacología II",
-      credits: 3,
-      hours: 5,
-      type: "professional",
-      description:
-        "Farmacología avanzada y manejo de medicamentos especializados. Interacciones medicamentosas y efectos adversos.",
-      prerequisites: "ENF302",
-      objectives: ["Manejar fármacos especializados", "Prevenir interacciones", "Monitorear efectos adversos"],
-    },
-    {
-      code: "ENF402",
-      name: "Enfermería Médico-Quirúrgica II",
-      credits: 5,
-      hours: 10,
-      type: "professional",
-      description: "Cuidados especializados en cirugía y procedimientos invasivos. Pre, trans y postoperatorio.",
-      prerequisites: "ENF303",
-      objectives: ["Brindar cuidados quirúrgicos", "Manejar complicaciones", "Aplicar cuidados perioperatorios"],
-    },
-    {
-      code: "ENF403",
-      name: "Enfermería Materno-Infantil",
-      credits: 4,
-      hours: 8,
-      type: "professional",
-      description: "Cuidados durante embarazo, parto, puerperio y pediatría básica. Salud reproductiva y neonatal.",
-      prerequisites: "ENF303, ENF304",
-      objectives: ["Atender embarazo y parto", "Cuidar recién nacidos", "Promover salud materno-infantil"],
-    },
-    {
-      code: "ENF404",
-      name: "Salud Mental",
-      credits: 3,
-      hours: 6,
-      type: "professional",
-      description: "Cuidados de enfermería en salud mental y trastornos psiquiátricos. Intervenciones terapéuticas.",
-      prerequisites: "ENF206",
-      objectives: ["Evaluar salud mental", "Aplicar intervenciones psiquiátricas", "Promover bienestar mental"],
-    },
-    {
-      code: "ENF405",
-      name: "Metodología de la Investigación",
-      credits: 3,
-      hours: 4,
-      type: "research",
-      description: "Diseño y metodología de investigación en ciencias de enfermería. Protocolo de investigación.",
-      prerequisites: "ENF306",
-      objectives: ["Diseñar investigaciones", "Aplicar metodología científica", "Elaborar protocolos"],
-    },
-    {
-      code: "ENF406",
-      name: "Epidemiología",
-      credits: 2,
-      hours: 3,
-      type: "research",
-      description: "Estudio de la distribución y determinantes de enfermedades. Vigilancia epidemiológica.",
-      prerequisites: "ENF306",
-      objectives: ["Comprender epidemiología", "Analizar patrones de enfermedad", "Aplicar vigilancia"],
-    },
+    { code: "ENF401", name: "Ética, Bioética y Deontología en Enfermería", credits: 3, hours: 4, type: "humanistic", description: "", prerequisites: "Ninguno", objectives: [] },
+    { code: "ENF402", name: "Farmacología y Terapéutica I", credits: 4, hours: 6, type: "professional", description: "", prerequisites: "Ninguno", objectives: [] },
+    { code: "ENF403", name: "Enfermería en Salud del Adulto I", credits: 5, hours: 8, type: "professional", description: "", prerequisites: "Ninguno", objectives: [] },
+    { code: "ENF404", name: "Fisiopatología", credits: 4, hours: 6, type: "basic", description: "", prerequisites: "Ninguno", objectives: [] },
+    { code: "ENF405", name: "Telemedicina y Enfermería Virtual (E)", credits: 3, hours: 4, type: "specialty", description: "", prerequisites: "Ninguno", objectives: [] },
   ],
   5: [
-    {
-      code: "ENF501",
-      name: "Enfermería en Cuidados Intensivos",
-      credits: 4,
-      hours: 8,
-      type: "specialty",
-      description: "Cuidados especializados en unidades de terapia intensiva. Monitoreo avanzado y soporte vital.",
-      prerequisites: "ENF402",
-      objectives: ["Manejar pacientes críticos", "Usar tecnología avanzada", "Aplicar soporte vital"],
-    },
-    {
-      code: "ENF502",
-      name: "Enfermería Pediátrica",
-      credits: 4,
-      hours: 8,
-      type: "professional",
-      description: "Cuidados especializados en población infantil y adolescente. Crecimiento y desarrollo.",
-      prerequisites: "ENF403",
-      objectives: ["Atender población pediátrica", "Evaluar crecimiento", "Aplicar cuidados especializados"],
-    },
-    {
-      code: "ENF503",
-      name: "Enfermería Geriátrica",
-      credits: 3,
-      hours: 6,
-      type: "professional",
-      description: "Cuidados específicos para adultos mayores y envejecimiento. Síndromes geriátricos.",
-      prerequisites: "ENF402",
-      objectives: ["Atender adultos mayores", "Manejar síndromes geriátricos", "Promover envejecimiento saludable"],
-    },
-    {
-      code: "ENF504",
-      name: "Salud Pública",
-      credits: 3,
-      hours: 5,
-      type: "professional",
-      description: "Promoción de la salud y prevención de enfermedades comunitarias. Programas de salud pública.",
-      prerequisites: "ENF406",
-      objectives: ["Promover salud comunitaria", "Diseñar programas preventivos", "Aplicar salud pública"],
-    },
-    {
-      code: "ENF505",
-      name: "Administración en Enfermería",
-      credits: 3,
-      hours: 4,
-      type: "professional",
-      description: "Gestión y liderazgo en servicios de enfermería. Administración de recursos humanos y materiales.",
-      prerequisites: "ENF402",
-      objectives: ["Liderar equipos de enfermería", "Gestionar recursos", "Aplicar administración"],
-    },
-    {
-      code: "ENF506",
-      name: "Práctica Clínica I",
-      credits: 6,
-      hours: 12,
-      type: "practice",
-      description: "Práctica supervisada en servicios hospitalarios básicos. Aplicación de conocimientos teóricos.",
-      prerequisites: "ENF402, ENF403",
-      objectives: ["Aplicar conocimientos clínicos", "Desarrollar habilidades prácticas", "Integrar teoría y práctica"],
-    },
+    { code: "ENF501", name: "Educación para la Salud", credits: 3, hours: 4, type: "humanistic", description: "", prerequisites: "Ninguno", objectives: [] },
+    { code: "ENF502", name: "Farmacología y Terapéutica II", credits: 4, hours: 6, type: "professional", description: "", prerequisites: "Ninguno", objectives: [] },
+    { code: "ENF503", name: "Liderazgo y Prospectiva", credits: 3, hours: 4, type: "humanistic", description: "", prerequisites: "Ninguno", objectives: [] },
+    { code: "ENF504", name: "Enfermería en Salud del Adulto II", credits: 5, hours: 8, type: "professional", description: "", prerequisites: "Ninguno", objectives: [] },
+    { code: "ENF505", name: "Enfermería en Salud Pública y Comunitaria", credits: 4, hours: 6, type: "professional", description: "", prerequisites: "Ninguno", objectives: [] },
   ],
   6: [
-    {
-      code: "ENF601",
-      name: "Enfermería de Emergencias",
-      credits: 4,
-      hours: 8,
-      type: "specialty",
-      description: "Atención de enfermería en situaciones de urgencia y emergencia. Triage y cuidados críticos.",
-      prerequisites: "ENF501",
-      objectives: ["Manejar emergencias", "Aplicar triage", "Brindar cuidados críticos"],
-    },
-    {
-      code: "ENF602",
-      name: "Enfermería Quirúrgica Avanzada",
-      credits: 4,
-      hours: 8,
-      type: "specialty",
-      description: "Cuidados especializados en cirugías complejas y postoperatorio. Instrumentación quirúrgica.",
-      prerequisites: "ENF402",
-      objectives: ["Asistir cirugías complejas", "Manejar instrumentación", "Brindar cuidados postoperatorios"],
-    },
-    {
-      code: "ENF603",
-      name: "Enfermería Oncológica",
-      credits: 3,
-      hours: 6,
-      type: "specialty",
-      description: "Cuidados especializados en pacientes con cáncer. Quimioterapia y cuidados paliativos.",
-      prerequisites: "ENF501",
-      objectives: ["Atender pacientes oncológicos", "Administrar quimioterapia", "Brindar cuidados paliativos"],
-    },
-    {
-      code: "ENF604",
-      name: "Educación para la Salud",
-      credits: 2,
-      hours: 4,
-      type: "professional",
-      description: "Diseño e implementación de programas educativos en salud. Metodologías educativas.",
-      prerequisites: "ENF504",
-      objectives: ["Diseñar programas educativos", "Aplicar metodologías", "Evaluar aprendizaje"],
-    },
-    {
-      code: "ENF605",
-      name: "Ética Profesional",
-      credits: 2,
-      hours: 3,
-      type: "humanistic",
-      description: "Dilemas éticos y responsabilidad profesional en enfermería. Código deontológico.",
-      prerequisites: "ENF205",
-      objectives: ["Aplicar ética profesional", "Resolver dilemas éticos", "Cumplir código deontológico"],
-    },
-    {
-      code: "ENF606",
-      name: "Práctica Clínica II",
-      credits: 8,
-      hours: 16,
-      type: "practice",
-      description: "Práctica avanzada en servicios especializados. Mayor autonomía y responsabilidad.",
-      prerequisites: "ENF506",
-      objectives: ["Desarrollar autonomía profesional", "Aplicar cuidados especializados", "Demostrar competencias"],
-    },
+    { code: "ENF601", name: "Enfermería en Salud del Niño y del Adolescente I", credits: 5, hours: 8, type: "professional", description: "", prerequisites: "Ninguno", objectives: [] },
+    { code: "ENF602", name: "Neonatología", credits: 4, hours: 6, type: "professional", description: "", prerequisites: "Ninguno", objectives: [] },
+    { code: "ENF603", name: "Enfermería en Salud de la Mujer", credits: 4, hours: 6, type: "professional", description: "", prerequisites: "Ninguno", objectives: [] },
+    { code: "ENF604", name: "Sociología y Salud", credits: 3, hours: 4, type: "humanistic", description: "", prerequisites: "Ninguno", objectives: [] },
+    { code: "ENF605", name: "Epidemiología", credits: 3, hours: 4, type: "research", description: "", prerequisites: "Ninguno", objectives: [] },
   ],
   7: [
-    {
-      code: "ENF701",
-      name: "Enfermería Comunitaria",
-      credits: 4,
-      hours: 8,
-      type: "professional",
-      description: "Cuidados de enfermería en atención primaria y comunidad. Programas comunitarios de salud.",
-      prerequisites: "ENF504",
-      objectives: ["Trabajar en comunidad", "Desarrollar programas", "Promover participación comunitaria"],
-    },
-    {
-      code: "ENF702",
-      name: "Calidad en Servicios de Salud",
-      credits: 3,
-      hours: 4,
-      type: "professional",
-      description: "Gestión de calidad y mejora continua en servicios de enfermería. Indicadores de calidad.",
-      prerequisites: "ENF505",
-      objectives: ["Gestionar calidad", "Implementar mejoras", "Evaluar indicadores"],
-    },
-    {
-      code: "ENF703",
-      name: "Enfermería Basada en Evidencia",
-      credits: 3,
-      hours: 4,
-      type: "research",
-      description: "Aplicación de evidencia científica en la práctica clínica. Revisión sistemática y metaanálisis.",
-      prerequisites: "ENF405",
-      objectives: ["Aplicar evidencia científica", "Realizar revisiones", "Mejorar práctica clínica"],
-    },
-    {
-      code: "ENF704",
-      name: "Seminario de Investigación",
-      credits: 2,
-      hours: 3,
-      type: "research",
-      description: "Desarrollo de proyecto de investigación en enfermería. Presentación de resultados.",
-      prerequisites: "ENF405",
-      objectives: ["Desarrollar investigación", "Presentar resultados", "Aplicar metodología"],
-    },
-    {
-      code: "ENF705",
-      name: "Práctica Clínica III",
-      credits: 10,
-      hours: 20,
-      type: "practice",
-      description: "Práctica intensiva con mayor autonomía profesional. Liderazgo en cuidados de enfermería.",
-      prerequisites: "ENF606",
-      objectives: ["Demostrar liderazgo", "Ejercer autonomía", "Integrar competencias"],
-    },
+    { code: "ENF701", name: "Enfermería en Salud del Niño y del Adolescente II", credits: 5, hours: 8, type: "professional", description: "", prerequisites: "Ninguno", objectives: [] },
+    { code: "ENF702", name: "Seminario de Tesis", credits: 3, hours: 4, type: "research", description: "", prerequisites: "Ninguno", objectives: [] },
+    { code: "ENF703", name: "Enfermería en Salud Mental y Psiquiatría", credits: 4, hours: 6, type: "professional", description: "", prerequisites: "Ninguno", objectives: [] },
+    { code: "ENF704", name: "Formulación de Proyecto de Emprendimiento", credits: 3, hours: 4, type: "research", description: "", prerequisites: "Ninguno", objectives: [] },
+    { code: "ENF705", name: "Compromiso Ambiental", credits: 2, hours: 3, type: "humanistic", description: "", prerequisites: "Ninguno", objectives: [] },
+    { code: "ENF706", name: "Salud Digital y Aplicaciones Móviles en Enfermería", credits: 3, hours: 4, type: "specialty", description: "", prerequisites: "Ninguno", objectives: [] },
   ],
   8: [
-    {
-      code: "ENF801",
-      name: "Internado de Enfermería",
-      credits: 15,
-      hours: 30,
-      type: "practice",
-      description:
-        "Práctica profesional supervisada en diferentes servicios hospitalarios. Rotación por especialidades.",
-      prerequisites: "ENF705",
-      objectives: ["Rotar por especialidades", "Aplicar competencias", "Prepararse para ejercicio profesional"],
-    },
-    {
-      code: "ENF802",
-      name: "Trabajo de Grado",
-      credits: 4,
-      hours: 6,
-      type: "research",
-      description: "Desarrollo y presentación de trabajo de investigación final. Defensa de tesis.",
-      prerequisites: "ENF704",
-      objectives: ["Completar investigación", "Defender tesis", "Demostrar competencias investigativas"],
-    },
-    {
-      code: "ENF803",
-      name: "Preparación para el Ejercicio Profesional",
-      credits: 2,
-      hours: 3,
-      type: "professional",
-      description: "Preparación para el ejercicio profesional independiente. Aspectos legales y profesionales.",
-      prerequisites: "ENF705",
-      objectives: ["Prepararse para ejercicio", "Conocer aspectos legales", "Desarrollar profesionalismo"],
-    },
+    { code: "ENF801", name: "Enfermería del Cuidado del Adulto Mayor", credits: 4, hours: 6, type: "professional", description: "", prerequisites: "Ninguno", objectives: [] },
+    { code: "ENF802", name: "Trabajo de Investigación", credits: 4, hours: 6, type: "research", description: "", prerequisites: "Ninguno", objectives: [] },
+    { code: "ENF803", name: "Gerencia en Servicios de Salud", credits: 3, hours: 4, type: "professional", description: "", prerequisites: "Ninguno", objectives: [] },
+    { code: "ENF804", name: "Implementación de Proyecto de Emprendimiento", credits: 3, hours: 4, type: "research", description: "", prerequisites: "Ninguno", objectives: [] },
+  ],
+  9: [
+    { code: "ENF901", name: "Prácticas Preprofesionales I", credits: 15, hours: 30, type: "practice", description: "", prerequisites: "Ninguno", objectives: [] },
+  ],
+  10: [
+    { code: "ENF1001", name: "Prácticas Preprofesionales II", credits: 15, hours: 30, type: "practice", description: "", prerequisites: "Ninguno", objectives: [] },
   ],
 }
 
 const typeColors: Record<SubjectType, string> = {
-  basic: "bg-blue-100 text-blue-800 border-blue-200",
-  professional: "bg-green-100 text-green-800 border-green-200",
-  humanistic: "bg-purple-100 text-purple-800 border-purple-200",
-  research: "bg-orange-100 text-orange-800 border-orange-200",
-  practice: "bg-red-100 text-red-800 border-red-200",
-  specialty: "bg-indigo-100 text-indigo-800 border-indigo-200",
+  basic: "bg-yellow-100 text-yellow-900 border-yellow-300",
+  professional: "bg-cyan-100 text-cyan-900 border-cyan-300",
+  humanistic: "bg-pink-100 text-pink-900 border-pink-300",
+  research: "bg-purple-100 text-purple-900 border-purple-300",
+  practice: "bg-red-100 text-red-900 border-red-300",
+  specialty: "bg-green-100 text-green-900 border-green-300",
 }
 
 const typeLabels: Record<SubjectType, string> = {
-  basic: "Básica",
+  basic: "Ciencias Básicas",
   professional: "Profesional",
-  humanistic: "Humanística",
+  humanistic: "Humanidades",
   research: "Investigación",
-  practice: "Práctica",
+  practice: "Prácticas",
   specialty: "Especialidad",
 }
 
@@ -713,12 +284,12 @@ export default function EnfermeriaPage() {
             <div className="flex flex-wrap justify-center gap-6 text-lg">
               <div className="flex items-center gap-2 bg-white/10 px-4 py-2 rounded-full backdrop-blur-sm">
                 <Clock className="w-5 h-5" />
-                <span>8 Semestres</span>
+                <span>10 Ciclos</span>
               </div>
-              <div className="flex items-center gap-2 bg-white/10 px-4 py-2 rounded-full backdrop-blur-sm">
+              {/* <div className="flex items-center gap-2 bg-white/10 px-4 py-2 rounded-full backdrop-blur-sm">
                 <BookOpen className="w-5 h-5" />
                 <span>160 Créditos</span>
-              </div>
+              </div> */}
               <div className="flex items-center gap-2 bg-white/10 px-4 py-2 rounded-full backdrop-blur-sm">
                 <Award className="w-5 h-5" />
                 <span>Título Profesional</span>
@@ -878,86 +449,55 @@ export default function EnfermeriaPage() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
-            className="text-center mb-12"
+            className="text-center mb-10"
           >
             <h2 className="text-4xl font-bold mb-4 text-blue-800">Malla Curricular</h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Plan de estudios estructurado en 8 semestres con enfoque teórico-práctico, diseñado para formar
+              Plan de estudios estructurado en 10 ciclos con enfoque teórico-práctico, diseñado para formar
               profesionales competentes y comprometidos
             </p>
           </motion.div>
 
-          <Tabs defaultValue="1" className="w-full">
-            <TabsList className="grid w-full grid-cols-4 lg:grid-cols-8 mb-8">
-              {Object.keys(curriculumData).map((semester) => (
-                <TabsTrigger key={semester} value={semester} className="text-sm">
-                  Sem {semester}
-                </TabsTrigger>
-              ))}
-            </TabsList>
-
-            {Object.entries(curriculumData).map(([semester, subjects]) => (
-              <TabsContent key={semester} value={semester}>
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5 }}
-                >
-                  <div className="mb-6 text-center">
-                    <h3 className="text-2xl font-bold text-blue-800 mb-2">Semestre {semester}</h3>
-                    <div className="flex justify-center gap-4 text-sm text-gray-600">
-                      <span>Total Créditos: {subjects.reduce((sum, subject) => sum + subject.credits, 0)}</span>
-                      <span>Total Horas: {subjects.reduce((sum, subject) => sum + subject.hours, 0)}</span>
-                    </div>
-                  </div>
-                  <div className="grid gap-4">
-                    {subjects.map((subject, index) => (
-                      <motion.div
-                        key={subject.code}
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.3, delay: index * 0.1 }}
-                      >
-                        <Card className="hover:shadow-md transition-shadow cursor-pointer border-l-4 border-l-blue-500">
-                          <CardContent className="p-4">
-                            <div className="flex flex-wrap items-center justify-between gap-4">
-                              <div className="flex-1 min-w-0">
-                                <div className="flex items-center gap-3 mb-2">
-                                  <Badge variant="outline" className="font-mono text-xs">
-                                    {subject.code}
-                                  </Badge>
-                                  <Badge className={`text-xs ${typeColors[subject.type]}`}>
-                                    {typeLabels[subject.type]}
-                                  </Badge>
-                                  {subject.prerequisites !== "Ninguno" && (
-                                    <Badge variant="secondary" className="text-xs">
-                                      Prereq: {subject.prerequisites}
-                                    </Badge>
-                                  )}
-                                </div>
-                                <h4 className="font-semibold text-lg text-gray-900 mb-1">{subject.name}</h4>
-                                <p className="text-sm text-gray-600 line-clamp-2">{subject.description}</p>
-                              </div>
-                              <div className="flex items-center gap-4 text-sm text-gray-500">
-                                <div className="text-center">
-                                  <div className="font-semibold text-blue-600">{subject.credits}</div>
-                                  <div>Créditos</div>
-                                </div>
-                                <div className="text-center">
-                                  <div className="font-semibold text-green-600">{subject.hours}</div>
-                                  <div>Horas</div>
-                                </div>
-                              </div>
-                            </div>
-                          </CardContent>
-                        </Card>
-                      </motion.div>
-                    ))}
-                  </div>
-                </motion.div>
-              </TabsContent>
-            ))}
-          </Tabs>
+          {/* Grilla */}
+          <div className="overflow-x-auto">
+            <table className="w-full border-collapse mx-auto" style={{ minWidth: '1000px' }}>
+              <thead>
+                <tr>
+                  {Object.keys(curriculumData).map((sem) => (
+                    <th
+                      key={sem}
+                      className="border border-gray-300 bg-gray-100 text-gray-700 font-semibold text-sm px-3 py-2 text-center"
+                    >
+                      Ciclo {sem}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {Array.from({
+                  length: Math.max(...Object.values(curriculumData).map((s) => s.length)),
+                }).map((_, rowIdx) => (
+                  <tr key={rowIdx}>
+                    {Object.values(curriculumData).map((subjects, colIdx) => {
+                      const subject = subjects[rowIdx]
+                      return (
+                        <td
+                          key={colIdx}
+                          className={`border border-gray-300 px-3 py-2 text-sm text-center align-middle ${
+                            subject ? 'bg-[#7094d6] text-white border-[#5e82c8]' : 'bg-gray-50'
+                          }`}
+                        >
+                          {subject ? (
+                            <span className="font-medium leading-snug block">{subject.name}</span>
+                          ) : null}
+                        </td>
+                      )
+                    })}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
       </section>
 
