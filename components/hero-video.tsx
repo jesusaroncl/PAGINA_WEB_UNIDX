@@ -33,7 +33,7 @@ export function HeroVideo() {
   }
 
   return (
-    <div className="w-full bg-black overflow-hidden" style={{ position: 'relative', aspectRatio: '16/9' }}>
+    <div className="w-full bg-black overflow-hidden relative aspect-video">
       <iframe
         ref={iframeRef}
         src="https://www.youtube.com/embed/i6SnS7mmGus?si=fiyf0xy1t6UxVKU_&autoplay=1&mute=1&loop=1&playlist=i6SnS7mmGus&controls=0&rel=0&modestbranding=1&playsinline=1&enablejsapi=1"
