@@ -28,7 +28,7 @@ const teamMembers: TeamMember[] = [
 
   { id: "vicerrector-academico", name: "Dr. Luis Adolfo Pérez Ton", position: "Vicerrectorado Académico", email: "vicerrectorado.academico@unidx.edu.pe", image: "/images/cvs/05.jpg", level: "vicerrector" },
 
-  { id: "defensoria-universitaria", name: "Dr. Celín Pérez Nájera", position: "Defensoría Universitaria", email: "defensoria.universitaria@unidx.edu.pe", image: "/images/cvs/02.jpg", level: "defensor" },
+  // { id: "defensoria-universitaria", name: "Dr. Celín Pérez Nájera", position: "Defensoría Universitaria", email: "defensoria.universitaria@unidx.edu.pe", image: "/images/cvs/02.jpg", level: "defensor" },
 
   { id: "decanato", name: "Mg. Neuman Mario Pineda Pérez", position: "Decanato", email: "decanato@unidx.edu.pe", image: "/images/cvs/neuman.jpeg", level: "decano" },
 
@@ -51,7 +51,6 @@ const teamMembers: TeamMember[] = [
   { id: "oficina-tramite-documentario", name: "Mg. Farah Karín Lluen Miranda", position: "Oficina de Trámite Documentario", email: "oficina.tramite@unidx.edu.pe", image: "/images/cvs/lluen.jpg", level: "oficina" },
   { id: "tribunal-honor-huertas", name: "Percy Orlando Huertas Chiu", position: "Tribunal de Honor", email: "asesoria.tribunaldehonor@unidx.edu.pe", image: "/images/cvs/percy.jpg", level: "oficina" },
   { id: "tribunal-honor-alvarado", name: "Mg. Marco Antonio Alvarado Figueroa", position: "Tribunal de Honor", email: "asesoria.tribunaldehonor@unidx.edu.pe", image: "/images/cvs/07.jpg", level: "oficina" },
-  { id: "tribunal-honor-acosta", name: "Donny Marlon Acosta Benites", position: "Tribunal de Honor", email: "asesoria.tribunaldehonor@unidx.edu.pe", image: "/images/cvs/donny.jpg", level: "oficina" },
   { id: "oficina-grados-titulos", name: "Mg. Marco Antonio Alvarado Figueroa", position: "Oficina de Grados y Títulos", email: "gradosytitulos@unidx.edu.pe", image: "/images/cvs/07.jpg", level: "oficina" },
   { id: "oficina-servicios-academicos", name: "Dr. Felicita Martha Padilla Montes", position: "Oficina de Servicios Académicos", email: "servicios.academicos@unidx.edu.pe", image: "/images/cvs/padilla.png", level: "oficina" },
 
