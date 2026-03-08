@@ -11,13 +11,13 @@ export function PromotionalModal() {
   useEffect(() => {
     // Verificar si el usuario ya vio el modal en esta sesión
     const hasSeenModalInSession = sessionStorage.getItem("hasSeenPromotionalModal")
-    
+
     if (!hasSeenModalInSession) {
       // Mostrar el modal solo si no lo ha visto en esta sesión
       const timer = setTimeout(() => {
         setIsOpen(true)
-      }, 300)
-      
+      }, 500)
+
       return () => clearTimeout(timer)
     }
   }, [])
@@ -42,73 +42,69 @@ export function PromotionalModal() {
   return (
     <AnimatePresence>
       {isOpen && (
-        <>
-          {/* Overlay */}
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 pb-20 sm:pb-6">
+          {/* Overlay background - higher z-index than before */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ 
-              duration: 0.4,
-              ease: [0.4, 0, 0.2, 1]
-            }}
-            className="fixed inset-0 bg-black/85 z-50 backdrop-blur-sm"
+            className="absolute inset-0 bg-black/80 backdrop-blur-md"
             onClick={handleClose}
           />
 
-          {/* Modal */}
+          {/* Modal Container */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.92, y: 20 }}
+            initial={{ opacity: 0, scale: 0.9, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.92, y: 20 }}
-            transition={{ 
-              duration: 0.5,
-              ease: [0.4, 0, 0.2, 1],
-              delay: 0.1
+            exit={{ opacity: 0, scale: 0.9, y: 20 }}
+            transition={{
+              type: "spring",
+              damping: 25,
+              stiffness: 300
             }}
-            className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 md:p-6"
+            className="relative bg-white shadow-2xl w-full max-w-[550px] max-h-full sm:max-h-[90vh] flex flex-col rounded-2xl overflow-hidden ring-1 ring-white/20"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="relative bg-white/95 backdrop-blur-md shadow-2xl w-full max-w-[650px] max-h-[95vh] overflow-y-auto flex flex-col rounded-lg">
-              {/* Botón de cierre */}
-              <button
-                onClick={handleClose}
-                className="absolute top-3 right-3 sm:top-4 sm:right-4 z-10 bg-black/50 hover:bg-black/70 text-white rounded-full p-2 sm:p-2.5 transition-all duration-200 hover:scale-110 hover:rotate-90 touch-manipulation"
-                aria-label="Cerrar modal"
-              >
-                <X className="w-4 h-4 sm:w-5 sm:h-5" />
-              </button>
+            {/* Botón de cierre - Rediseñado para mejor visibilidad */}
+            <button
+              onClick={handleClose}
+              className="absolute top-4 right-4 z-50 bg-white/20 hover:bg-white/40 backdrop-blur-md text-white rounded-full p-2.5 transition-all duration-300 hover:scale-110 hover:rotate-90 group"
+              aria-label="Cerrar modal"
+            >
+              <X className="w-5 h-5 drop-shadow-md" />
+            </button>
 
-              {/* Contenedor de la imagen */}
-              <div className="relative w-full rounded-t-lg overflow-hidden">
+            {/* Content with active scrollbar */}
+            <div className="overflow-y-auto flex-grow scrollbar-thin scrollbar-thumb-gray-300">
+              {/* Imagen del Flyer */}
+              <div className="relative w-full overflow-hidden bg-white">
                 <Image
                   src="/images/noticias/flayer-inscripciones.webp"
                   alt="Inscripciones UNIDX"
                   width={650}
                   height={900}
-                  className="w-full h-auto"
+                  className="w-full h-auto object-contain"
                   priority
-                  sizes="(max-width: 768px) 100vw, 650px"
+                  sizes="(max-width: 768px) 100vw, 550px"
                 />
               </div>
 
-              {/* Sección del CTA */}
-              <div className="p-4 sm:p-6 bg-gradient-to-b from-white/90 to-blue-50/90 flex-shrink-0">
+              {/* Sección del CTA - Más compacta y elegante */}
+              <div className="p-5 sm:p-8 bg-white border-t border-gray-100">
                 <motion.button
-                  whileHover={{ scale: 1.05, y: -2 }}
-                  whileTap={{ scale: 0.95 }}
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
                   onClick={handleCTAClick}
-                  className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 active:from-blue-800 active:to-blue-900 text-white font-bold text-base sm:text-lg md:text-xl py-3.5 sm:py-4 md:py-5 px-6 sm:px-8 rounded-lg sm:rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-2 group touch-manipulation min-h-[48px]"
+                  className="w-full bg-[#1a3a6e] hover:bg-[#254b8a] text-white font-bold text-lg py-4 px-8 rounded-xl shadow-md transition-all duration-300 flex items-center justify-center gap-3 group"
                 >
-                  <span>Inscríbete aquí</span>
+                  <span className="tracking-wide">Inscríbete aquí</span>
                   <motion.svg
-                    className="w-4 h-4 sm:w-5 sm:h-5"
+                    className="w-5 h-5"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
                     initial={{ x: 0 }}
                     whileHover={{ x: 5 }}
-                    transition={{ type: "spring", stiffness: 400 }}
                   >
                     <path
                       strokeLinecap="round"
@@ -119,13 +115,13 @@ export function PromotionalModal() {
                   </motion.svg>
                 </motion.button>
 
-                <p className="text-center text-xs sm:text-sm text-gray-600 mt-3 sm:mt-4 px-2">
-                  ¡No pierdas esta oportunidad de ser parte de UNIDx!
+                <p className="text-center text-sm md:text-base text-gray-500 mt-6 font-medium">
+                  ¡No pierdas esta oportunidad de ser parte de <span className="text-[#1a3a6e]">UNIDx</span>!
                 </p>
               </div>
             </div>
           </motion.div>
-        </>
+        </div>
       )}
     </AnimatePresence>
   )
